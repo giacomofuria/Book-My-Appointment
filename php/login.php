@@ -6,4 +6,13 @@
 	$password = $_POST['password'];
 
 	echo 'Username: '.$username.', password: '.$password;
+
+	function authenticate($username, $password){
+		global $bookMyAppointmentDb;
+
+		$username = $bookMyAppointmentDb->sqlInjectionFilter($username);
+		$password = $bookMyAppointmentDb->sqlInjectionFilter($password);
+
+		$queryText = "SELECT * FROM user WHERE username=";
+	}
 ?>

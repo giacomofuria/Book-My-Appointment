@@ -1,6 +1,6 @@
 <?php
 	require "dbConfig.php";
-
+	$bookMyAppointmentDb = new BMADbManager(); // Definisco un istanza globale della classe BMADbManager
 	/* classe per la gestione del database */
 
 	class BMADbManager {
@@ -33,7 +33,7 @@
 		function isOpened(){
 			return ($this->mysqli_conn != null);
 		}
-
+		
 		// Esegue una query e restituisce il risultato
 		function performQuery($queryText){
 			if(!$this->isOpened()){
