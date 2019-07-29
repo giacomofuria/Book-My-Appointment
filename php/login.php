@@ -9,9 +9,10 @@
 
 	$errorMessage = login($email,$password);
 	if($errorMessage === null)
-		echo 'login ok';
+		header('location: ./home.php');
 	else
-		echo $errorMessage;
+		header('location: ./../index.php?errorMessage=' . $errorMessage );
+		
 
 	/*Esegue il login creando l'array associativo $_SESSION.
 	  REstituisce null se il login è andato a buon fine altrimenti
@@ -22,7 +23,7 @@
 			$userId = authenticate($email, $password);
 			if($userId > 0){
 				session_start();
-				setSession($email, $password);
+				setSession($email, $userId);
 				return null;
 			}
 		}else{

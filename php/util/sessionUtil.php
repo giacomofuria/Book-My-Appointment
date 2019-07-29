@@ -1,8 +1,8 @@
 <?php
 	// Setta l'array associativo $_SESSION con i dati username e userId
-	function setSession($username, $userId){
+	function setSession($email, $userId){
 		$_SESSION['userId'] = $userId;
-		$_SESSION['username'] = $username;
+		$_SESSION['email'] = $email;
 	}
 
 	// Verifica che un utente sia loggato
