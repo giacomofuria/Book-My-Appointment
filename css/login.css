@@ -1,0 +1,113 @@
+body{
+	background-color: #F3F7FD;
+	margin: 0;
+	font-family: "Atlas Grotesk Web","Open sans",sans-serif;
+	color: #383838;
+}
+div{
+	/*
+	border-style: solid;
+	border-width: 0.5px;
+	border-color: black;
+	*/
+}
+#container{
+	/*display: inline-block;*/
+	width: 100%;
+}
+#left-side{
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	width: 30%;
+	text-align: left;
+	/*background-color: #F3F7FD;*/
+}
+#right-side{
+	position: absolute;
+	left: 30%;
+	width: 70%;
+	top: 0;
+	
+}
+#sign_in{
+	border-style: none;
+	/*display: inline-block;*/
+	margin-top: 5em;
+	margin-left: 15%;
+	margin-right: 10%;
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+	/*box-shadow: rgba(0,0,0,0.2) 2px 2px;*/
+}
+#sign_in_header{
+	text-align: right;
+	padding-right: 1em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+.sign_header_buttons{
+	border-style: none;
+	background-color: #FFFFFF;
+	cursor: pointer;
+	font-size: 16px;
+}
+.sign_header_buttons:hover{
+	transform: scale(1.2);
+}
+.sign_in_container{
+	padding-left: 4%;
+	padding-right: 4%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+}
+.sign_in_container > h3 {
+	font-size: 26px;
+	margin: 0;
+}
+#sign_in_second_header{
+	padding-bottom: 0;
+}
+.sign_in_container > p {
+	margin: 0;
+	font-size: 13px;
+}
+#sign_in_button{
+	text-align: center;
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	cursor: pointer;
+	background-color: #0270F6;
+	color: #FFFFFF; 
+	border-style: none;
+	border-width: 0;
+	border-radius: 0;
+}
+#sign_in_button:hover{
+	background-color: #4285F4;
+}
+.input-text{
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	width: 96%;
+	padding-left: 4%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+}
+#doc{
+	margin-top: 2em;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding: 2%;
+	font-family: "Share Grotesk","Open sans",sans-serif;
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
