@@ -24,12 +24,13 @@
 				<h3>Sign in</h3>
 				<p>or <a href="">create an account</a></p>
 			</div>
-			<div class="sign_in_container">
-				
-				<input class="input-text" placeholder="Email" type="email" required><br><br>
-				<input class="input-text" placeholder="Password" type="password" required><br><br>
-				<button id="sign_in_button">Sign in</button>
-			</div>
+			<form action="./php/login.php" method="post">
+				<div class="sign_in_container">
+					<input class="input-text" placeholder="Email" type="email" name="username" required><br><br>
+					<input class="input-text" placeholder="Password" type="password" name="password" required><br><br>
+					<button id="sign_in_button">Sign in</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	<div id="right-side">
