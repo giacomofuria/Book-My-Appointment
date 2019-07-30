@@ -174,6 +174,13 @@ function showSignForm(type){
 		signUpPassword.setAttribute('name','sign_up_password');
 		signUpPassword.required = true;
 		form.appendChild(signUpPassword);
+		var reSignUpPassword = document.createElement("input");
+		reSignUpPassword.setAttribute('class','input-text');
+		reSignUpPassword.setAttribute('placeholder','Confirm password:');
+		reSignUpPassword.setAttribute('type','password');
+		reSignUpPassword.setAttribute('name','re-sign_up_password');
+		reSignUpPassword.required = true;
+		form.appendChild(reSignUpPassword);
 	}else
 		return;
 
