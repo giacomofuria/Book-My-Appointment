@@ -1,5 +1,7 @@
 function begin(){
-	var left_side = document.getElementById("left-side");
+	
+	showSignInFields();
+
 	var parameters = getParameters(); // recupero i parametri passati con il metodo GET
 	if(parameters != null){ 
 		/* se ci messaggi di errore da visualizzare li mostro senza far apparire 
@@ -10,6 +12,7 @@ function begin(){
 		/* Se non ci sono messaggi di errore da visualizzare faccio apperire
 			il campo di login con l'effetto di slide
 		 */
+		var left_side = document.getElementById("left-side");
 		slide(left_side, -30, 0);
 	}
 	
@@ -42,4 +45,45 @@ function showErrorMessage(msg){
 	var txt = document.createTextNode(msg);
 	err_msg.appendChild(txt);
 	sign_in_error_msg.appendChild(err_msg);
+}
+/* Crea un bottone con un certo id, classe e onclick*/
+function createButton(buttonId, buttonClass, buttonOnclickFunction,text){
+	var b = document.createElement("button");
+	b.setAttribute("id", buttonId);
+	b.setAttribute("class", buttonClass);
+	b.setAttribute("onclick", buttonOnclickFunction);
+	var txt = document.createTextNode(text);
+	b.appendChild(txt);
+	return b;
+}	
+/* Visualizza il box di login*/
+function showSignInFields(){
+	console.log("login"); // DEBUG
+	var sign_header = document.getElementById("sign_header");
+	removeAllChildren(sign_header);
+	var signUpButton = createButton("signUpButton", "sign_header_buttons", "showSignUpFields()","Sign Up");
+	var userGuideButton = createButton("user_manual_button","sign_header_buttons","","User guide");
+	sign_header.appendChild(signUpButton);
+	sign_header.appendChild(userGuideButton);
+	
+}
+/* Visualizza il box di registrazione */
+function showSignUpFields(){
+	console.log("Registration"); // DEBUG
+	var sign_header = document.getElementById("sign_header");
+	removeAllChildren(sign_header);
+	var signInButton = createButton("signInButton", "sign_header_buttons", "showSignInFields()","Sign In");
+	var userGuideButton = createButton("user_manual_button","sign_header_buttons","","User guide");
+	sign_header.appendChild(signInButton);
+	sign_header.appendChild(userGuideButton);
+}
+/* Rimuove tutti i figlio del nodo passato come parametro*/
+function removeAllChildren(elem){
+	if(elem == null)
+		return;
+	var child = elem.firstChild;
+	while(child){
+		elem.removeChild(child);
+		child = elem.firstChild;
+	}
 }

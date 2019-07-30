@@ -14,24 +14,26 @@
 <body onload="begin()">
 <div id="container"> 
 	<div id="left-side">
-		<div id="sign_in">
-			<div id="sign_in_header">
-				<!-- <span><p><a href="">Sign up</a></p></span> -->
-				<button class="sign_header_buttons" id="sign_up_button">Sign up</button>
-				<button class="sign_header_buttons" id="user_manual_button">User guide</button>
+		<div id="sign">
+			<div id="sign_header">
+
 			</div>
-			<div class="sign_in_container" id="sign_in_second_header">
+			<div class="sign_box" id="sign_in_second_header">
+
 				<h3>Sign in</h3>
 				<p>or <a href="">create an account</a></p>
+
 			</div>
-			<form action="./php/login.php" method="post">
-				<div class="sign_in_container" id="sign_in_fields">
+			<div class="sign_box" id="sign_in_fields">
+
+				<form action="./php/login.php" method="post">
 					<input class="input-text" placeholder="Email" type="email" name="username" required><br><br>
 					<input class="input-text" placeholder="Password" type="password" name="password" required><br><br>
 					<div class="error_message" id="sign_in_error_msg"></div>
 					<button id="sign_in_button">Sign in</button>
-				</div>
-			</form>
+				</form>
+
+			</div>
 		</div>
 	</div>
 	<div id="right-side">
