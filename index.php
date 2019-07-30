@@ -21,14 +21,7 @@
 			<div class="sign_box" id="sign_second_header">
 				
 			</div>
-			<div class="sign_box" id="sign_in_fields">
-
-				<form action="./php/login.php" method="post">
-					<input class="input-text" placeholder="Email" type="email" name="username" required><br><br>
-					<input class="input-text" placeholder="Password" type="password" name="password" required><br><br>
-					<div class="error_message" id="sign_in_error_msg"></div>
-					<button id="sign_in_button">Sign in</button>
-				</form>
+			<div class="sign_box" id="form_container">
 
 			</div>
 		</div>

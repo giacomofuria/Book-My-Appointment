@@ -58,8 +58,8 @@ div{
 	transform: scale(1.2);
 }
 .sign_box{
-	padding-left: 4%;
-	padding-right: 4%;
+	padding-left: 3%;
+	padding-right: 3%;
 	padding-top: 5%;
 	padding-bottom: 5%;
 }
@@ -74,7 +74,7 @@ div{
 	margin: 0;
 	font-size: 13px;
 }
-#sign_in_button{
+.sign_button{
 	text-align: center;
 	font-size: 16px;
 	margin-left: 0;
@@ -89,13 +89,14 @@ div{
 	border-width: 0;
 	border-radius: 0;
 }
-#sign_in_button:hover{
+.sign_button:hover{
 	background-color: #4285F4;
 }
 .input-text{
 	font-size: 16px;
 	margin-left: 0;
 	margin-right: 0;
+	margin-bottom: 4%;
 	width: 96%;
 	padding-left: 4%;
 	padding-top: 0.7em;

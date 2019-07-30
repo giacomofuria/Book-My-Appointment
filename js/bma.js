@@ -1,19 +1,9 @@
 function begin(){
 	var slideFlag;
 	var parameters = getParameters(); // recupero i parametri passati con il metodo GET
-	if(parameters != null){ 
-		/* se ci messaggi di errore da visualizzare li mostro senza far apparire 
-		 il campo di login con lo slide
-		 */
-		slideFlag = false;
-		showErrorMessage(parameters.errorMessage);
-	}else{
-		/* Se non ci sono messaggi di errore da visualizzare faccio apperire
-			il campo di login con l'effetto di slide
-		 */
-		 slideFlag = true;
-	}
-	showSignFields('login',slideFlag);
+
+
+	showSignFields('login',parameters);
 }
 /* Funzione che restitisce i parametri get presenti all'interno dell'url */
 function getParameters(){
@@ -59,7 +49,7 @@ function createButton(buttonId, buttonClass, buttonOnclickFunction,text){
 
 /* Viasualizza il box di login o di registrazione a seconda del parametro type ("login" or "register")
 */
-function showSignFields(type, slideFlag){
+function showSignFields(type, getParameters){
 	var signHeaderButtonID;
 	var signHeaderButtonFunction;
 	var signHeaderButtonText;
@@ -75,11 +65,6 @@ function showSignFields(type, slideFlag){
 	}else
 		return;
 
-	if(slideFlag){
-		var left_side = document.getElementById("left-side");
-		slide(left_side, -30, 0);
-	}
-
 	var sign_header = document.getElementById("sign_header");
 	removeAllChildren(sign_header);
 	var signButton = createButton(signHeaderButtonID, "sign_header_buttons", signHeaderButtonFunction,signHeaderButtonText);
@@ -87,7 +72,14 @@ function showSignFields(type, slideFlag){
 	sign_header.appendChild(signButton);
 	sign_header.appendChild(userGuideButton);
 	showSecondHeader(type);
-	
+	showSignForm(type);
+
+	if(getParameters != null && getParameters.errorMessage != null){ 
+		showErrorMessage(getParameters.errorMessage);
+	}else{
+		var left_side = document.getElementById("left-side");
+		slide(left_side, -30, 0);
+	}
 }
 /* Visualizza il secondo header del box di login o di registrazione. In base a type mostra uno o l'altro */
 function showSecondHeader(type){
@@ -117,6 +109,78 @@ function showSecondHeader(type){
 	subTitleH3.appendChild(link);
 
 	sign_second_header.appendChild(subTitleH3);
+}
+/* Visualizza il form di login o di registrazione in base al parametro type*/
+function showSignForm(type){
+	var action;
+	var method = 'post';
+	var signButtonText;
+
+	var form_container = document.getElementById("form_container");
+	removeAllChildren(form_container);
+	var form = document.createElement('form');
+	form.setAttribute('method',method);
+
+	var email = document.createElement("input");
+	email.setAttribute('class','input-text');
+	email.setAttribute('placeholder','Email:');
+	email.setAttribute('type','email');
+	email.setAttribute('name','email');
+	email.required= true;
+	var loginPassword = document.createElement("input");
+	var loginButton = document.createElement("button");
+	loginButton.setAttribute('class','sign_button');
+
+	if(type=='login'){
+		action='./php/login.php';
+
+		loginPassword.setAttribute('class','input-text');
+		loginPassword.setAttribute('placeholder','Password:');
+		loginPassword.setAttribute('type','password');
+		loginPassword.setAttribute('name','password');
+		loginPassword.required = true;
+		form.appendChild(email);
+		form.appendChild(loginPassword);
+
+		var errorMessageBox = document.createElement("div");
+		errorMessageBox.setAttribute('class','error_message');
+		errorMessageBox.setAttribute('id','sign_in_error_msg');
+		form.appendChild(errorMessageBox);
+
+		signButtonText = 'Sign In';
+
+	}else if(type=='register'){
+		action='./php/register.php';
+		signButtonText = 'Sign Up';
+		// Creo tutti i restanti campi di registrazione
+		var firstName = document.createElement("input");
+		firstName.setAttribute('class','input-text');
+		firstName.setAttribute('placeholder','First name: ');
+		firstName.setAttribute('name','first_name');
+		form.appendChild(firstName);
+
+		var lastName = document.createElement("input");
+		lastName.setAttribute('class','input-text');
+		lastName.setAttribute('placeholder','Last name: ');
+		lastName.setAttribute('name','last_name');
+		form.appendChild(lastName);
+		form.appendChild(email);
+		var signUpPassword = document.createElement("input");
+		signUpPassword.setAttribute('class','input-text');
+		signUpPassword.setAttribute('placeholder','Password:');
+		signUpPassword.setAttribute('type','password');
+		signUpPassword.setAttribute('name','sign_up_password');
+		signUpPassword.required = true;
+		form.appendChild(signUpPassword);
+	}else
+		return;
+
+	form.setAttribute('action',action);
+	
+	var txt = document.createTextNode(signButtonText);
+	loginButton.appendChild(txt);
+	form.appendChild(loginButton);
+	form_container.appendChild(form);
 }
 /* Rimuove tutti i figlio del nodo passato come parametro */
 function removeAllChildren(elem){

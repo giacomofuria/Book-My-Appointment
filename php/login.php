@@ -2,7 +2,7 @@
 	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
 	require_once "./util/sessionUtil.php"; // includo funzioni per la gestione della sessione 
 
-	$email = $_POST['username'];
+	$email = $_POST['email'];
 	$password = $_POST['password'];
 
 	// echo 'Email: '.$email.', password: '.$password; // DEBUG
