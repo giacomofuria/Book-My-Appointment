@@ -18,7 +18,7 @@
 			<div id="sign_header">
 
 			</div>
-			<div class="sign_box" id="sign_in_second_header">
+			<div class="sign_box" id="sign_second_header">
 
 				<h3>Sign in</h3>
 				<p>or <a href="">create an account</a></p>

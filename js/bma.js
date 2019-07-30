@@ -13,7 +13,7 @@ function begin(){
 		 */
 		 slideFlag = true;
 	}
-	showSignInFields(slideFlag);
+	showSignFields('login',slideFlag);
 }
 /* Funzione che restitisce i parametri get presenti all'interno dell'url */
 function getParameters(){
@@ -54,36 +54,39 @@ function createButton(buttonId, buttonClass, buttonOnclickFunction,text){
 	b.appendChild(txt);
 	return b;
 }	
-/* Visualizza il box di login*/
-function showSignInFields(slideFlag){
-	console.log("login"); // DEBUG
+
+
+
+/* Viasualizza il box di login o di registrazione a seconda del parametro type ("login" or "register")
+*/
+function showSignFields(type, slideFlag){
+	var signHeaderButtonID;
+	var signHeaderButtonFunction;
+	var signHeaderButtonText;
+
+	if(type == 'login'){
+		signHeaderButtonID = 'signUpButton';
+		signHeaderButtonFunction = 'showSignFields(\'register\',true)';
+		signHeaderButtonText = 'Sign Up';
+	}else if(type == 'register'){
+		signHeaderButtonID = 'signInButton';
+		signHeaderButtonFunction = 'showSignFields(\'login\',true)';
+		signHeaderButtonText = 'Sign In';
+	}else
+		return;
+
 	var sign_header = document.getElementById("sign_header");
 	removeAllChildren(sign_header);
-	var signUpButton = createButton("signUpButton", "sign_header_buttons", "showSignUpFields(true)","Sign Up");
+	var signButton = createButton(signHeaderButtonID, "sign_header_buttons", signHeaderButtonFunction,signHeaderButtonText);
 	var userGuideButton = createButton("user_manual_button","sign_header_buttons","","User guide");
-	sign_header.appendChild(signUpButton);
+	sign_header.appendChild(signButton);
 	sign_header.appendChild(userGuideButton);
 	if(slideFlag){
 		var left_side = document.getElementById("left-side");
 		slide(left_side, -30, 0);
 	}
-	
 }
-/* Visualizza il box di registrazione */
-function showSignUpFields(slideFlag){
-	console.log("Registration"); // DEBUG
-	var sign_header = document.getElementById("sign_header");
-	removeAllChildren(sign_header);
-	var signInButton = createButton("signInButton", "sign_header_buttons", "showSignInFields(true)","Sign In");
-	var userGuideButton = createButton("user_manual_button","sign_header_buttons","","User guide");
-	sign_header.appendChild(signInButton);
-	sign_header.appendChild(userGuideButton);
-	if(slideFlag){
-		var left_side = document.getElementById("left-side");
-		slide(left_side, -30, 0);
-	}
-}
-/* Rimuove tutti i figlio del nodo passato come parametro*/
+/* Rimuove tutti i figlio del nodo passato come parametro */
 function removeAllChildren(elem){
 	if(elem == null)
 		return;
