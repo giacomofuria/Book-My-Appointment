@@ -155,6 +155,7 @@ function showSignForm(type){
 	}else if(type=='register'){
 		action='./php/register.php';
 		signButtonText = 'Sign Up';
+		loginButton.setAttribute('onclick','return checkPasswords(form)');
 		// Creo tutti i restanti campi di registrazione
 		var firstName = document.createElement("input");
 		firstName.setAttribute('class','input-text');
@@ -181,7 +182,7 @@ function showSignForm(type){
 		reSignUpPassword.setAttribute('class','input-text');
 		reSignUpPassword.setAttribute('placeholder','Confirm password:');
 		reSignUpPassword.setAttribute('type','password');
-		reSignUpPassword.setAttribute('name','re-sign_up_password');
+		reSignUpPassword.setAttribute('name','re_sign_up_password');
 		reSignUpPassword.required = true;
 		form.appendChild(reSignUpPassword);
 	}else
@@ -193,6 +194,18 @@ function showSignForm(type){
 	loginButton.appendChild(txt);
 	form.appendChild(loginButton);
 	form_container.appendChild(form);
+}
+/* Verifica che le due password inserite nel box di registrazione siano uguali*/
+function checkPasswords(form){
+	var password = form.sign_up_password;
+	var repassword = form.re_sign_up_password;
+	//console.log("password: "+password.value+", repassword: "+repassword.value);//DEBUG
+	if(password.value != repassword.value){
+		password.setAttribute('class','input-text-error');
+		repassword.setAttribute('class','input-text-error');
+		return false;
+	}
+	return true;
 }
 /* Rimuove tutti i figlio del nodo passato come parametro */
 function removeAllChildren(elem){
