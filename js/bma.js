@@ -85,12 +85,15 @@ function showSignFields(type, getParameters){
 function showSecondHeader(type){
 	var title;
 	var subTitle;
+	var linkedFunction;
 	if(type == 'login'){
 		title = 'Sign In';
 		subTitle = 'create an account';
+		linkedFunction = 'showSignFields(\'register\')';
 	}else if(type == 'register'){
 		title = 'Sign Up';
 		subTitle = 'sign in to your account';
+		linkedFunction = 'showSignFields(\'login\')';
 	}else
 		return;
 	var sign_second_header = document.getElementById("sign_second_header");
@@ -104,7 +107,7 @@ function showSecondHeader(type){
 	txt = document.createTextNode('or ');
 	subTitleH3.appendChild(txt);
 	var link = document.createElement("a");
-	link.setAttribute('href','');
+	link.setAttribute('href','javascript:'+linkedFunction);
 	link.appendChild(document.createTextNode(subTitle));
 	subTitleH3.appendChild(link);
 
