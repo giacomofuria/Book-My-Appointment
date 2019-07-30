@@ -56,11 +56,11 @@ function showSignFields(type, getParameters){
 
 	if(type == 'login'){
 		signHeaderButtonID = 'signUpButton';
-		signHeaderButtonFunction = 'showSignFields(\'register\',true)';
+		signHeaderButtonFunction = 'showSignFields(\'register\')';
 		signHeaderButtonText = 'Sign Up';
 	}else if(type == 'register'){
 		signHeaderButtonID = 'signInButton';
-		signHeaderButtonFunction = 'showSignFields(\'login\',true)';
+		signHeaderButtonFunction = 'showSignFields(\'login\')';
 		signHeaderButtonText = 'Sign In';
 	}else
 		return;
@@ -157,12 +157,14 @@ function showSignForm(type){
 		firstName.setAttribute('class','input-text');
 		firstName.setAttribute('placeholder','First name: ');
 		firstName.setAttribute('name','first_name');
+		firstName.required= true;
 		form.appendChild(firstName);
 
 		var lastName = document.createElement("input");
 		lastName.setAttribute('class','input-text');
 		lastName.setAttribute('placeholder','Last name: ');
 		lastName.setAttribute('name','last_name');
+		lastName.required = true;
 		form.appendChild(lastName);
 		form.appendChild(email);
 		var signUpPassword = document.createElement("input");
