@@ -1,5 +1,11 @@
 <?php
 	session_start();
+	include "./php/util/sessionUtil.php";
+
+	if(isLogged()){
+		header('Location: ./php/home.php');
+		exit;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
