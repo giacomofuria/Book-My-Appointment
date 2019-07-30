@@ -102,6 +102,11 @@ div{
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;
 }
+.input-text:focus{
+	border-style: solid;
+	border-width: 1.2px;
+	border-color: #4285F4;
+}
 .error_message{
 	display: none; /* Viene modificato poi dal javascript*/
 	background-color: rgb(255,0,0,0.1);
