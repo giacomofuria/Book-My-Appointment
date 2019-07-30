@@ -1,4 +1,4 @@
 <?php
 	session_start();
-	echo 'Benvenuto: '.$_SESSION['email'].', userId: '.$_SESSION['userId'];
+	echo '<u>Benvenuto:</u> '.$_SESSION['email'].', <u>userId:</u> '.$_SESSION['userId'];
 ?>
