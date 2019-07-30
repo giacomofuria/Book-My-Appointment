@@ -19,10 +19,7 @@
 
 			</div>
 			<div class="sign_box" id="sign_second_header">
-
-				<h3>Sign in</h3>
-				<p>or <a href="">create an account</a></p>
-
+				
 			</div>
 			<div class="sign_box" id="sign_in_fields">
 

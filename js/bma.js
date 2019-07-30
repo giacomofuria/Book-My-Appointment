@@ -75,16 +75,48 @@ function showSignFields(type, slideFlag){
 	}else
 		return;
 
+	if(slideFlag){
+		var left_side = document.getElementById("left-side");
+		slide(left_side, -30, 0);
+	}
+
 	var sign_header = document.getElementById("sign_header");
 	removeAllChildren(sign_header);
 	var signButton = createButton(signHeaderButtonID, "sign_header_buttons", signHeaderButtonFunction,signHeaderButtonText);
 	var userGuideButton = createButton("user_manual_button","sign_header_buttons","","User guide");
 	sign_header.appendChild(signButton);
 	sign_header.appendChild(userGuideButton);
-	if(slideFlag){
-		var left_side = document.getElementById("left-side");
-		slide(left_side, -30, 0);
-	}
+	showSecondHeader(type);
+	
+}
+/* Visualizza il secondo header del box di login o di registrazione. In base a type mostra uno o l'altro */
+function showSecondHeader(type){
+	var title;
+	var subTitle;
+	if(type == 'login'){
+		title = 'Sign In';
+		subTitle = 'create an account';
+	}else if(type == 'register'){
+		title = 'Sign Up';
+		subTitle = 'sign in to your account';
+	}else
+		return;
+	var sign_second_header = document.getElementById("sign_second_header");
+	removeAllChildren(sign_second_header);
+	var titleH3 = document.createElement("h3");
+	var txt = document.createTextNode(title);
+	titleH3.appendChild(txt);
+	sign_second_header.appendChild(titleH3);
+
+	var subTitleH3 = document.createElement("p");
+	txt = document.createTextNode('or ');
+	subTitleH3.appendChild(txt);
+	var link = document.createElement("a");
+	link.setAttribute('href','');
+	link.appendChild(document.createTextNode(subTitle));
+	subTitleH3.appendChild(link);
+
+	sign_second_header.appendChild(subTitleH3);
 }
 /* Rimuove tutti i figlio del nodo passato come parametro */
 function removeAllChildren(elem){
