@@ -31,7 +31,7 @@
 			return 'Insert something';
 		}
 		// L'autenticazione non è andata a buon fine
-		return 'Email and Password not valid';
+		return 'Email or Password not valid';
 	}
 
 	/*  Verifica se l'utente è presente nel database.

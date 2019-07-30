@@ -101,6 +101,18 @@ div{
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;
 }
+.error_message{
+	display: none; /* Viene modificato poi dal javascript*/
+	background-color: rgb(255,0,0,0.1);
+	color: #8B0000;
+	font-size: 15px;
+	margin-bottom: 3%;
+	padding-left: 2%;
+	padding-right: 2%;
+	border-style: solid;
+	border-width: 1.5px;
+	border-color: red;
+}
 #doc{
 	margin-top: 2em;
 	margin-left: 2%;
