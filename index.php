@@ -18,7 +18,7 @@
 		<title>Book My Appointment</title>
 	</head>
 <body onload="begin()">
-<div id="container"> 
+<div id="container">
 	<div id="left-side">
 		<div id="sign" class="sign">
 			<div id="sign_header" class="sign_header">
