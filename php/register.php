@@ -48,7 +48,7 @@
 			</div>
 			<div class="register_box">
 				<p>Where are redirecting you to the login page ...</p>
-				<?php /*header("refresh:15; url=./../index.php");*/?>
+				<?php header("refresh:15; url=./../index.php");?>
 				<p>If it doesn't work <a href="./../index.php">click here</a></p>
 			</div>
 		</div>
