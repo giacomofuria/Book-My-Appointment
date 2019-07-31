@@ -7,9 +7,14 @@
 
 	echo "First name: $firstName, Last name: $lastName, Email: $email, Password: $signUpPassword <br>";
 
-	userSignUp($email, $firstName, $lastName, $signUpPassword);
+	$result = register($email, $firstName, $lastName, $signUpPassword);
+	if($result){
+		echo "Registrazione ok".$result."<br>";//DEBUG
+	}else{
+		echo "Registrazione fallita".$result."<br>";//DEBUG
+	}
 
-	function userSignUp($email, $firstName, $lastName, $password){
+	function register($email, $firstName, $lastName, $password){
 		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
 		$email = $bookMyAppointmentDb->sqlInjectionFilter($email);
 		$firstName = $bookMyAppointmentDb->sqlInjectionFilter($firstName);
@@ -18,11 +23,7 @@
 		$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$password."')";
 		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
-		if($result){
-			echo "Registrazione ok".$result."<br>";//DEBUG
-		}else{
-			echo "Registrazione fallita".$result."<br>";//DEBUG
-		}
+		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 		$bookMyAppointmentDb->closeConnection();
 	}
 ?>
