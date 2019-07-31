@@ -20,8 +20,8 @@
 <body onload="begin()">
 <div id="container"> 
 	<div id="left-side">
-		<div id="sign">
-			<div id="sign_header">
+		<div id="sign" class="sign">
+			<div id="sign_header" class="sign_header">
 
 			</div>
 			<div class="sign_box" id="sign_second_header">

@@ -31,7 +31,7 @@ div{
 	top: 0;
 	
 }
-#sign{
+.sign{
 	border-style: none;
 	/*display: inline-block;*/
 	margin-top: 5em;
@@ -42,7 +42,7 @@ div{
 	box-shadow: 0 2px 8px rgba(0,0,0,.08);
 	/*box-shadow: rgba(0,0,0,0.2) 2px 2px;*/
 }
-#sign_header{
+.sign_header{
 	text-align: right;
 	padding-right: 1em;
 	padding-top: 1em;
