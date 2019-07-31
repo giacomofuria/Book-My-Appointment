@@ -39,7 +39,7 @@
 		altrimenti restituisce -1.
 	*/
 	function authenticate($email, $password){
-		global $bookMyAppointmentDb;
+		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
 
 		$email = $bookMyAppointmentDb->sqlInjectionFilter($email);
 		$password = $bookMyAppointmentDb->sqlInjectionFilter($password);

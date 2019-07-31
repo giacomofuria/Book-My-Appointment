@@ -9,5 +9,4 @@ function slide(element, startPosition, endPosition){
 		startPosition += (Math.abs(startPosition))*0.1;
 		//element.style.display='block';
 	}, 20);
-
 }
