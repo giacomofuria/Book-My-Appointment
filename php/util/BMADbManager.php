@@ -33,7 +33,7 @@
 		function isOpened(){
 			return ($this->mysqli_conn != null);
 		}
-		
+
 		// Esegue una query e restituisce il risultato
 		function performQuery($queryText){
 			if(!$this->isOpened()){

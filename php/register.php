@@ -11,8 +11,9 @@
 		$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$password."')";
 		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
-		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 		$bookMyAppointmentDb->closeConnection();
+		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
+		
 	}
 ?>
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
 			</div>
 			<div class="register_box">
 				<p>Where are redirecting you to the login page ...</p>
-				<?php header("refresh:5; url=./../index.php");?>
+				<?php /*header("refresh:15; url=./../index.php");*/?>
 				<p>If it doesn't work <a href="./../index.php">click here</a></p>
 			</div>
 		</div>
