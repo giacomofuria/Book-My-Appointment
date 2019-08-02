@@ -17,8 +17,13 @@
 </head>
 <body>
 	<div id="left-side">
-		<div class="menu">
-			Menu
+		<div id="first-side-menu-box" class="side-menu-box">
+			<img id="profile-img" src="./../img/man.png" alt="Profile image">
+		</div>
+		<div class="side-menu-box">
+			<button class="menu_buttons" onclick="window.location.href='./home.php'">Home</button>
+			<button class="menu_buttons" onclick="window.location.href='./profile.php'">Profile</button>
+			<button class="menu_buttons" onclick="window.location.href='./logout.php'">Sign out</button>
 		</div>
 	</div>
 	<div id="right-side">
@@ -26,7 +31,6 @@
 		<div id="workspace-container">
 			Workspace<br><br>
 			<?php echo '<u>Benvenuto:</u> '.$_SESSION['email'].', <u>userId:</u> '.$_SESSION['userId'];  ?>
-			<span><p><a href="./logout.php">Sign out</a></p></span>
 		</div>
 	</div>
 </body>

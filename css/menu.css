@@ -1,10 +1,30 @@
-.menu{
-	border-style: none;
+.side-menu-box{
+	/*border-style: none;*/
 	margin: 0;
+	/*background-color: #284255;*/
+	color: #FFFFFF;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+#first-side-menu-box{
+	margin-top: 10%;
+	text-align: center;
+}
+#profile-img{
+	margin-top: 10%;
+	width:80%;
+	height: 80%;
+}
+.menu_buttons{
+	border-style: none;
 	background-color: #284255;
 	color: #FFFFFF;
-	height: 100%;
-	width: 100%;
-	/*border-radius: 8px;*/
-	/*box-shadow: 0 2px 8px rgba(0,0,0,.08);*/
+	cursor: pointer;
+	font-size: 16px;
+	margin: 2%;
+}
+.menu_buttons:hover{
+	transform: scale(1.03);
 }

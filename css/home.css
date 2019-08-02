@@ -18,21 +18,21 @@ div{
 	position: fixed;
 	left: 0;
 	top: 0;
-	width: 5%;
+	width: 10%;
 	height: 100%;
 	text-align: left;
 	/*background-color: #F3F7FD;*/
+	background-color: #284255;
 
 }
 #right-side{	
 	position: absolute;
-	left: 5%;
-	width: 95%;
+	left: 10%;
+	width: 90%;
 	top: 0;
 	margin: 0;
 }
 #top-bar-container{
-	
 	margin-bottom: 0.5%;
 }
 #workspace-container{
