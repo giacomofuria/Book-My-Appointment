@@ -27,10 +27,20 @@
 		</div>
 	</div>
 	<div id="right-side">
-		<div id="top-bar-container">Top-Bar</div>
+		<div id="top-bar-container">
+			<div class="top-bar-box">
+				<?php echo '<p><u>Welcome:</u> '.$_SESSION['email'].'</p>';  ?>
+			</div>
+			<div id="search-bar-container" class="top-bar-box">
+				<input id="search-bar" placeholder="Search">
+				<button id="search-button">S</button>
+			</div>
+			<div class="top-bar-box">
+				altri comandi
+			</div>
+		</div>
 		<div id="workspace-container">
 			Workspace<br><br>
-			<?php echo '<u>Benvenuto:</u> '.$_SESSION['email'].', <u>userId:</u> '.$_SESSION['userId'];  ?>
 		</div>
 	</div>
 </body>
