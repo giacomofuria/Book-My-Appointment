@@ -23,6 +23,7 @@
 		<div class="side-menu-box">
 			<button class="menu_buttons" onclick="window.location.href='./home.php'">Home</button>
 			<button class="menu_buttons" onclick="window.location.href='./profile.php'">Profile</button>
+			<button class="menu_buttons" onclick="window.location.href='./settings.php'">Settings</button>
 			<button class="menu_buttons" onclick="window.location.href='./logout.php'">Sign out</button>
 		</div>
 	</div>
@@ -40,8 +41,20 @@
 			</div>
 			
 		</div>
-		<div id="workspace-container">
-			Workspace<br><br>
+		<div id="first-workspace-container" class="workspace-header">
+			Booked appointments for you
+		</div>
+		<div class="workspace-container">
+			<br><br><br><br><br><br><br><br><br><br>a
+			         
+		</div>
+		<div class="workspace-container">
+			Booked appointments by your clients
+					 <br><br><br><br><br><br><br><br><br><br>b
+			         <br><br><br><br><br><br><br><br><br><br>c
+			         <br><br><br><br><br><br><br><br><br><br>d
+			         <br><br><br><br><br><br><br><br><br><br>e
+			         <br><br><br><br><br><br><br><br><br><br>f
 		</div>
 	</div>
 </body>

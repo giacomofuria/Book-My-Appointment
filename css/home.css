@@ -1,6 +1,6 @@
 body,html{
 	/*background-color: #F3F7FD;*/
-	background-color: #ECEEF0;
+	background-color: #c5c8c9;
 	margin: 0;
 	padding: 0;
 	font-family: "Atlas Grotesk Web","Open sans",sans-serif;
@@ -9,11 +9,11 @@ body,html{
 	height: 100%;
 }
 div{
-	/*
+	
 	border-style: solid;
 	border-width: 0.1px;
 	border-color: black;
-	*/
+	
 }
 #left-side{
 	position: fixed;
@@ -36,6 +36,8 @@ div{
 	margin-bottom: 0.5%;
 	background-color: #FFFFFF;
 	height: 55px;
+	width: 100%;
+	position: fixed;
 }
 .top-bar-box{
 	/*display: inline-block;*/
@@ -92,7 +94,19 @@ div{
 #search-button:hover{
 	background-color: #91DF00;
 }
-#workspace-container{
+.workspace-container{
+	margin-top: 0.5%;
 	margin-bottom: 0.5%;
 	background-color: #FFFFFF;
+	
+}
+#first-workspace-container{
+	margin-top: 55px;
+}
+.workspace-header{
+	width: 100%;
+	background-color: #ECEEF0;
+	height: 45px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
 }
