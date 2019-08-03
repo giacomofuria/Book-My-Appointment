@@ -9,11 +9,11 @@ body,html{
 	height: 100%;
 }
 div{
-
+	/*
 	border-style: solid;
 	border-width: 0.1px;
 	border-color: black;
-	
+	*/
 }
 #left-side{
 	position: fixed;
@@ -35,53 +35,51 @@ div{
 #top-bar-container{
 	margin-bottom: 0.5%;
 	background-color: #FFFFFF;
+	height: 55px;
 }
 .top-bar-box{
-	display: inline-block;
-	height: 100%;
-	margin-left: 0.5%;
-	margin-right: 0.5%;
-	padding-left: 0.5%;
-	padding-right: 0.5%;
+	/*display: inline-block;*/
+	height: 85%;
+	float: left;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.5em;
 }
 #search-bar-container{
-
+}
+.prova{
+	height: 100%;
+	float: left;
 }
 #search-bar{
 	outline: none;
-	width: 350px;
+	width: 390px;
 	font-size: 16px;
 	padding-left: 0.3em;
 	padding-right: 0;
-	/*
-	padding-top: 0.4em;
-	padding-bottom: 0.4em;
-	*/
 	border: 0 none;
 	border-radius: 2px;
 	box-shadow: 0 0 1px rgba(0,0,0,0.6);
 	height: 34px;
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF;
 }
 #search-bar:focus{
-	border-style: solid;
-	border-width: 1.2px;
-	border-color: #91DFAA;
+	/*Il border c'è sempre, quando l'elemento ha il focus cambio colore al border. 
+	  In questo modo non ho movimenti nel resto del layout
+	*/
+	border-color: #91DFAA; 
+
 }
 #search-button{
 	text-align: center;
 	font-size: 15px;
-	/*
-	margin-left: 0;
-	margin-right: 0;
-	padding-top: 0.42em;
-	padding-bottom: 0.42em;
-	padding-left: 1em;
-	padding-right: 1em;
-	*/
 	padding: 0;
 	margin: 0;
 	width: 30px;
-	height: 35px;
+	height: 37px;
 	cursor: pointer;
 	background-color: #91DFAA;
 	color: #FFFFFF; 

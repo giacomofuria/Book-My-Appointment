@@ -137,6 +137,8 @@ function showSignForm(type){
 	if(type=='login'){
 		action='./php/login.php';
 
+		email.setAttribute('autofocus','');
+
 		loginPassword.setAttribute('class','input-text');
 		loginPassword.setAttribute('placeholder','Password:');
 		loginPassword.setAttribute('type','password');
@@ -161,6 +163,7 @@ function showSignForm(type){
 		firstName.setAttribute('class','input-text');
 		firstName.setAttribute('placeholder','First name: ');
 		firstName.setAttribute('name','first_name');
+		firstName.setAttribute('autofocus','');
 		firstName.required= true;
 		form.appendChild(firstName);
 
