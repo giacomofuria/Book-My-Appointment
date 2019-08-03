@@ -9,11 +9,11 @@ body,html{
 	height: 100%;
 }
 div{
-	
+	/*
 	border-style: solid;
 	border-width: 0.1px;
 	border-color: black;
-	
+	*/
 }
 #left-side{
 	position: fixed;
@@ -95,10 +95,10 @@ div{
 	background-color: #91DF00;
 }
 .workspace-container{
-	margin-top: 0.5%;
-	margin-bottom: 0.5%;
+	margin-top: 0.7%;
+	/*margin-bottom: 0.5%;*/
 	background-color: #FFFFFF;
-	
+	box-shadow: 0 2px 8px rgba(0,0,0,.5);
 }
 #first-workspace-container{
 	margin-top: 55px;
@@ -109,4 +109,6 @@ div{
 	height: 45px;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
+	/*box-shadow: 0 8px 6px -6px black;*/
+	box-shadow: 0 2px 8px rgba(0,0,0,.3);
 }

@@ -45,11 +45,16 @@
 			Booked appointments for you
 		</div>
 		<div class="workspace-container">
-			<br><br><br><br><br><br><br><br><br><br>a
-			         
+			<br><br><br><br>Appuntamento 1<br><br><br><br>     
 		</div>
 		<div class="workspace-container">
+			<br><br><br><br>Appuntamento 2<br><br><br><br>     
+		</div>
+		<div class="workspace-header">
 			Booked appointments by your clients
+		</div>
+		<div class="workspace-container">
+			
 					 <br><br><br><br><br><br><br><br><br><br>b
 			         <br><br><br><br><br><br><br><br><br><br>c
 			         <br><br><br><br><br><br><br><br><br><br>d
