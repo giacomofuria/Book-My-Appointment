@@ -67,7 +67,7 @@
 			<div id="calendar-container">
 				Calendario<br><br>
 			</div>
-
+			<div style="clear:both;"></div>
 		</div> <!-- fine workspace -->
 
 	</div>

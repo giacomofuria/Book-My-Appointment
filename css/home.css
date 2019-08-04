@@ -122,7 +122,9 @@ div{
 #appointments-viewer{
 	float:left;
 	width: 70%;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 #calendar-container{
-
+	float:left;
 }
