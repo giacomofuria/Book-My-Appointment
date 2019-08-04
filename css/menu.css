@@ -17,6 +17,7 @@
 	background-image: url("./../img/icon/set1/man.png");
 	background-size: cover;
 	background-color: #FFFFFF;
+	cursor: pointer;
 }
 .menu_buttons{
 	border-style: none;
