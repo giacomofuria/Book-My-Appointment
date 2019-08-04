@@ -41,26 +41,35 @@
 			</div>
 			
 		</div>
-		<div id="first-workspace-container" class="workspace-header">
-			Booked appointments for you
-		</div>
-		<div class="workspace-container">
-			<br><br><br><br>Appuntamento 1<br><br><br><br>     
-		</div>
-		<div class="workspace-container">
-			<br><br><br><br>Appuntamento 2<br><br><br><br>     
-		</div>
-		<div class="workspace-header">
-			Booked appointments by your clients
-		</div>
-		<div class="workspace-container">
-			
-					 <br><br><br><br><br><br><br><br><br><br>b
-			         <br><br><br><br><br><br><br><br><br><br>c
-			         <br><br><br><br><br><br><br><br><br><br>d
-			         <br><br><br><br><br><br><br><br><br><br>e
-			         <br><br><br><br><br><br><br><br><br><br>f
-		</div>
+		<div id="workspace">
+			<div id="appointments-viewer">
+				<div id="my-appointments">
+					<div class="appointment-header">
+						Booked appointments for you
+					</div>
+					<div class="appointment-container">
+						Appuntamento 1 
+					</div>
+					<div class="appointment-container">
+						Appuntamento 2   
+					</div>
+				</div>
+
+				<div id="clients-appointments">
+					<div class="appointment-header">
+						Booked appointments by your clients
+					</div>
+					<div class="appointment-container">
+						Appuntamento 1
+					</div>
+				</div>
+			</div>
+			<div id="calendar-container">
+				Calendario<br><br>
+			</div>
+
+		</div> <!-- fine workspace -->
+
 	</div>
 </body>
 </html>
