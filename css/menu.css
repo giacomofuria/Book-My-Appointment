@@ -29,6 +29,7 @@
 	margin-bottom: 4%;
 	width: 100%;
 	text-align: left;
+	border-radius: 2px;
 }
 .menu_buttons:hover{
 	transform: scale(1.03);

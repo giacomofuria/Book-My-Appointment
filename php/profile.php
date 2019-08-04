@@ -35,7 +35,6 @@
 		var btn = document.getElementById("profile_button");
 		btn.style.backgroundColor="#91DFAA";
 		btn.style.color="#383838";
-
 	</script>
 </body>
 </html>
