@@ -9,7 +9,19 @@
 
 			</div>
 			<div class="top-bar-box">
-				<button id="calendar-button" title="Calendar"><img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;"></button>
+				<button id="calendar-button" class="command-buttons" title="Calendar">
+					<img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;">
+				</button>
+			</div>
+			<div class="top-bar-box">
+				<button id="notification-button" class="command-buttons" title="Notifications">
+					<img src="./../img/icon/set1/notification.png" style="width:100%; height:62%;">
+				</button>
 			</div>	
+			<div class="top-bar-box">
+				<button id="add-button" class="command-buttons" title="Add new appointment schedule">
+					<img src="./../img/icon/set1/add.png" style="width:100%; height:62%;">
+				</button>
+			</div>
 		</div>
 		<!-- Fine sezione barra superiore -->
