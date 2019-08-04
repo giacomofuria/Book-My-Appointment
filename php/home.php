@@ -21,10 +21,10 @@
 			<!-- <img id="profile-img" src="./../img/man.png" alt="Profile image">-->
 		</div>
 		<div class="side-menu-box">
-			<button class="menu_buttons" onclick="window.location.href='./home.php'">Home</button>
-			<button class="menu_buttons" onclick="window.location.href='./profile.php'">Profile</button>
-			<button class="menu_buttons" onclick="window.location.href='./settings.php'">Settings</button>
-			<button class="menu_buttons" onclick="window.location.href='./logout.php'">Sign out</button>
+			<button id="home_button" class="menu_buttons" onclick="window.location.href='./home.php'">Home</button>
+			<button id="profile_button" class="menu_buttons" onclick="window.location.href='./profile.php'">Profile</button>
+			<button id="settings_button" class="menu_buttons" onclick="window.location.href='./settings.php'">Settings</button>
+			<button id="signout_button" class="menu_buttons" onclick="window.location.href='./logout.php'">Sign out</button>
 		</div>
 	</div>
 	<div id="right-side">
@@ -62,6 +62,18 @@
 					<div class="appointment-container">
 						Appuntamento 1
 					</div>
+					<div class="appointment-container">
+						Appuntamento 2
+					</div>
+					<div class="appointment-container">
+						Appuntamento 3
+					</div>
+					<div class="appointment-container">
+						Appuntamento 4
+					</div>
+					<div class="appointment-container">
+						Appuntamento 5
+					</div>
 				</div>
 			</div>
 			<div id="calendar-container">
@@ -71,5 +83,11 @@
 		</div> <!-- fine workspace -->
 
 	</div>
+	<script type="text/javascript">
+		// evidenzio il pulsante della pagina
+		var btn = document.getElementById("home_button");
+		btn.style.backgroundColor="#91DFAA";
+		btn.style.color="#000000";
+	</script>
 </body>
 </html>

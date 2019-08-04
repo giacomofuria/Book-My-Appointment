@@ -24,7 +24,10 @@
 	color: #FFFFFF;
 	cursor: pointer;
 	font-size: 16px;
-	margin: 2%;
+	margin-top: 4%;
+	margin-bottom: 4%;
+	width: 100%;
+	text-align: left;
 }
 .menu_buttons:hover{
 	transform: scale(1.03);
