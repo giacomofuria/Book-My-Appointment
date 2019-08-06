@@ -31,7 +31,7 @@ $day_count = date('t', $timestamp);
 // 0:Sun 1:Mon 2:Tue ...
 $str = date('w', mktime(0, 0, 0, date('m', $timestamp), 1, date('Y', $timestamp)));
 echo "str-1: ".$str.'<br>'; // DEBUG
-$str = date('w', $timestamp);
+//$str = date('w', $timestamp); // modo equivalente
 echo "str-1: ".$str.'<br>'; // DEBUG
 // Create Calendar!!
 $weeks = array();
