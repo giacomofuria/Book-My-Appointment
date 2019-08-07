@@ -17,6 +17,7 @@ th{
 	text-align: center;
 	padding: 0.35em;
 	box-shadow: 0 2px 8px rgba(0,0,0,.1);
+	font-size: 16px;
 }
 th:nth-of-type(1){
 	/* Angolo in alto a sx rounded */
@@ -26,7 +27,6 @@ th:nth-of-type(7){
 	/* Angolo in alto a dx rounded*/
 	border-radius: 0 7px 0 0;
 }
-
 .day-button{
 	background-color: #FFFFFF;
 	width: 100%;
@@ -39,14 +39,12 @@ th:nth-of-type(7){
 	padding-right: 0.1em;
 	padding-top: 0.3em;
 	padding-bottom: 0.3em;
-
+	font-size: 15px;
 	border-radius: 4px;
 }
-
 .day-button:hover{
 	background-color: #F3F7FD;
 }
-
 .today-button{
 	border-style: solid;
 	border-width: 0.7px;
@@ -60,7 +58,7 @@ th:nth-of-type(7){
 	background-color: #FFFFFF;
 	box-shadow: 0 2px 8px rgba(0,0,0,.12);
 	border-radius: 2px;
-	margin-top: 2em;
+	/* margin-top: 2em; */
 	margin-left: 1em;
 }
 .calendar-header{
