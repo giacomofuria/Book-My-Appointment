@@ -23,7 +23,9 @@
 			$userId = authenticate($email, $password);
 			if($userId > 0){
 				session_start();
-				setSession($email, $userId);
+				$firstName = getFirstName($userId);
+				$lastName = getLastName($userId);
+				setSession($email, $userId, $firstName, $lastName);
 				return null;
 			}
 		}else{
@@ -59,4 +61,34 @@
 		return $userRow['userId'];
 
 	}
+	/* Restituisce first name dell'utente con un certo id */
+
+	function getFirstName($userId){
+		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
+		$queryText = "SELECT first_name FROM user WHERE userId='".$userId."'";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		if($numRow != 1)
+			return -1;
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+		$bookMyAppointmentDb->closeConnection();
+		return $userRow['first_name'];
+	}
+
+	/* Restituisce last name dell'utente con un certo id */
+
+	function getLastName($userId){
+		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
+		$queryText = "SELECT last_name FROM user WHERE userId='".$userId."'";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		if($numRow != 1)
+			return -1;
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+		$bookMyAppointmentDb->closeConnection();
+		return $userRow['last_name'];
+	}
+
 ?>
