@@ -9,11 +9,11 @@ body,html{
 	height: 100%;
 }
 div{
-	
+	/*
 	border-style: solid;
 	border-width: 0.1px;
 	border-color: black;
-	
+	*/
 }
 #left-side{
 	position: fixed;
@@ -151,5 +151,6 @@ div{
 }
 #calendar-container{
 	float:left;
-	padding: 2%;
+	padding: 0.3em;
+	width: 27%;
 }

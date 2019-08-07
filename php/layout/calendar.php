@@ -27,7 +27,6 @@ class Calendar{
 		$this->daysInMonth = date('t',$this->timestamp); // numero di giorni presenti nel mese corrente
 		$this->numeroPrimoGiornoDelMese = date('w',$this->timestamp);
 
-		echo 'Year-Month: '.$this->year_month.',<br>today: '.$this->today.',<br>in questo mese ci sono '.$this->daysInMonth.' giorni,<br>il primo giorno del mese e\': '.$this->numeroPrimoGiornoDelMese.'<br>';
 
 	}
 
@@ -43,8 +42,39 @@ class Calendar{
 		$week = '';
 	
 
-		echo "<p><a href='?ym=$prev' >mese precedente</a></p>";
-		echo '<p><a href=\'?ym='.$next.'\' >mese successivo</a></p>';
+		echo '<div id=\'calendar\'>';
+		//echo 'Year-Month: '.$this->year_month.',<br>today: '.$this->today.',<br>in questo mese ci sono '.$this->daysInMonth.' giorni,<br>il primo giorno del mese e\': '.$this->numeroPrimoGiornoDelMese.'<br>';
+
+		/*
+		echo "<p><a href='?ym=$prev' >mese precedente</a></p>"; // DEBUG
+		echo '<p><a href=\'?ym='.$next.'\' >mese successivo</a></p>'; // DEBUG
+		*/
+		
+		$monthName = $this->getMonthName();
+
+		echo '<div class=\'calendar-header\'>';
+
+		echo '<div id=\'prev-month-arrow\' class=\'calendar-header-components\'>';
+			echo '<button class=\'calendar-header-buttons\' onclick=\'window.location.href="?ym='.$prev.'"\'>';
+				echo '<img src=\'./../img/icon/set1/left-arrow-1.png\' style=\'width:80%\'>';
+			echo '</button>';
+		echo '</div>';
+
+		echo '<div id=\'calendar-header-title\' class=\'calendar-header-components\'>'.$monthName.'</div>';
+
+		echo '<div id=\'next-month-arrow\' class=\'calendar-header-components\'>';
+			echo '<button class=\'calendar-header-buttons\' onclick=\'window.location.href="?ym='.$next.'"\'>';
+			echo '<img src=\'./../img/icon/set1/right-arrow-1.png\' style=\'width:80%\'>'; 
+			echo '</button>';
+		echo '</div>';
+
+		echo '<div style=\'clear:both;\'>';
+
+		echo '</div>';
+
+
+
+		echo '</div>';
 
 		echo '<table>';
 
@@ -87,7 +117,11 @@ class Calendar{
 			echo $week;
 		}
 
-		echo '</table>';
+		echo '</table></div>';
+	}
+	public function getMonthName(){
+		$monthName = date('F',$this->timestamp);
+		return $monthName;
 	}
 
 }

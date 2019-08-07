@@ -14,6 +14,7 @@
 	<meta name = "author" content = "Giacomo Furia">
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="./../css/calendar.css" type="text/css" media="screen">
 </head>
 <body>
 	<div id="left-side">
@@ -61,7 +62,6 @@
 				</div>
 			</div>
 			<div id="calendar-container">
-				Calendar<br><br>
 				<?php 
 					include './layout/calendar.php';
 					$calendar = new Calendar();
