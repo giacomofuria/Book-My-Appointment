@@ -62,6 +62,11 @@
 			</div>
 			<div id="calendar-container">
 				Calendar<br><br>
+				<?php 
+					include './layout/calendar.php';
+					$calendar = new Calendar();
+					$calendar->show();
+				?>
 			</div>
 			<div style="clear:both;"></div>
 		</div> <!-- fine workspace -->

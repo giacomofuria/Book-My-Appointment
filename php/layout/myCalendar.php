@@ -66,7 +66,6 @@
 	$week = '';
 
 	// Inserisco i link al giorno precedente e a quello successivo
-
 	echo "<p><a href='?ym=$prev' >mese precedente</a></p>";
 	echo '<p><a href=\'?ym='.$next.'\' >mese successivo</a></p>';
 
@@ -82,8 +81,8 @@
 	<th>Sun</th>
 	</tr>';
 
-	if($numeroPrimoGiornoDelMese == 0)
-		$numeroPrimoGiornoDelMese = 7;
+	if($numeroPrimoGiornoDelMese == 0) // se il giorno è domenica, il suo numero è 0
+		$numeroPrimoGiornoDelMese = 7; // allora assegno alla domenica il giorno 7
 
 	$week = $week.str_repeat('<td></td>',$numeroPrimoGiornoDelMese - 1);
 	$index = $numeroPrimoGiornoDelMese;
