@@ -49,8 +49,9 @@ class Calendar{
 		echo "<p><a href='?ym=$prev' >mese precedente</a></p>"; // DEBUG
 		echo '<p><a href=\'?ym='.$next.'\' >mese successivo</a></p>'; // DEBUG
 		*/
-		
+
 		$monthName = $this->getMonthName();
+		$year = $this->getYear();
 
 		echo '<div class=\'calendar-header\'>';
 
@@ -60,7 +61,7 @@ class Calendar{
 			echo '</button>';
 		echo '</div>';
 
-		echo '<div id=\'calendar-header-title\' class=\'calendar-header-components\'>'.$monthName.'</div>';
+		echo '<div id=\'calendar-header-title\' class=\'calendar-header-components\'><b>'.$monthName.' - '.$year.'</b></div>';
 
 		echo '<div id=\'next-month-arrow\' class=\'calendar-header-components\'>';
 			echo '<button class=\'calendar-header-buttons\' onclick=\'window.location.href="?ym='.$next.'"\'>';
@@ -95,8 +96,12 @@ class Calendar{
 		$index = $this->numeroPrimoGiornoDelMese;
 		for($day = 1; $day <= $this->daysInMonth; $day++, $index++){
 			$date = $this->year_month.'-'.$day; // creo la data
-
-			$week.= '<td><button>'.$day.'</button></td>';
+			if($this->today == $date){
+				$week.= '<td><button class=\'day-button today-button\'>'.$day.'</button></td>';
+			}else{
+				$week.= '<td><button class=\'day-button\'>'.$day.'</button></td>';
+			}
+			
 
 			// Fine della settimana o fine del mese
 			if(($index % 7) == 0 || $day == $this->daysInMonth){
@@ -122,6 +127,9 @@ class Calendar{
 	public function getMonthName(){
 		$monthName = date('F',$this->timestamp);
 		return $monthName;
+	}
+	public function getYear(){
+		return date('Y',$this->timestamp);
 	}
 
 }
