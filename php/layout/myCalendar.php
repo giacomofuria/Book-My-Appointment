@@ -4,9 +4,11 @@
 	<title>My Calendar</title>
 	<style type="text/css">
 		table{
+			/*
 			border-style: solid;
 			border-width: 1px;
 			border-color: black;
+			*/
 		}
 		th, td{
 			border-style: solid;
@@ -20,6 +22,13 @@
 			width: 100%;
 			height: 100%;
 			font-size: 18px;
+			border-style: solid;
+			border-width: 1px;
+			border-color: black;
+			cursor: pointer;
+		}
+		button:hover{
+			background-color: #F3F7FD;
 		}
 	</style>
 </head>
@@ -81,13 +90,17 @@
 	for($day = 1; $day <= $daysInMonth; $day++, $index++){
 		$date = $year_month.'-'.$day; // creo la data
 
-		$week.= '<td><button>'.$day.'</button></td>';
+		$week.= '<td><button>'.$day.'<sub>'.$index.'</sub></button></td>';
 
 		// Fine della settimana o fine del mese
 		if(($index % 7) == 0 || $day == $daysInMonth){
 			if($day == $daysInMonth){ 
 				// arrivato alla fine del mese
-				$week.=str_repeat('<td></td>', 7 - ($index % 7));
+				$resto = $index % 7;
+				if($resto > 0){
+					$restanti = 7 - $resto;
+					$week.=str_repeat('<td></td>', $restanti);
+				}
 			}
 			$weeks[] = '<tr>'.$week.'</tr>'; // Aggiungo la riga all'array di righe
 			$week = ''; // Ripulisco la stringa $week per riempirla con una nuova riga
