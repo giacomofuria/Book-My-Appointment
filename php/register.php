@@ -9,9 +9,12 @@
 		$lastName = $bookMyAppointmentDb->sqlInjectionFilter($lastName);
 		$password = $bookMyAppointmentDb->sqlInjectionFilter($password);
 
-		
-		
-		$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$password."')";
+		// cripto la password
+		$hash = password_hash($password, PASSWORD_BCRYPT);
+
+		//$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$password."')"; // vecchio senza hash
+		$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$hash."')"; // vecchio senza hash
+
 		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
