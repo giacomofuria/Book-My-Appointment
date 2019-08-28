@@ -36,19 +36,27 @@
 		<div id="register-box-container" class="sign">
 			<div id="register-box-header" class="sign_header">
 				<?php
+				$errorMessage = 'there is a problem with your registration';
 				if(!isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['email']) || !isset($_POST['sign_up_password'])){
+					$errorMessage.=', please insert all fileds';
 					$result = false;
 				}else{
 					$firstName = $_POST['first_name'];
 					$lastName = $_POST['last_name'];
 					$email = $_POST['email'];
 					$signUpPassword = $_POST['sign_up_password'];
-					$result = register($email, $firstName, $lastName, $signUpPassword);
+					if($firstName == null || $lastName == null || $email == null || $signUpPassword == null){
+						$errorMessage.=', please insert all fileds';
+						$result = false;
+					}else{
+						$result = register($email, $firstName, $lastName, $signUpPassword);
+						$errorMessage = 'there is alredy an account with this email: '.$_POST['email']; // nel caso in cui $result sia false (query non eseguita) questo sarà il msg di errore
+					}
 				}
 				if($result){
 					 echo "<h2>Welcome $firstName, registration completed successfully</h2>";
 				}else{
-					echo "<h3>Sorry, there is a problem with your registration</h3>";
+					echo "<h3>Sorry, $errorMessage</h3>";
 				}
 				?>
 			</div>

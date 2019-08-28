@@ -2,6 +2,12 @@
 	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
 	require_once "./util/sessionUtil.php"; // includo funzioni per la gestione della sessione 
 
+	// Verifico lato server la presenza dei parametri passati con metodo post (email e password)
+	if(!isset($_POST['email']) || !isset($_POST['password'])){
+		$error='Insert something';
+		header('location: ./../index.php?errorMessage=' . $error );
+	}
+
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
@@ -31,16 +37,18 @@
 			}else{
 				switch ($userId) {
 					case -1:
-						// L'autenticazione non è andata a buon fine
+						// L'utente non è registrato
 						return 'Email or Password not valid';
 						break;
 					
 					case -2:
+						// L'utente è registrato ma la pwd inserita è errata
 						return 'Not valid password';
 						break;
 
 					default:
-						# code...
+						# qui non dovrebbe mai andare ma per sicurezza restituisco un messaggio di errore generico
+						return 'Error';
 						break;
 				}
 			}
@@ -49,7 +57,7 @@
 			return 'Insert something';
 		}
 		// L'autenticazione non è andata a buon fine
-		return 'Email or Password not valid';
+		//return 'Email or Password not valid';
 	}
 
 	/*  Verifica se l'utente è presente nel database.
