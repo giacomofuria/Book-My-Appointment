@@ -21,15 +21,10 @@ class Calendar{
 			$this->year_month = date('Y-m');
 			$this->timestamp = strtotime($this->year_month.'-01');
 		}
-
 		$this->today = date('Y-m-j',time()); // Data corrente
-
 		$this->daysInMonth = date('t',$this->timestamp); // numero di giorni presenti nel mese corrente
 		$this->numeroPrimoGiornoDelMese = date('w',$this->timestamp);
-
-
 	}
-
 	public function show(){
 		$timestampPrimoGiornoMesePrecedente = mktime(0,0,0,(date('m',$this->timestamp)-1),1,(date('Y',$this->timestamp)));
 		$timestampPrimoGiornoMeseSuccessivo = mktime(0,0,0,(date('m',$this->timestamp)+1),1,(date('Y',$this->timestamp)));
@@ -37,10 +32,8 @@ class Calendar{
 		$prev = date('Y-m', $timestampPrimoGiornoMesePrecedente);
 		$next = date('Y-m', $timestampPrimoGiornoMeseSuccessivo);
 
-
 		$weeks = array();
 		$week = '';
-	
 
 		echo '<div id=\'calendar\'>';
 		//echo 'Year-Month: '.$this->year_month.',<br>today: '.$this->today.',<br>in questo mese ci sono '.$this->daysInMonth.' giorni,<br>il primo giorno del mese e\': '.$this->numeroPrimoGiornoDelMese.'<br>';
@@ -70,13 +63,8 @@ class Calendar{
 		echo '</div>';
 
 		echo '<div style=\'clear:both;\'>';
-
 		echo '</div>';
-
-
-
 		echo '</div>';
-
 		echo '<table>';
 
 		echo '<tr>
@@ -101,7 +89,6 @@ class Calendar{
 			}else{
 				$week.= '<td><button class=\'day-button\'>'.$day.'</button></td>';
 			}
-			
 
 			// Fine della settimana o fine del mese
 			if(($index % 7) == 0 || $day == $this->daysInMonth){
@@ -121,7 +108,6 @@ class Calendar{
 		foreach($weeks as $week){
 			echo $week;
 		}
-
 		echo '</table></div>';
 	}
 	public function getMonthName(){

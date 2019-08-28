@@ -69,7 +69,7 @@ th:nth-of-type(7){
 	padding-bottom: 0.7em;
 	margin-top: 0.7em;
 	margin-bottom: 0.7em;
-	/*box-shadow: 0 8px 6px -6px black;*/
+	/*box-shadow: 0 8px 6px -6px black;*/ 
 	box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
 .calendar-header-components{

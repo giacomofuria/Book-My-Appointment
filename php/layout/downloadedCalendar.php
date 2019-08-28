@@ -36,7 +36,7 @@ echo "str-1: ".$str.'<br>'; // DEBUG
 // Create Calendar!!
 $weeks = array();
 $week = '';
-// Add empty cell
+// Add empty cell 
 $week .= str_repeat('<td></td>', $str);
 echo 'week: '.$week.'<br>'; // DEBUG
 for ( $day = 1; $day <= $day_count; $day++, $str++) {
