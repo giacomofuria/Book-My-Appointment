@@ -45,8 +45,6 @@ function createButton(buttonId, buttonClass, buttonOnclickFunction,text){
 	return b;
 }	
 
-
-
 /* Viasualizza il box di login o di registrazione a seconda del parametro type ("login" or "register")
 */
 function showSignFields(type, getParameters){

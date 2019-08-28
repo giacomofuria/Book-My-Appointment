@@ -15,7 +15,7 @@
 		
 
 	/*Esegue il login creando l'array associativo $_SESSION.
-	  REstituisce null se il login è andato a buon fine altrimenti
+	  Restituisce null se il login è andato a buon fine altrimenti
 	  restituisce un messaggio di errore.
 	*/
 	function login($email, $password){

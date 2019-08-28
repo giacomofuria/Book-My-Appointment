@@ -8,6 +8,9 @@
 		$firstName = $bookMyAppointmentDb->sqlInjectionFilter($firstName);
 		$lastName = $bookMyAppointmentDb->sqlInjectionFilter($lastName);
 		$password = $bookMyAppointmentDb->sqlInjectionFilter($password);
+
+		
+		
 		$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$password."')";
 		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);

@@ -8,7 +8,7 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `first_name` varchar(32) NOT NULL,
   `last_name` varchar(32) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(64) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
