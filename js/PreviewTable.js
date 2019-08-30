@@ -76,7 +76,7 @@ PreviewTable.prototype.updateStartTime = function(value){
 /* Funzione che cancella le righe successive alla prima*/
 PreviewTable.prototype.deleteRows = function(){
 	var rows = this.table.getElementsByTagName("tr");
-	console.log("righe esistenti: "+rows.length); // DEBUG
+	//console.log("righe esistenti: "+rows.length); // DEBUG
 	for(var i=rows.length-1; i>1; i--){
 		var ele = rows[i];
 		ele.remove();

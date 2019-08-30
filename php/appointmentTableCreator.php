@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/appointmentTableCreator.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="./../css/tablePreview.css" type="text/css" media="screen">
 </head>
 <body>
 	<div id="left-side">

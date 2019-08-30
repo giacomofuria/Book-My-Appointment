@@ -1,0 +1,67 @@
+#preview_table{
+	/*
+	border-style: solid;
+	border-width: 0.1px;
+	border-color: black;
+	*/
+	color: #FFFFFF;
+	width: 100%;
+	padding-top: 20px;
+}
+td{
+	text-align: center;
+
+	color: #000000;
+	width: 10%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	/*
+	border-style: solid;
+	border-width: 0.1px;
+	border-color: black;
+	*/
+}
+td:nth-of-type(1){
+	font-size: 12px;
+	padding-top: 0px;
+	opacity: 1;
+	background-color: #FFFFFF;
+}
+td.not-selected{
+	background-color: #c5c8c9;
+	opacity: 0.1;
+}
+td.selected{
+	background-color: #FFFFFF;
+	opacity: 1;
+}
+th{
+	text-align: center;
+	box-shadow: 0 2px 8px rgba(0,0,0,.1);
+	font-size: 16px;
+	font-weight: normal;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+}
+th.selected{
+	background-color: #284255; /*quando è attivo*/
+	opacity: 1;/* quando è attivo opacity 1 */
+}
+th.not-selected{
+	background-color: #c5c8c9; /*quando è disattivo*/
+	opacity: 0.4; /* quando è disattivo (inizialmente tutti i giorni sono disattivati)*/
+}
+th:nth-of-type(1){
+	visibility: hidden;
+}
+th:nth-of-type(2){
+	/* Angolo in alto a sx rounded */
+	border-radius: 7px 0 0 0; /* alto-sx alto-dx basso-dx basso-sx*/
+}
+th:nth-of-type(8){
+	/* Angolo in alto a dx rounded*/
+	border-radius: 0 7px 0 0;
+}
+tr{
+	background-color: #FFFFFF;
+}
