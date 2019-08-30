@@ -74,7 +74,7 @@
 						<th>Dom</th>
 					</tr>
 					<tr>
-						<td>8.30</td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -84,7 +84,7 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td>9.30</td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>

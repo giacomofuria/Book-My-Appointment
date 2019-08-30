@@ -4,14 +4,25 @@ function begin(){
 	var inputs = document.getElementsByTagName("input");
 	for(var i=0; i<inputs.length; i++){
 		var elem = inputs[i];
-		var gestore_change = new Function("cambia(this)");
-		elem.onchange = gestore_change;
+		var gestore = new Function("cambia(this)");
+		switch(elem.type){
+			case "time":
+				elem.onblur = gestore;
+				break;
+			default:
+				elem.onchange = gestore;
+				break;
+		}
 	}
 }
 function cambia(elem){
 	switch(elem.name){
 		case "work_days":
 			aggiornaTabellaPreview(elem);
+			break;
+		case "opening_time":
+			console.log("opening_time: "+elem.value);
+			aggiornaOrarioApertura(elem.value);	
 			break;
 		default:
 			break;
@@ -48,6 +59,17 @@ function aggiornaColonna(table, col, check){
 			}	
 		}
 	}
+}
+function aggiornaOrarioApertura(value){
+	var previewTable = document.getElementById("preview_table");
+	var tds = previewTable.getElementsByTagName("td");
+	// se c'è rimuovo l'eventuale nodo testuale figlio
+	var text = tds[0].firstChild;
+	if(text){
+		text.remove();
+	}
+	var openingTimeTextNode = document.createTextNode(value);
+	tds[0].appendChild(openingTimeTextNode);
 }
 
 
