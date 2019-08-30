@@ -1,3 +1,53 @@
-function prova(){
-	console.log("OK");
+/*Uso il terzo approccio descritto nelle slide per associare eventi agli oggetti del DOM*/
+
+function begin(){
+	var inputs = document.getElementsByTagName("input");
+	for(var i=0; i<inputs.length; i++){
+		var elem = inputs[i];
+		var gestore_change = new Function("cambia(this)");
+		elem.onchange = gestore_change;
+	}
 }
+function cambia(elem){
+	switch(elem.name){
+		case "work_days":
+			aggiornaTabellaPreview(elem);
+			break;
+		default:
+			break;
+	}
+}
+function aggiornaTabellaPreview(elem){
+	
+	var col_index = parseInt(elem.value);
+	var previewTable = document.getElementById("preview_table");
+	var intestazioni = previewTable.getElementsByTagName("th");
+	if(elem.checked){
+		intestazioni[col_index].style.backgroundColor = '#284255';
+		intestazioni[col_index].style.opacity = 1;
+	}else{
+		intestazioni[col_index].style.backgroundColor = '#c5c8c9';
+		intestazioni[col_index].style.opacity = 0.4;
+	}
+	aggiornaColonna(previewTable, col_index, elem.checked);
+}
+function aggiornaColonna(table, col, check){
+	var rows = table.getElementsByTagName("tr");
+	for(var i=0;i<rows.length; i++){
+		var tds = rows[i].getElementsByTagName("td");
+		for(var j=0; j<tds.length; j++){
+			if(j == col){
+				if(check){
+					tds[j].style.backgroundColor='#FFFFFF';
+					tds[j].style.opacity=1;
+				}else{
+					tds[j].style.backgroundColor='#c5c8c9';
+					tds[j].style.opacity=0.1;
+				}
+				
+			}	
+		}
+	}
+}
+
+
