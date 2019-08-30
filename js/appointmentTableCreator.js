@@ -50,23 +50,5 @@ function cambia(elem){
 	}
 }
 
-function aggiornaOrararioChiusura(value){
-	oraFine = value;
-	// Conosco orario di apertura e di chiusura e, con appuntamenti di 1h, posso calcolare il numero degli appuntamenti.
-	numeroAppuntamenti = parseInt(oraFine)-parseInt(oraInizio);
-	aggiornaTabellaPreview();
-}
-function aggiornaTabellaPreview(){
-	var previewTable = document.getElementById("preview_table");
-	var inizio = oraInizio;
-	var fine = oraFine;
-	for(var i=0;i<numeroAppuntamenti-1; i++){
-		var row = document.createElement("tr");
-		for(var j=0;j<8;j++){
-			var td = document.createElement("td");
-			row.appendChild(td);
-		}
-		previewTable.appendChild(row);
-	}
-}
+
 
