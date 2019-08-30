@@ -12,6 +12,7 @@
 	<meta charset="utf-8">
 	<title>New appointment table creator - Book My Appointment</title>
 	<meta name = "author" content = "Giacomo Furia">
+	<script src="./../js/PreviewTable.js"></script>
 	<script src="./../js/appointmentTableCreator.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
@@ -64,28 +65,7 @@
 				</form>
 			</div>
 			<div id="preview_container">
-				<table id="preview_table">
-					<tr>
-						<th></th>
-						<th>Lun</th>
-						<th>Mar</th>
-						<th>Mer</th>
-						<th>Gio</th>
-						<th>Ven</th>
-						<th>Sab</th>
-						<th>Dom</th>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</table>
+
 			</div>
 		</div> <!-- fine workspace -->
 	</div>

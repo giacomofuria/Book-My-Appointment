@@ -40,22 +40,29 @@ td:nth-of-type(1){
 	opacity: 1;
 	background-color: #FFFFFF;
 }
-td{
+td.not-selected{
 	background-color: #c5c8c9;
 	opacity: 0.1;
 }
+td.selected{
+	background-color: #FFFFFF;
+	opacity: 1;
+}
 th{
-	background-color: #c5c8c9; /*quando è disattivo*/
-	opacity: 0.4; /* quando è disattivo (inizialmente tutti i giorni sono disattivati)
-	*/
-	/*background-color: #284255;*/ /*quando è attivo*/
-	/*opacity: 1;*//* quando è attivo opacity 1 */
 	text-align: center;
 	box-shadow: 0 2px 8px rgba(0,0,0,.1);
 	font-size: 16px;
 	font-weight: normal;
 	padding-top: 1.5%;
 	padding-bottom: 1.5%;
+}
+th.selected{
+	background-color: #284255; /*quando è attivo*/
+	opacity: 1;/* quando è attivo opacity 1 */
+}
+th.not-selected{
+	background-color: #c5c8c9; /*quando è disattivo*/
+	opacity: 0.4; /* quando è disattivo (inizialmente tutti i giorni sono disattivati)*/
 }
 th:nth-of-type(1){
 	visibility: hidden;
