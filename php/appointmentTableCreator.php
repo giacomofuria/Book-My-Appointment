@@ -47,16 +47,18 @@
 					</div>
 					<div id="appointment_duration">
 						<p>Durata media di ogni appuntamento</p>
-  						<input type="range" min="10" max="300" value="30" class="slider" id="myRange" name="duration" required>
+  						<select name="select_duration" id="select_duration">
+  							<option value="10">10 min</option>
+  							<option value="30">30 min</option>
+  							<option value="60" selected>1 h</option>
+  							<option value="120">2 h</option>
+  							<option value="variabile">variabile</option>
+  						</select>
 					</div>
 					<div id="pauses">
 						<label>Orario inizio pausa <input type="time" name="start_pause"><label>
 						<label>Orario fine pausa <input type="time" name="finish_pause"><label>
 						<label><input type="checkbox" name="pause">Non faccio pause</label>
-					</div>
-					<div id="type">
-						<label><input type="radio" name="tipo_inserimento" value="comune" required>Usa questa organizzazione per tutti i giorni</label>
-						<label><input type="radio" name="tipo_inserimento" value="singolo"required>Voglio impostare ogni giorno in modo diverso</label>
 					</div>
 					<button>Salva</button>
 				</form>
@@ -72,16 +74,6 @@
 						<th>Ven</th>
 						<th>Sab</th>
 						<th>Dom</th>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 					</tr>
 					<tr>
 						<td></td>
