@@ -175,7 +175,7 @@ PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
 	
 	for(var i=0;i<this.numeroAppuntamenti;i++){
 		var ele = this.orari[i];
-		console.log("inizio: "+ele[0]+", fine: "+ele[1]);
+		//console.log("inizio: "+ele[0]+", fine: "+ele[1]); // DEBUG
 	}
 
 	return true;
@@ -209,6 +209,14 @@ function calcolaMinuti(ore,minuti){
 }
 function stringaOreMinuti(minuti){
 	var hh = Math.floor(minuti/60);
+	// aggiungo uno zero davanti per leggibilità
+	if(hh <= 9){
+		hh = "0"+hh;
+	}
 	var mm = minuti % 60;
+	// aggiungo uno zero davanti per leggibilità
+	if(mm>=0 && mm<=9){
+		mm = "0"+mm;
+	}
 	return hh+":"+mm;
 }
