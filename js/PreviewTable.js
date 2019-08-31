@@ -9,6 +9,7 @@ function PreviewTable(){
 	this.orari = new Array(); // Array in cui ogni elemento è un array di due elementi (orario di inizio e orario di fine dell'appuntamento)
 	this.table = document.createElement("table"); // riferimento alla tabella che creo
 	this.selectedColumns = new Array(false, false, false, false, false, false, false);
+	this.disabledRows = new Array();
 }
 
 /* Costruisce la tabella di preview e la appende a elem (crea l'intestazione e 
@@ -65,7 +66,9 @@ PreviewTable.prototype.updateTableColumn = function(column, checked){
 		for(var j=0; j<tds.length; j++){
 			if(j == column){
 				if(checked){
-					tds[j].className = "selected";
+					if(!this.disabledRows[i]){
+						tds[j].className = "selected";
+					}
 				}else{
 					tds[j].className = "not-selected";
 				}
@@ -110,6 +113,7 @@ PreviewTable.prototype.addRows = function(value){
 	var num = value; // considera che la prima riga (quella con l'orario di apertura è sempre presente)
 	this.righe+=num;
 	for(var i=0; i<num; i++){
+		this.disabledRows[i] = false;
 		var tr = document.createElement("tr");
 		for(var j=0; j<8;j++){
 			var td = document.createElement("td");
@@ -175,6 +179,9 @@ PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
 	this.deleteRows();
 	// Calcolo degli orari dei vari appuntamenti
 	this.calcolaOrariAppuntamenti();
+	// Creo o aggiorno la lista che permette di selezionare le pause
+	this.updatePauseSelection();
+
 	this.addRows(this.numeroAppuntamenti);
 
 	return true;
@@ -183,12 +190,50 @@ PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
 	var fine = calcolaMinuti(this.oraFine[0], this.oraFine[1]);
 	var inizio = calcolaMinuti(this.oraInizio[0], this.oraInizio[1]);
 	var time = inizio;
+	this.orari= new Array();
 	for(var i=0;i<this.numeroAppuntamenti; i++){
 
 		var begin = stringaOreMinuti(time);
 		var end = stringaOreMinuti(time+this.durataAppuntamenti);
 		this.orari[i] = new Array(begin, end);
 		time+=this.durataAppuntamenti;
+	}
+}
+PreviewTable.prototype.updatePauseSelection = function(){
+	var pausesSelector = document.getElementById("pauses_selector");
+	// cancello i figli (option) della vecchia select
+	while(pausesSelector.lastChild){
+		pausesSelector.lastChild.remove();
+	}
+	// creo i nuovi option
+	for(var i=0; i<this.orari.length; i++){
+		var intervallo = this.orari[i][0]+" - "+this.orari[i][1];
+		var opt = document.createElement("option");
+		opt.setAttribute("value",i);
+		txt = document.createTextNode(intervallo);
+		opt.appendChild(txt);
+		pausesSelector.appendChild(opt);
+	}
+}
+PreviewTable.prototype.updateDisabledAppointments = function(elem){
+	var options = elem.childNodes;
+	for(var i=0; i<options.length; i++){
+		this.updateRow(i,options[i].selected);
+	}
+}
+PreviewTable.prototype.updateRow = function(index, disable){
+	var rows = this.table.getElementsByTagName("tr");
+	var i = index+1;
+	this.disabledRows[i] = disable;
+	var td = rows[i].getElementsByTagName("td");
+	for(var j=0; j<td.length;j++){
+		if(disable)
+			td[j].className = "not-selected";
+		else{
+			if(this.selectedColumns[j-1] || j==0){
+				td[j].className = "selected";
+			}
+		}
 	}
 }
 function estraiOreMinuti(value){

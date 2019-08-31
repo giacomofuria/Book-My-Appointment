@@ -44,6 +44,7 @@
 						<label><input type="checkbox" name="work_days" value="7">Dom</label>
 					</div>
 					<div id="open_close_times">
+						<p>Inserisci gli orari di apertura e di chiusura</p>
 						<label>Orario di apertura <input type="time" name="opening_time" required><label>
 						<label>Orario di chiusura <input type="time" name="closing_time" required><label>
 					</div>
@@ -58,9 +59,11 @@
   						</select>
 					</div>
 					<div id="pauses">
-						<label>Orario inizio pausa <input type="time" name="start_pause"><label>
-						<label>Orario fine pausa <input type="time" name="finish_pause"><label>
-						<label><input type="checkbox" name="pause">Non faccio pause</label>
+
+						<p>Seleziona uno o più intervalli che non vuoi rendere prenotabili:</p>
+						<select id="pauses_selector" name="pauses_selector" multiple>
+
+						</select>
 					</div>
 					<button>Salva</button>
 				</form>

@@ -27,6 +27,8 @@ function begin(){
 	}
 	var selectDuration = document.getElementById("select_duration");
 	selectDuration.onchange = gestore;
+	var pausesSelector = document.getElementById("pauses_selector");
+	pausesSelector.onchange = gestore;
 }
 function cambia(elem){
 	switch(elem.name){
@@ -45,6 +47,9 @@ function cambia(elem){
 		case "select_duration":
 			tabellaDiPreview.updateAppointmentDuration(elem.value);
 			//console.log(elem.value);
+			break;
+		case "pauses_selector":
+			tabellaDiPreview.updateDisabledAppointments(elem);
 			break;
 		default:
 			break;
