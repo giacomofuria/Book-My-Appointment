@@ -171,13 +171,6 @@ PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
 	this.calcolaOrariAppuntamenti();
 	this.addRows(this.numeroAppuntamenti);
 
-	
-	
-	for(var i=0;i<this.numeroAppuntamenti;i++){
-		var ele = this.orari[i];
-		//console.log("inizio: "+ele[0]+", fine: "+ele[1]); // DEBUG
-	}
-
 	return true;
 }
 PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
@@ -190,7 +183,6 @@ PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
 		var end = stringaOreMinuti(time+this.durataAppuntamenti);
 		this.orari[i] = new Array(begin, end);
 		time+=this.durataAppuntamenti;
-
 	}
 }
 function estraiOreMinuti(value){
