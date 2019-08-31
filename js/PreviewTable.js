@@ -27,7 +27,9 @@ PreviewTable.prototype.buildTable = function(elem){
 		headRow.appendChild(th);
 	}
 	this.table.appendChild(headRow);
+
 	// creo la prima riga
+	
 	var firstRow = document.createElement("tr");
 	for(var i=0; i<8; i++){
 		var td = document.createElement("td");
@@ -38,6 +40,7 @@ PreviewTable.prototype.buildTable = function(elem){
 		firstRow.appendChild(td);
 	}
 	this.table.appendChild(firstRow);
+
 	elem.appendChild(this.table);
 }
 /* Aggiorna la colonna selezionata o deselezionata */
@@ -91,22 +94,39 @@ PreviewTable.prototype.updateStartTime = function(value){
 PreviewTable.prototype.deleteRows = function(){
 	var rows = this.table.getElementsByTagName("tr");
 	//console.log("righe esistenti: "+rows.length); // DEBUG
-	for(var i=rows.length-1; i>1; i--){
+	for(var i=rows.length-1; i>0; i--){
 		var ele = rows[i];
 		ele.remove();
 		this.righe--;
 	}
 }
 PreviewTable.prototype.addRows = function(value){
-	var num = value - 1; // considera che la prima riga (quella con l'orario di apertura è sempre presente)
+	var num = value; // considera che la prima riga (quella con l'orario di apertura è sempre presente)
 	this.righe+=num;
 	for(var i=0; i<num; i++){
 		var tr = document.createElement("tr");
 		for(var j=0; j<8;j++){
 			var td = document.createElement("td");
-			if(j==0)
+			
+			if(j==0){ // elemento contenente l'orario
 				td.className = "selected";
-			else{
+				// Aggiunta inizio e fine orario
+				var text = td.firstChild;
+				if(text){
+					text.remove();
+				}
+				var startTime = document.createElement("p");
+				startTime.className = "start-time";
+				var newTextNode = document.createTextNode(this.orari[i][0]);
+				startTime.appendChild(newTextNode);
+				td.appendChild(startTime);
+
+				var endTime = document.createElement("p");
+				endTime.className = "end-time";
+				newTextNode = document.createTextNode(this.orari[i][1]);
+				endTime.appendChild(newTextNode);
+				td.appendChild(endTime);
+			}else{
 				if(this.selectedColumns[j-1]){
 					td.className = "selected";
 				}else
@@ -147,10 +167,11 @@ PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
 	this.numeroAppuntamenti = Math.floor(differenza / this.durataAppuntamenti);
 	//console.log("Num appuntamenti: "+this.numeroAppuntamenti); // DEBUG
 	this.deleteRows();
-	this.addRows(this.numeroAppuntamenti);
-
 	// Calcolo degli orari dei vari appuntamenti
 	this.calcolaOrariAppuntamenti();
+	this.addRows(this.numeroAppuntamenti);
+
+	
 	
 	for(var i=0;i<this.numeroAppuntamenti;i++){
 		var ele = this.orari[i];
@@ -171,10 +192,6 @@ PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
 		time+=this.durataAppuntamenti;
 
 	}
-}
-/* Aggiorna la colonna con gli orari degli appuntamenti prelevandoli dall'array this.orari*/
-PreviewTable.prototype.updateOrariColumn = function(){
-	
 }
 function estraiOreMinuti(value){
 	var splittedTime = value.split(":",2);
