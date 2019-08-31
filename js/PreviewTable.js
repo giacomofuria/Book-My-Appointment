@@ -33,9 +33,15 @@ PreviewTable.prototype.buildTable = function(elem){
 	var firstRow = document.createElement("tr");
 	for(var i=0; i<8; i++){
 		var td = document.createElement("td");
-		if(i==0)
+		if(i==0){
 			td.className = "selected";
-		else
+			var startTime = document.createElement("p");
+			startTime.className = "start-time";
+			td.appendChild(startTime);
+			var endTime = document.createElement("p");
+			endTime.className = "end-time";
+			td.appendChild(endTime);
+		}else
 			td.className = "not-selected";
 		firstRow.appendChild(td);
 	}
