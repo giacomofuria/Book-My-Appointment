@@ -6,6 +6,7 @@ function PreviewTable(){
 	this.durataAppuntamenti = 60; // Inizialmente la durata di default è un'ora
 	this.righe = 1;
 	this.container = null;
+	this.orari = new Array(); // Array in cui ogni elemento è un array di due elementi (orario di inizio e orario di fine dell'appuntamento)
 	this.table = document.createElement("table"); // riferimento alla tabella che creo
 	this.selectedColumns = new Array(false, false, false, false, false, false, false);
 }
@@ -70,7 +71,7 @@ PreviewTable.prototype.updateStartTime = function(value){
 		return;
 	
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
-	console.log("Minuti: "+minuti);
+	// console.log("Minuti: "+minuti); // DEBUG
 
 	var flag = this.calcolaNumeroAppuntamenti(); // se il campio oraFine è già presente continua
 
@@ -84,7 +85,7 @@ PreviewTable.prototype.updateStartTime = function(value){
 		text.remove();
 	}
 	var newTextNode = document.createTextNode(value);
-	tds[0].appendChild(newTextNode);	
+	tds[0].appendChild(newTextNode);
 }
 /* Funzione che cancella le righe successive alla prima*/
 PreviewTable.prototype.deleteRows = function(){
@@ -122,7 +123,6 @@ PreviewTable.prototype.updateCloseTime = function(value){
 	if(splittedTime == null)
 		return;
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
-	console.log("Minuti: "+minuti);
 
 	this.calcolaNumeroAppuntamenti();
 
@@ -133,7 +133,48 @@ PreviewTable.prototype.updateCloseTime = function(value){
 PreviewTable.prototype.updateAppointmentDuration = function(value){
 	this.durataAppuntamenti = parseInt(value);
 	this.calcolaNumeroAppuntamenti();
-	console.log("Durata: "+this.durataAppuntamenti+" min"); // DEBUG
+	//console.log("Durata: "+this.durataAppuntamenti+" min"); // DEBUG
+}
+PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
+	if(this.oraFine == null || this.oraInizio == null)
+		return false;
+	var minutiOraFine = calcolaMinuti(this.oraFine[0], this.oraFine[1]);
+	var minutiOraInizio = calcolaMinuti(this.oraInizio[0], this.oraInizio[1]);
+	var differenza = minutiOraFine-minutiOraInizio;
+	if(differenza <= 0)
+		return false;
+	//console.log("Diff: "+differenza); // DEBUG
+	this.numeroAppuntamenti = Math.floor(differenza / this.durataAppuntamenti);
+	//console.log("Num appuntamenti: "+this.numeroAppuntamenti); // DEBUG
+	this.deleteRows();
+	this.addRows(this.numeroAppuntamenti);
+
+	// Calcolo degli orari dei vari appuntamenti
+	this.calcolaOrariAppuntamenti();
+	
+	for(var i=0;i<this.numeroAppuntamenti;i++){
+		var ele = this.orari[i];
+		console.log("inizio: "+ele[0]+", fine: "+ele[1]);
+	}
+
+	return true;
+}
+PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
+	var fine = calcolaMinuti(this.oraFine[0], this.oraFine[1]);
+	var inizio = calcolaMinuti(this.oraInizio[0], this.oraInizio[1]);
+	var time = inizio;
+	for(var i=0;i<this.numeroAppuntamenti; i++){
+
+		var begin = stringaOreMinuti(time);
+		var end = stringaOreMinuti(time+this.durataAppuntamenti);
+		this.orari[i] = new Array(begin, end);
+		time+=this.durataAppuntamenti;
+
+	}
+}
+/* Aggiorna la colonna con gli orari degli appuntamenti prelevandoli dall'array this.orari*/
+PreviewTable.prototype.updateOrariColumn = function(){
+	
 }
 function estraiOreMinuti(value){
 	var splittedTime = value.split(":",2);
@@ -145,22 +186,12 @@ function estraiOreMinuti(value){
 }
 function calcolaMinuti(ore,minuti){
 	var h = parseInt(ore);
+	//console.log("h: "+h);// DEBUG
 	var m = parseInt(minuti);
 	return ((h*60)+m);
 }
-PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
-	if(this.oraFine == null || this.oraInizio == null)
-		return false;
-	var minutiOraFine = calcolaMinuti(this.oraFine[0], this.oraFine[1]);
-	var minutiOraInizio = calcolaMinuti(this.oraInizio[0], this.oraInizio[1]);
-	var differenza = minutiOraFine-minutiOraInizio;
-	if(differenza <= 0)
-		return false;
-	console.log("Diff: "+differenza);
-	this.numeroAppuntamenti = Math.floor(differenza / this.durataAppuntamenti);
-	console.log("Num appuntamenti: "+this.numeroAppuntamenti);
-
-	this.deleteRows();
-	this.addRows(this.numeroAppuntamenti);
-	return true;
+function stringaOreMinuti(minuti){
+	var hh = Math.floor(minuti/60);
+	var mm = minuti % 60;
+	return hh+":"+mm;
 }
