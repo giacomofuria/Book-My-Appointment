@@ -43,7 +43,8 @@ function cambia(elem){
 			tabellaDiPreview.updateCloseTime(elem.value);
 			break;
 		case "select_duration":
-			console.log(elem.value);
+			tabellaDiPreview.updateAppointmentDuration(elem.value);
+			//console.log(elem.value);
 			break;
 		default:
 			break;

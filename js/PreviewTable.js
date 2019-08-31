@@ -1,8 +1,9 @@
 var week = new Array("Lun","Mar","Mer","Gio","Ven","Sab","Dom");
 function PreviewTable(){
-	this.oraInizio = null;
-	this.oraFine = null;
+	this.oraInizio = null; // Array con ora (prima posizione), minuti (seconda posizione)
+	this.oraFine = null; // Array con ora (prima posizione), minuti (seconda posizione)
 	this.numeroAppuntamenti = null;
+	this.durataAppuntamenti = 60; // Inizialmente la durata di default è un'ora
 	this.righe = 1;
 	this.container = null;
 	this.table = document.createElement("table"); // riferimento alla tabella che creo
@@ -63,7 +64,19 @@ PreviewTable.prototype.updateTableColumn = function(column, checked){
 	}
 }
 PreviewTable.prototype.updateStartTime = function(value){
-	this.oraInizio=value;
+	var splittedTime = estraiOreMinuti(value);
+	this.oraInizio = splittedTime;
+	if(splittedTime == null)
+		return;
+	
+	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
+	console.log("Minuti: "+minuti);
+
+	var flag = this.calcolaNumeroAppuntamenti(); // se il campio oraFine è già presente continua
+
+	if(flag)
+		return; // la funzione calcolaNumeroAppuntamenti() ha già aggioranto la tabella
+
 	var tds = this.table.getElementsByTagName("td");
 	// se c'è rimuovo l'eventuale nodo testuale figlio
 	var text = tds[0].firstChild;
@@ -104,11 +117,50 @@ PreviewTable.prototype.addRows = function(value){
 	}	
 }
 PreviewTable.prototype.updateCloseTime = function(value){
-	this.oraFine = value;
-	// Conosco orario di apertura e di chiusura e, con appuntamenti di 1h, posso calcolare il numero degli appuntamenti.
-	this.numeroAppuntamenti = parseInt(this.oraFine)-parseInt(this.oraInizio);
-	this.deleteRows();
-	this.addRows(this.numeroAppuntamenti);
+	var splittedTime = estraiOreMinuti(value);
+	this.oraFine = splittedTime;
+	if(splittedTime == null)
+		return;
+	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
+	console.log("Minuti: "+minuti);
+
+	this.calcolaNumeroAppuntamenti();
+
+	
 	//aggiornaTabellaPreview();
 	
+}
+PreviewTable.prototype.updateAppointmentDuration = function(value){
+	this.durataAppuntamenti = parseInt(value);
+	this.calcolaNumeroAppuntamenti();
+	console.log("Durata: "+this.durataAppuntamenti+" min"); // DEBUG
+}
+function estraiOreMinuti(value){
+	var splittedTime = value.split(":",2);
+	if(splittedTime[0] != null && splittedTime[1] != null){
+		return splittedTime;
+	}else{
+		return null;
+	}
+}
+function calcolaMinuti(ore,minuti){
+	var h = parseInt(ore);
+	var m = parseInt(minuti);
+	return ((h*60)+m);
+}
+PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
+	if(this.oraFine == null || this.oraInizio == null)
+		return false;
+	var minutiOraFine = calcolaMinuti(this.oraFine[0], this.oraFine[1]);
+	var minutiOraInizio = calcolaMinuti(this.oraInizio[0], this.oraInizio[1]);
+	var differenza = minutiOraFine-minutiOraInizio;
+	if(differenza <= 0)
+		return false;
+	console.log("Diff: "+differenza);
+	this.numeroAppuntamenti = Math.floor(differenza / this.durataAppuntamenti);
+	console.log("Num appuntamenti: "+this.numeroAppuntamenti);
+
+	this.deleteRows();
+	this.addRows(this.numeroAppuntamenti);
+	return true;
 }
