@@ -1,9 +1,98 @@
 <?php
 	session_start();
 	include "./util/sessionUtil.php";
+	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
 	if(!isLogged()){
 		header('Location: ./../index.php');
 		exit;
+	}
+	function parametriRicevuti(){
+		if(isset($_POST['work_days']) && isset($_POST['opening_time']) && 
+			isset($_POST['closing_time']) && isset($_POST['select_duration']) 
+			&& isset($_POST['pauses_selector'])){
+			return true;
+		}
+		return false;
+	}
+	function isSaved($userId){
+		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
+		$queryText = "SELECT * FROM struttura_tabella_appuntamenti WHERE userId='".$userId."';";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		//echo "riga presente: ".$numRow.'<br>'; // debug
+		$returnFlag = null;
+		if($numRow == 0)
+			$returnFlag = false;
+		else
+			$returnFlag = true;
+		$bookMyAppointmentDb->closeConnection();
+		return $returnFlag;
+	}
+	function isDaySelected($days, $day){ // day = 1,2,3,4,5,6,7
+		foreach($days as $elem){
+			if($elem == $day){
+				return 'TRUE';
+			}
+		}
+		return 'FALSE';
+	}
+	function getPausesString($vett){
+		$stringa = null;
+		foreach ($vett as $value) {
+			$stringa=$stringa.$value." ";
+		}
+		return $stringa;
+	}
+	function saveConfig($userId, $giorni, $inizio, $fine, $durata, $pause){
+		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
+
+		//$giorni = $bookMyAppointmentDb->sqlInjectionFilter($giorni);
+		$inizio = $bookMyAppointmentDb->sqlInjectionFilter($inizio);
+		$fine = $bookMyAppointmentDb->sqlInjectionFilter($fine);
+		$durata = $bookMyAppointmentDb->sqlInjectionFilter($durata);
+		//$pause = $bookMyAppointmentDb->sqlInjectionFilter($pause);
+		$queryText = null;
+		$utente = $_SESSION['userId'];
+		$stringaConGiorni = implode(',',$giorni);
+		$stringaConPause = implode(',',$pause);
+		if(!isSaved($utente)){
+			// faccio un insert
+			
+			$queryText = "INSERT 
+			              INTO struttura_tabella_appuntamenti 
+			              VALUES($utente, '".$stringaConGiorni."','".$inizio."','".$fine."',$durata,'".$stringaConPause."');";
+		}else{
+			//faccio un update
+			$queryText = "UPDATE struttura_tabella_appuntamenti
+						  SET giorni='".$stringaConGiorni."',oraInizio='".$inizio."',
+						  oraFine='".$fine."',durataIntervalli=$durata,intervalliPausa='".$stringaConPause."'
+						  WHERE userId=$utente;";
+		}
+		//echo isDaySelected($giorni,'1').'<br>'.isDaySelected($giorni,'3'); //DEBUG
+		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$bookMyAppointmentDb->closeConnection();
+		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
+	}
+	function loadConfig($userId){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT * FROM struttura_tabella_appuntamenti WHERE userId='".$userId."';";
+
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+		$bookMyAppointmentDb->closeConnection();
+
+		return $userRow;
+
+	}
+	function findValue($vett, $value){
+		foreach($vett as $elem){
+			if($elem == $value)
+				return true;
+		}
+		return false;
 	}
 ?>
 <!DOCTYPE html>
@@ -31,31 +120,81 @@
 		?>
 		<div id="workspace">
 			<div id="creator_container">
+				<?php
+					$giorni = null;
+					$inizio = null;
+					$fine = null;
+					$durata = null;
+					$pause = null;
+
+					if(parametriRicevuti()){
+						// prendo i dati dai parametri ricevuti con il metodo post
+						$giorni = $_POST['work_days'];
+						$inizio = $_POST['opening_time'];
+						$fine = $_POST['closing_time'];
+						$durata = $_POST['select_duration'];
+						$pause = $_POST['pauses_selector'];
+
+						// stampa dati per debug (inizio)
+						/*
+						foreach($giorni as $giorno){
+							echo $giorno.'<br>';
+						}
+						echo "Orario di apertura: ".$inizio.'<br>';
+						echo 'Orario di chiusura: '.$fine.'<br>';
+						echo 'Durata degli appuntamenti: '.$durata.'<br>';
+						foreach($pause as $pausa){
+							echo $pausa.'<br>';
+						}
+						*/
+						// stampa dei dati per debug (fine)
+
+						// qui salvo i dati ricevuti, nel db
+						$result = saveConfig($_SESSION['userId'], $giorni, $inizio, $fine, $durata, $pause);
+					}else{
+						// non ci sono parametri passati con post
+						if(isSaved($_SESSION['userId'])){
+							// carico i dati dal database
+							$dati = loadConfig($_SESSION['userId']);
+							$giorni = explode(',',$dati['giorni']);
+							$inizio = $dati['oraInizio'];
+							$fine = $dati['oraFine'];
+							$durata = $dati['durataIntervalli'];
+							$pause = explode(',',$dati['intervalliPausa']);
+
+						}
+					}
+
+				?>
 				<form method="post" action="./appointmentTableCreator.php">
 					
 					<div id="work_days">
 						<p>Seleziona i giorni di lavoro</p>
-						<label><input type="checkbox" name="work_days[]" value="1">Lun</label>
-						<label><input type="checkbox" name="work_days[]" value="2">Mar</label>
-						<label><input type="checkbox" name="work_days[]" value="3">Mer</label>
-						<label><input type="checkbox" name="work_days[]" value="4">Gio</label>
-						<label><input type="checkbox" name="work_days[]" value="5">Ven</label>
-						<label><input type="checkbox" name="work_days[]" value="6">Sab</label>
-						<label><input type="checkbox" name="work_days[]" value="7">Dom</label>
+						<label><input type="checkbox" name="work_days[]" value="1" <?php if($giorni !=null && findValue($giorni,'1')) echo 'checked';?>>Lun</label>
+						<label><input type="checkbox" name="work_days[]" value="2" <?php if($giorni !=null && findValue($giorni,'2')) echo 'checked';?> >Mar</label>
+						<label><input type="checkbox" name="work_days[]" value="3" <?php if($giorni !=null && findValue($giorni,'3')) echo 'checked';?> >Mer</label>
+						<label><input type="checkbox" name="work_days[]" value="4" <?php if($giorni !=null && findValue($giorni,'4')) echo 'checked';?> >Gio</label>
+						<label><input type="checkbox" name="work_days[]" value="5" <?php if($giorni !=null && findValue($giorni,'5')) echo 'checked';?> >Ven</label>
+						<label><input type="checkbox" name="work_days[]" value="6" <?php if($giorni !=null && findValue($giorni,'6')) echo 'checked';?> >Sab</label>
+						<label><input type="checkbox" name="work_days[]" value="7" <?php if($giorni !=null && findValue($giorni,'7')) echo 'checked';?> >Dom</label>
 					</div>
 					<div id="open_close_times">
 						<p>Inserisci gli orari di apertura e di chiusura</p>
-						<label>Orario di apertura <input type="time" name="opening_time" required><label>
-						<label>Orario di chiusura <input type="time" name="closing_time" required><label>
+						<label>Orario di apertura 
+							<input type="time" name="opening_time" value="<?php if($inizio!=null) echo $inizio; else echo '00:00'; ?>" required>
+						<label>
+						<label>Orario di chiusura 
+							<input type="time" name="closing_time" value="<?php if($fine!=null) echo $fine; else echo '00:00'; ?>" required>
+						<label>
 					</div>
 					<div id="appointment_duration">
 						<p>Durata media di ogni appuntamento</p>
   						<select name="select_duration" id="select_duration">
-  							<option value="10">10 min</option>
-  							<option value="30">30 min</option>
-  							<option value="60" selected>1 h</option>
-  							<option value="120">2 h</option>
-  							<option value="variabile">variabile</option>
+  							<option value="10" <?php if($durata==10)echo 'selected';?>>10 min</option>
+  							<option value="30" <?php if($durata==30)echo 'selected';?>>30 min</option>
+  							<option value="60" <?php if($durata==60)echo 'selected';?>>1 h</option>
+  							<option value="120" <?php if($durata==120)echo 'selected';?>>2 h</option>
+  							<!-- <option value="variabile">variabile</option> -->
   						</select>
 					</div>
 					<div id="pauses">
@@ -68,33 +207,7 @@
 					<button>Salva</button>
 				</form>
 				<div>
-					<?php
-						$giorni = null;
-						if(isset($_POST['work_days'])){
-							$giorni = $_POST['work_days'];
-							foreach($giorni as $giorno){
-								echo $giorno.'<br>';
-							}
-						}
-						if(isset($_POST['opening_time']) && isset($_POST['closing_time'])){
-							$inizio = $_POST['opening_time'];
-							$fine = $_POST['closing_time'];
-							echo "Orario di apertura: ".$inizio.'<br>';
-							echo 'Orario di chiusura: '.$fine.'<br>';
-						}
-						if(isset($_POST['select_duration'])){
-							$durata = $_POST['select_duration'];
-							echo 'Durata degli appuntamenti: '.$durata.'<br>';
-						}
-						$pause = null;
-						if(isset($_POST['pauses_selector'])){
-							echo "Intervalli di pausa <br><br>";
-							$pause = $_POST['pauses_selector'];
-							foreach($pause as $pausa){
-								echo $pausa.'<br>';
-							}
-						}
-					?>
+	
 				</div>
 			</div>
 			<div id="preview_container">

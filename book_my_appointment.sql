@@ -16,15 +16,9 @@ CREATE TABLE `user` (
 DROP TABLE IF EXISTS struttura_tabella_appuntamenti;
 CREATE TABLE struttura_tabella_appuntamenti (
     userId int(11) NOT NULL,
-    lun BOOLEAN DEFAULT FALSE,
-    mar BOOLEAN DEFAULT FALSE,
-    mer BOOLEAN DEFAULT FALSE,
-    gio BOOLEAN DEFAULT FALSE,
-    ven BOOLEAN DEFAULT FALSE,
-    sab BOOLEAN DEFAULT FALSE,
-    dom BOOLEAN DEFAULT FALSE,
-    oraInizio int(11) DEFAULT NULL,
-    oraFine int(11) DEFAULT NULL,
+    giorni VARCHAR(30) DEFAULT NULL,
+    oraInizio VARCHAR(10) DEFAULT NULL,
+    oraFine VARCHAR(10) DEFAULT NULL,
     durataIntervalli int(11) DEFAULT 60,
     intervalliPausa VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY (userId),
