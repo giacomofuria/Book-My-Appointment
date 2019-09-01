@@ -15,7 +15,6 @@ function begin(){
 	var gestore = new Function("cambia(this)");
 	for(var i=0; i<inputs.length; i++){
 		var elem = inputs[i];
-		
 		switch(elem.type){
 			case "time":
 				elem.onblur = gestore;
