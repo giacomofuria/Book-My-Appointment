@@ -31,17 +31,17 @@
 		?>
 		<div id="workspace">
 			<div id="creator_container">
-				<form method="post" action="">
+				<form method="post" action="./appointmentTableCreator.php">
 					
 					<div id="work_days">
 						<p>Seleziona i giorni di lavoro</p>
-						<label><input type="checkbox" name="work_days" value="1">Lun</label>
-						<label><input type="checkbox" name="work_days" value="2">Mar</label>
-						<label><input type="checkbox" name="work_days" value="3">Mer</label>
-						<label><input type="checkbox" name="work_days" value="4">Gio</label>
-						<label><input type="checkbox" name="work_days" value="5">Ven</label>
-						<label><input type="checkbox" name="work_days" value="6">Sab</label>
-						<label><input type="checkbox" name="work_days" value="7">Dom</label>
+						<label><input type="checkbox" name="work_days[]" value="1">Lun</label>
+						<label><input type="checkbox" name="work_days[]" value="2">Mar</label>
+						<label><input type="checkbox" name="work_days[]" value="3">Mer</label>
+						<label><input type="checkbox" name="work_days[]" value="4">Gio</label>
+						<label><input type="checkbox" name="work_days[]" value="5">Ven</label>
+						<label><input type="checkbox" name="work_days[]" value="6">Sab</label>
+						<label><input type="checkbox" name="work_days[]" value="7">Dom</label>
 					</div>
 					<div id="open_close_times">
 						<p>Inserisci gli orari di apertura e di chiusura</p>
@@ -61,12 +61,41 @@
 					<div id="pauses">
 
 						<p>Seleziona uno o più intervalli che non vuoi rendere prenotabili:</p>
-						<select id="pauses_selector" name="pauses_selector" multiple>
+						<select id="pauses_selector" name="pauses_selector[]" multiple>
 
 						</select>
 					</div>
 					<button>Salva</button>
 				</form>
+				<div>
+					<?php
+						$giorni = null;
+						if(isset($_POST['work_days'])){
+							$giorni = $_POST['work_days'];
+							foreach($giorni as $giorno){
+								echo $giorno.'<br>';
+							}
+						}
+						if(isset($_POST['opening_time']) && isset($_POST['closing_time'])){
+							$inizio = $_POST['opening_time'];
+							$fine = $_POST['closing_time'];
+							echo "Orario di apertura: ".$inizio.'<br>';
+							echo 'Orario di chiusura: '.$fine.'<br>';
+						}
+						if(isset($_POST['select_duration'])){
+							$durata = $_POST['select_duration'];
+							echo 'Durata degli appuntamenti: '.$durata.'<br>';
+						}
+						$pause = null;
+						if(isset($_POST['pauses_selector'])){
+							echo "Intervalli di pausa <br><br>";
+							$pause = $_POST['pauses_selector'];
+							foreach($pause as $pausa){
+								echo $pausa.'<br>';
+							}
+						}
+					?>
+				</div>
 			</div>
 			<div id="preview_container">
 

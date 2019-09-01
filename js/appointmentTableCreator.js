@@ -32,7 +32,7 @@ function begin(){
 }
 function cambia(elem){
 	switch(elem.name){
-		case "work_days":
+		case "work_days[]":
 			//aggiornaGiorniLavoroTabellaPreview(elem);
 			tabellaDiPreview.updateTableColumn(parseInt(elem.value), elem.checked);
 			break;
@@ -48,7 +48,7 @@ function cambia(elem){
 			tabellaDiPreview.updateAppointmentDuration(elem.value);
 			//console.log(elem.value);
 			break;
-		case "pauses_selector":
+		case "pauses_selector[]":
 			tabellaDiPreview.updateDisabledAppointments(elem);
 			break;
 		default:
