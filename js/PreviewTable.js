@@ -50,6 +50,16 @@ PreviewTable.prototype.buildTable = function(elem){
 
 	elem.appendChild(this.table);
 }
+/* Aggiorna la tabella al primo avvio */
+PreviewTable.prototype.updateTable = function(workDays,openCloseTimes,selectDurationElement,pausesSelectorElement){
+	for(var i=0;i<workDays.length; i++){
+		//console.log("Input: "+workDays[i].value+", check: "+workDays[i].checked);// DEBUG
+		this.updateTableColumn(parseInt(workDays[i].value),workDays[i].checked);
+	}
+	this.durataAppuntamenti = parseInt(selectDurationElement.value);
+	this.updateStartTime(openCloseTimes[0].value);
+	this.updateCloseTime(openCloseTimes[1].value);
+}
 /* Aggiorna la colonna selezionata o deselezionata */
 PreviewTable.prototype.updateTableColumn = function(column, checked){
 	var intestazioni = this.table.getElementsByTagName("th");

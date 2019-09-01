@@ -3,7 +3,7 @@
 var oraInizio;
 var oraFine;
 var numeroAppuntamenti;
-
+var flagPrimoAvvio = true;
 var tabellaDiPreview = new PreviewTable();
 
 function begin(){
@@ -28,6 +28,18 @@ function begin(){
 	selectDuration.onchange = gestore;
 	var pausesSelector = document.getElementById("pauses_selector");
 	pausesSelector.onchange = gestore;
+
+	if(flagPrimoAvvio){
+		flagPrimoAvvio=false;
+		var workDaysDiv = document.getElementById("work_days");
+		var workDays = workDaysDiv.getElementsByTagName("input");
+		var openCloseTimesDiv = document.getElementById("open_close_times");
+		var openCloseTimes = openCloseTimesDiv.getElementsByTagName("input");
+		var selectDurationElement = document.getElementById("select_duration");
+		var pausesSelectorElement = document.getElementById("pauses_selector");
+		tabellaDiPreview.updateTable(workDays,openCloseTimes,selectDurationElement,pausesSelectorElement);
+	}
+
 }
 function cambia(elem){
 	switch(elem.name){

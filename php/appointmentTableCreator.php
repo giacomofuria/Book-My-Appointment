@@ -9,7 +9,7 @@
 	function parametriRicevuti(){
 		if(isset($_POST['work_days']) && isset($_POST['opening_time']) && 
 			isset($_POST['closing_time']) && isset($_POST['select_duration']) 
-			&& isset($_POST['pauses_selector'])){
+			/*&& isset($_POST['pauses_selector'])*/){
 			return true;
 		}
 		return false;
@@ -54,7 +54,11 @@
 		$queryText = null;
 		$utente = $_SESSION['userId'];
 		$stringaConGiorni = implode(',',$giorni);
-		$stringaConPause = implode(',',$pause);
+		$stringaConPause = " ";
+		if($pause != null){
+			$stringaConPause = implode(',',$pause);
+		}
+		
 		if(!isSaved($utente)){
 			// faccio un insert
 			
@@ -133,7 +137,12 @@
 						$inizio = $_POST['opening_time'];
 						$fine = $_POST['closing_time'];
 						$durata = $_POST['select_duration'];
-						$pause = $_POST['pauses_selector'];
+						if(isset($_POST['pauses_selector'])){
+							$pause = $_POST['pauses_selector'];
+						}else{
+							$pause = null;
+						}
+						
 
 						// stampa dati per debug (inizio)
 						/*
