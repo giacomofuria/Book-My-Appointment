@@ -13,7 +13,8 @@ CREATE TABLE `user` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 
-CREATE TABLE StrutturaTabellaAppuntamenti (
+DROP TABLE IF EXISTS struttura_tabella_appuntamenti;
+CREATE TABLE struttura_tabella_appuntamenti (
     userId int(11) NOT NULL,
     lun BOOLEAN DEFAULT FALSE,
     mar BOOLEAN DEFAULT FALSE,
