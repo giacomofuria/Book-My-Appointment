@@ -18,7 +18,7 @@
 		</button>
 	</div>	
 	<div class="top-bar-box">
-		<button id="add-button" class="command-buttons" title="Add new appointment schedule" onclick="window.location.href='./appointmentTableCreator.php'">
+		<button id="add-button" class="command-buttons" title="Add new appointment schedule" onclick="window.location.href='./settings.php'">
 			<img src="./../img/icon/set1/add.png" style="width:100%; height:62%;">
 		</button>
 	</div>

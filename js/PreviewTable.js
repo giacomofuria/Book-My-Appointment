@@ -167,10 +167,7 @@ PreviewTable.prototype.updateCloseTime = function(value,firstCall){
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
 
 	this.calcolaNumeroAppuntamenti(!firstCall);
-
-	
 	//aggiornaTabellaPreview();
-	
 }
 PreviewTable.prototype.updateAppointmentDuration = function(value){
 	var nuovaDurata = parseInt(value);
