@@ -57,8 +57,9 @@ PreviewTable.prototype.updateTable = function(workDays,openCloseTimes,selectDura
 		this.updateTableColumn(parseInt(workDays[i].value),workDays[i].checked);
 	}
 	this.durataAppuntamenti = parseInt(selectDurationElement.value);
-	this.updateStartTime(openCloseTimes[0].value);
-	this.updateCloseTime(openCloseTimes[1].value);
+	this.updateStartTime(openCloseTimes[0].value,true);
+	this.updateCloseTime(openCloseTimes[1].value,true);
+	this.updateDisabledAppointments(pausesSelectorElement);
 }
 /* Aggiorna la colonna selezionata o deselezionata */
 PreviewTable.prototype.updateTableColumn = function(column, checked){
@@ -86,7 +87,7 @@ PreviewTable.prototype.updateTableColumn = function(column, checked){
 		}
 	}
 }
-PreviewTable.prototype.updateStartTime = function(value){
+PreviewTable.prototype.updateStartTime = function(value,firstCall){
 	var splittedTime = estraiOreMinuti(value);
 	this.oraInizio = splittedTime;
 	if(splittedTime == null)
@@ -95,7 +96,7 @@ PreviewTable.prototype.updateStartTime = function(value){
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
 	// console.log("Minuti: "+minuti); // DEBUG
 
-	var flag = this.calcolaNumeroAppuntamenti(); // se il campio oraFine è già presente continua
+	var flag = this.calcolaNumeroAppuntamenti(!firstCall); // se il campio oraFine è già presente continua
 
 	if(flag)
 		return; // la funzione calcolaNumeroAppuntamenti() ha già aggioranto la tabella
@@ -157,25 +158,31 @@ PreviewTable.prototype.addRows = function(value){
 		this.table.appendChild(tr);
 	}	
 }
-PreviewTable.prototype.updateCloseTime = function(value){
+PreviewTable.prototype.updateCloseTime = function(value,firstCall){
+
 	var splittedTime = estraiOreMinuti(value);
 	this.oraFine = splittedTime;
 	if(splittedTime == null)
 		return;
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
 
-	this.calcolaNumeroAppuntamenti();
+	this.calcolaNumeroAppuntamenti(!firstCall);
 
 	
 	//aggiornaTabellaPreview();
 	
 }
 PreviewTable.prototype.updateAppointmentDuration = function(value){
-	this.durataAppuntamenti = parseInt(value);
-	this.calcolaNumeroAppuntamenti();
+	var nuovaDurata = parseInt(value);
+	var durationModified = false;
+	if(this.durataAppuntamenti != nuovaDurata){
+		durationModified = true;
+	}
+	this.durataAppuntamenti = nuovaDurata;
+	this.calcolaNumeroAppuntamenti(durationModified);
 	//console.log("Durata: "+this.durataAppuntamenti+" min"); // DEBUG
 }
-PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
+PreviewTable.prototype.calcolaNumeroAppuntamenti = function(durationModified){
 	if(this.oraFine == null || this.oraInizio == null)
 		return false;
 	var minutiOraFine = calcolaMinuti(this.oraFine[0], this.oraFine[1]);
@@ -190,7 +197,7 @@ PreviewTable.prototype.calcolaNumeroAppuntamenti = function(){
 	// Calcolo degli orari dei vari appuntamenti
 	this.calcolaOrariAppuntamenti();
 	// Creo o aggiorno la lista che permette di selezionare le pause
-	this.updatePauseSelection();
+	this.updatePauseSelection(durationModified);
 
 	this.addRows(this.numeroAppuntamenti);
 
@@ -209,24 +216,32 @@ PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
 		time+=this.durataAppuntamenti;
 	}
 }
-PreviewTable.prototype.updatePauseSelection = function(){
+PreviewTable.prototype.updatePauseSelection = function(durationModified){
 	var pausesSelector = document.getElementById("pauses_selector");
 	// cancello i figli (option) della vecchia select
-	while(pausesSelector.lastChild){
-		pausesSelector.lastChild.remove();
+	if(durationModified){
+		while(pausesSelector.lastChild){
+			pausesSelector.lastChild.remove();
+		}
 	}
-	// creo i nuovi option
+	
+	
+	// aggiorno le option
+	var opts = pausesSelector.getElementsByTagName("option");
 	for(var i=0; i<this.orari.length; i++){
 		var intervallo = this.orari[i][0]+" - "+this.orari[i][1];
-		var opt = document.createElement("option");
-		opt.setAttribute("value",i);
-		txt = document.createTextNode(intervallo);
-		opt.appendChild(txt);
-		pausesSelector.appendChild(opt);
+		if(durationModified){
+			var opt = document.createElement("option");
+			opt.setAttribute("value",i);
+			pausesSelector.appendChild(opt);
+		}
+		var txt = document.createTextNode(intervallo);
+		opts[i].appendChild(txt);
+		//pausesSelector.appendChild(opt);
 	}
 }
 PreviewTable.prototype.updateDisabledAppointments = function(elem){
-	var options = elem.childNodes;
+	var options = elem.getElementsByTagName("option");
 	for(var i=0; i<options.length; i++){
 		this.updateRow(i,options[i].selected);
 	}

@@ -92,11 +92,28 @@
 
 	}
 	function findValue($vett, $value){
+		if($vett == null || !isset($vett))
+			return false;
 		foreach($vett as $elem){
 			if($elem == $value)
 				return true;
 		}
 		return false;
+	}
+	function getNumeroAppuntamenti($inizio, $fine,$durata){
+		if($inizio != null && $fine != null){
+			$dataInizio = strtotime($inizio); // timestamp ora inizio (in secondi)
+			$dataFine = strtotime($fine); // timestamp ora fine (in secondi)
+			$differenza = ($dataFine - $dataInizio)/60;
+			if($differenza < 0){
+				echo "Errore: inserisci correttamente gli orari di inizio e di fine<br>"; 
+			}
+			$numeroAppuntamenti = floor($differenza / $durata); 
+			//echo "Date: ".$dataInizio." ".$dataFine.",durata: $differenza minuti, numeroAppuntamenti: $numeroAppuntamenti<br>"; // DEBUG
+			return $numeroAppuntamenti;
+		}else{
+			return 0;
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -174,18 +191,23 @@
 						}
 					}
 
+					// calcolo il numero degli appuntamenti
+
+					$numeroAppuntamenti = getNumeroAppuntamenti($inizio, $fine,$durata); // inizialmente, quando il form è vuoto
+
+					
+
 				?>
 				<form method="post" action="./appointmentTableCreator.php">
-					
 					<div id="work_days">
 						<p>Seleziona i giorni di lavoro</p>
-						<label><input type="checkbox" name="work_days[]" value="1" <?php if($giorni !=null && findValue($giorni,'1')) echo 'checked';?>>Lun</label>
-						<label><input type="checkbox" name="work_days[]" value="2" <?php if($giorni !=null && findValue($giorni,'2')) echo 'checked';?> >Mar</label>
-						<label><input type="checkbox" name="work_days[]" value="3" <?php if($giorni !=null && findValue($giorni,'3')) echo 'checked';?> >Mer</label>
-						<label><input type="checkbox" name="work_days[]" value="4" <?php if($giorni !=null && findValue($giorni,'4')) echo 'checked';?> >Gio</label>
-						<label><input type="checkbox" name="work_days[]" value="5" <?php if($giorni !=null && findValue($giorni,'5')) echo 'checked';?> >Ven</label>
-						<label><input type="checkbox" name="work_days[]" value="6" <?php if($giorni !=null && findValue($giorni,'6')) echo 'checked';?> >Sab</label>
-						<label><input type="checkbox" name="work_days[]" value="7" <?php if($giorni !=null && findValue($giorni,'7')) echo 'checked';?> >Dom</label>
+						<label><input type="checkbox" name="work_days[]" value="1" <?php if(findValue($giorni,'1')) echo 'checked';?>>Lun</label>
+						<label><input type="checkbox" name="work_days[]" value="2" <?php if(findValue($giorni,'2')) echo 'checked';?> >Mar</label>
+						<label><input type="checkbox" name="work_days[]" value="3" <?php if(findValue($giorni,'3')) echo 'checked';?> >Mer</label>
+						<label><input type="checkbox" name="work_days[]" value="4" <?php if(findValue($giorni,'4')) echo 'checked';?> >Gio</label>
+						<label><input type="checkbox" name="work_days[]" value="5" <?php if(findValue($giorni,'5')) echo 'checked';?> >Ven</label>
+						<label><input type="checkbox" name="work_days[]" value="6" <?php if(findValue($giorni,'6')) echo 'checked';?> >Sab</label>
+						<label><input type="checkbox" name="work_days[]" value="7" <?php if(findValue($giorni,'7')) echo 'checked';?> >Dom</label>
 					</div>
 					<div id="open_close_times">
 						<p>Inserisci gli orari di apertura e di chiusura</p>
@@ -210,14 +232,20 @@
 
 						<p>Seleziona uno o più intervalli che non vuoi rendere prenotabili:</p>
 						<select id="pauses_selector" name="pauses_selector[]" multiple>
-
+							<?php
+								for($i = 0; $i < $numeroAppuntamenti; $i++){
+									if(findValue($pause,$i)){
+										echo "<option value='$i' selected></option>";
+									}else{
+										echo "<option value='$i'></option>";
+									}
+									
+								}
+							?>
 						</select>
 					</div>
 					<button>Salva</button>
 				</form>
-				<div>
-	
-				</div>
 			</div>
 			<div id="preview_container">
 

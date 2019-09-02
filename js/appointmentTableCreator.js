@@ -49,11 +49,11 @@ function cambia(elem){
 			break;
 		case "opening_time":
 			//aggiornaOrarioApertura(elem.value);
-			tabellaDiPreview.updateStartTime(elem.value);	
+			tabellaDiPreview.updateStartTime(elem.value,false);	
 			break;
 		case "closing_time":
 			//aggiornaOrararioChiusura(elem.value);
-			tabellaDiPreview.updateCloseTime(elem.value);
+			tabellaDiPreview.updateCloseTime(elem.value,false);
 			break;
 		case "select_duration":
 			tabellaDiPreview.updateAppointmentDuration(elem.value);
