@@ -9,6 +9,8 @@ CREATE TABLE `user` (
   `first_name` varchar(32) NOT NULL,
   `last_name` varchar(32) NOT NULL,
   `password` varchar(64) NOT NULL,
+  profile_image MEDIUMBLOB DEFAULT NULL,
+  profession VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
@@ -25,5 +27,5 @@ CREATE TABLE struttura_tabella_appuntamenti (
     CONSTRAINT userId FOREIGN KEY (userID)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

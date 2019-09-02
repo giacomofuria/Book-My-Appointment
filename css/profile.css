@@ -1,0 +1,16 @@
+#user_info{
+	width: 45%;
+	float: left;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+#booking_table{
+	margin-top: 10px;
+	margin-left: 20px;
+	/*padding: 20px;*/
+	width: 47%;
+	float: left;
+}
+.profile_image{
+	width: 40%;
+}

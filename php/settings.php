@@ -87,9 +87,7 @@
 		$bookMyAppointmentDb->closeConnection();
 		$userRow = $result->fetch_assoc();
 		$bookMyAppointmentDb->closeConnection();
-
 		return $userRow;
-
 	}
 	function findValue($vett, $value){
 		if($vett == null || !isset($vett))
@@ -126,7 +124,7 @@
 	<script src="./../js/appointmentTableCreator.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="./../css/appointmentTableCreator.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="./../css/settings.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/tablePreview.css" type="text/css" media="screen">
 </head>
 <body>
@@ -198,7 +196,7 @@
 					
 
 				?>
-				<form method="post" action="./appointmentTableCreator.php">
+				<form method="post" action="./settings.php">
 					<div id="work_days">
 						<p>Seleziona i giorni di lavoro</p>
 						<label><input type="checkbox" name="work_days[]" value="1" <?php if(findValue($giorni,'1')) echo 'checked';?>>Lun</label>
