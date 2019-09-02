@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include "./util/sessionUtil.php";
+	include "./layout/AppointmentTable.php";
 	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
 	if(!isLogged()){
 		header('Location: ./../index.php');
@@ -20,6 +21,20 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $userRow;
 	}
+	function loadConfig($userId){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT * FROM struttura_tabella_appuntamenti WHERE userId='".$userId."';";
+
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		if($numRow == 0){
+			return false;
+		}
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+		$bookMyAppointmentDb->closeConnection();
+		return $userRow;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +45,7 @@
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/profile.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="./../css/AppointmentTable.css" type="text/css" media="screen">
 </head>
 <body>
 	<div id="left-side">
@@ -59,7 +75,21 @@
 				<p><?php echo "Professione: ".$userInfo['profession']?></p>
 			</div>
 			<div id="booking_table"> 
-				<p>Qui ci sarà la tabella per le prenotazioni (se configurata)</p>
+				<?php
+					$tableConfiguration = loadConfig($_SESSION['userId']);
+					if(!$tableConfiguration){
+						echo "<p>Configura la tabella degli appuntamenti</p>";
+					}else{
+						echo "<p>Tabella degli appuntamenti</p>";
+						$giorni = explode(',',$tableConfiguration['giorni']);
+						$inizio = $tableConfiguration['oraInizio'];
+						$fine = $tableConfiguration['oraFine'];
+						$durata = $tableConfiguration['durataIntervalli'];
+						$pause = explode(',',$tableConfiguration['intervalliPausa']);
+						$appointmentTable = new AppointmentTable($giorni, $inizio, $fine, $durata, $pause);
+						$appointmentTable->show();
+					}
+				?>
 			</div>
 		</div> <!-- fine workspace -->
 
