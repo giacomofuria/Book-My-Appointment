@@ -121,7 +121,7 @@
 	<title>New appointment table creator - Book My Appointment</title>
 	<meta name = "author" content = "Giacomo Furia">
 	<script src="./../js/PreviewTable.js"></script>
-	<script src="./../js/appointmentTableCreator.js"></script>
+	<script src="./../js/settings.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/settings.css" type="text/css" media="screen">

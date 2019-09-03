@@ -14,7 +14,10 @@
 		private $dataPrimoGiornoSettimanaPrecedente;
 		private $dataPrimoGiornoSettimanaSuccessiva;
 
-		public function AppointmentTable($giorni, $inizio, $fine, $durata, $pause){
+		private $applyingUser;
+		private $receiverUser;
+
+		public function AppointmentTable($giorni, $inizio, $fine, $durata, $pause, $applyingUser, $receiverUser){
 			$this->giorni = $giorni;
 			$this->inizio = $inizio;
 			$this->fine = $fine;
@@ -23,6 +26,9 @@
 
 			$this->numeroAppuntamenti = getNumeroAppuntamenti($inizio,$fine,$durata);
 			$this->inizioInSecondi =strtotime($inizio);
+
+			$this->applyingUser = $applyingUser;
+			$this->receiverUser = $receiverUser;
 
 			//echo "Numero appuntamenti: ".$this->numeroAppuntamenti.'<br>'; // DEBUG
 			//echo "Inizio in secondi: ".$this->inizioInSecondi.'<br>'; // DEBUG
@@ -79,7 +85,7 @@
 					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=window.location.href=\"?week=$this->dataPrimoGiornoSettimanaPrecedente\"><img width='100%' src='./../img/icon/set1/left-arrow-1.png'></button></div>";
 					echo "<div id='table-header-title' class='table-header-components'> <p > Mese / Settimana</p> </div>";
 					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=window.location.href=\"?week=$this->dataPrimoGiornoSettimanaSuccessiva\"><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
-				echo "<div style='clear:both;''></div></div>";
+				echo "<div style='clear:both;'></div></div>";
 				// fine table header
 				echo "<table class='appointment-table'>";
 				echo "<tr>";
@@ -125,7 +131,10 @@
 						}else{
 							if($this->findValue($this->giorni,$j)){
 								$classname='selected';
-								$button="<button class='appointment-button' title='$dataOraAppuntamento'>$dataOraAppuntamento</button>";
+								$dataAppuntamento = date('j-m-Y',$timestampAppuntamento);
+								$oraAppuntamento = date('H:i',$timestampAppuntamento);
+								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);;
+								$button="<button class='appointment-button' title='$dataOraAppuntamento' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")'>$dataOraAppuntamento</button>";
 							}else{
 								$classname='not-selected';
 							}
