@@ -8,6 +8,9 @@
 		private $pause;
 
 		private $dataCorrente;
+		private $timestampCorrente;
+		private $giornoDellaSettimana;
+		private $timestampPrimoGiornoSettimana;
 
 		public function AppointmentTable($giorni, $inizio, $fine, $durata, $pause){
 			$this->giorni = $giorni;
@@ -24,44 +27,30 @@
 
 			$this->dataCorrente = date('Y-m-j',time()); // Data corrente
 
-			$timestampCorrente = strtotime($this->dataCorrente);
+			$this->timestampCorrente = strtotime($this->dataCorrente);
 
-			$anno = date("Y",$timestampCorrente);
-			$mese = date("m",$timestampCorrente);
+			$this->giornoDellaSettimana = getNumeroGiornoSettimana(strtotime($this->dataCorrente));
 
+			$this->timestampPrimoGiornoSettimana = ($this->timestampCorrente - ($this->giornoDellaSettimana*86400)); // Sottraggo al timestamp corrente (in secondi) - i secondi passati dal lunedì della settimana corrente
 
-			$giornoAnno = date('z',strtotime($this->dataCorrente));
-			$giornoDelMese = date('d',strtotime($this->dataCorrente));
-			$giornoDellaSettimana = getNumeroGiornoSettimana(strtotime($this->dataCorrente));
+			$dataPrimoGiornoSettimana = date('Y-m-j', $this->timestampPrimoGiornoSettimana);
 
-			
+			$this->timestampPrimoGiornoSettimana = strtotime($dataPrimoGiornoSettimana.' '.$this->inizio); // timestamp completo del primo giorno della settimana comprende anche l'ra di inizio degli appuntamenti
 
-			$primoGiornoSettimanaCorrente = $giornoAnno - $giornoDellaSettimana;
+			/*
+			$dataPrimoGiornoSettimana = date('Y-m-j',$this->timestampPrimoGiornoSettimana);
 
-			
-
-			$timestampPrimoGiornoSettimana = ($timestampCorrente - ($giornoDellaSettimana*86400)); // Sottraggo al timestamp corrente (in secondi) - i secondi passati dal lunedì della settimana corrente
-
-			$dataPrimoGiornoSettimana = date('Y-m-j',$timestampPrimoGiornoSettimana);
-
-			$timestampUltimoGiornoSettimana = $timestampPrimoGiornoSettimana + 518400;
+			$timestampUltimoGiornoSettimana = $this->timestampPrimoGiornoSettimana + 518400;
 
 			$dataUltimoGiornoSettimana = date('Y-m-j',$timestampUltimoGiornoSettimana);
-			/*
-			echo "Data corrente: $this->dataCorrente <br><br>";
-			echo "Anno: $anno<br>";
-			echo "Mese: $mese<br>";
-			echo "Giorno del mese: $giornoDelMese <br><br>";
-			echo "Giorno della settimana $giornoDellaSettimana <br><br>";
-			echo "Giorno dell'anno $giornoAnno <br><br>";
-			echo "Primo giorno settimana corrente: $primoGiornoSettimanaCorrente <br><br>";
-			*/
+
 			echo "Data primo giorno settimana: $dataPrimoGiornoSettimana <br><br>";
 			echo "Data ultimo giorno settimana: $dataUltimoGiornoSettimana <br><br>";
-
+			*/
+			// stampo per dubug tutte le date della settimana
 			for($i=0; $i<7; $i++){
-				$timestampGiorno = ($timestampPrimoGiornoSettimana + ($i*86400));
-				$data = date('Y-m-j',$timestampGiorno);
+				$timestampGiorno = ($this->timestampPrimoGiornoSettimana + ($i*86400)); // 86400 = numero di secondi in un giorno
+				$data = date('Y-m-j H:i:s',$timestampGiorno);
 				echo "$data<br>";
 			}
 
@@ -89,14 +78,21 @@
 					echo "<th class='".$class."''>".$this->giorniSettimana[$i-1]."</th>";
 				}
 				echo "</tr>";
-				// Creo le righe tante righe quanti sono gli appuntamenti
+
+
+				// Creo tante righe quanti sono gli appuntamenti
 				$start = $this->inizioInSecondi;
+
+				$timestampPrimoAppuntamentoSettimana = $this->timestampPrimoGiornoSettimana;
+
 				for($i=0; $i<$this->numeroAppuntamenti; $i++){
 					$inizioIntervalloInSecondi = $start;
 					$fineIntervalloInSecondi = ($start+(intval($this->durata)*60));
 					$start+=(intval($this->durata)*60);
+
 					$inizioLeggibile = date('H:i',$inizioIntervalloInSecondi);
 					$fineLeggibile = date('H:i',$fineIntervalloInSecondi);
+
 					echo "<tr>";
 					// Primo elemento con gli orari
 					echo "<td><p class='start-time'>".$inizioLeggibile."</p><p class='end-time'>".$fineLeggibile."</p></td>";
@@ -104,12 +100,17 @@
 					for($j=1; $j<8; $j++){
 						$classname=null;
 						$button='';
+
+						// Calcolo il timestamp del singolo appuntamento
+						$timestampAppuntamento = ($timestampPrimoAppuntamentoSettimana + (($j-1)*86400));
+						$dataOraAppuntamento = date('Y-m-j H:i',$timestampAppuntamento);
+
 						if($this->findValue($this->pause,$i)){
 							$classname='not-selected';
 						}else{
 							if($this->findValue($this->giorni,$j)){
 								$classname='selected';
-								$button="<button class='appointment-button'></button>";
+								$button="<button class='appointment-button'>$dataOraAppuntamento</button>";
 							}else{
 								$classname='not-selected';
 							}
@@ -117,6 +118,7 @@
 						echo "<td class=$classname>$button</td>";
 						
 					}
+					$timestampPrimoAppuntamentoSettimana+=($this->durata*60);
 					echo "</tr>";
 				}
 			echo "</table></div>";
