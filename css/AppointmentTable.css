@@ -68,3 +68,42 @@ p.end-time{
 	padding-bottom: 3%;
 	margin-bottom: 0;
 }
+.appointment-table-header{
+	width: 100%;
+	background-color: #ECEEF0;
+	
+	/*height: 30px;*/
+	padding-top: 2%;
+	padding-bottom: 1%;
+	margin-top: 1%;
+	margin-bottom: 3%;
+	
+	/*box-shadow: 0 8px 6px -6px black;*/ 
+	box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.table-header-components{
+	/*text-align: center;*/
+	float:left;
+	text-align: center;
+}
+#left-arrow{
+	width: 8%;
+}
+#right-arrow{
+	width: 8%;
+	padding-right: 0;
+	margin-right: 0;
+	right: 0;
+}
+.table-header-buttons{
+	width: 80%;
+	height: 80%;
+	margin: 0;
+	padding: 0;
+	background-color: #ECEEF0;
+	border: none;
+	cursor: pointer;
+}
+#table-header-title{
+	width: 83%;
+}

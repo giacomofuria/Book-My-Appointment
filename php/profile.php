@@ -75,12 +75,13 @@
 				<p><?php echo "Professione: ".$userInfo['profession']?></p>
 			</div>
 			<div id="booking_table"> 
+				<div id='booking-table-info'>
 				<?php
 					$tableConfiguration = loadConfig($_SESSION['userId']);
 					if(!$tableConfiguration){
-						echo "<p>Configura la tabella degli appuntamenti</p>";
+						echo "<p>Configura la tabella degli appuntamenti</p></div>";
 					}else{
-						echo "<p>Tabella degli appuntamenti</p>";
+						echo "<p>Tabella degli appuntamenti</p></div>";
 						$giorni = explode(',',$tableConfiguration['giorni']);
 						$inizio = $tableConfiguration['oraInizio'];
 						$fine = $tableConfiguration['oraFine'];
