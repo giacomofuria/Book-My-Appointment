@@ -11,6 +11,8 @@
 		private $timestampCorrente;
 		private $giornoDellaSettimana;
 		private $timestampPrimoGiornoSettimana;
+		private $dataPrimoGiornoSettimanaPrecedente;
+		private $dataPrimoGiornoSettimanaSuccessiva;
 
 		public function AppointmentTable($giorni, $inizio, $fine, $durata, $pause){
 			$this->giorni = $giorni;
@@ -25,9 +27,18 @@
 			//echo "Numero appuntamenti: ".$this->numeroAppuntamenti.'<br>'; // DEBUG
 			//echo "Inizio in secondi: ".$this->inizioInSecondi.'<br>'; // DEBUG
 
-			$this->dataCorrente = date('Y-m-j',time()); // Data corrente
+			if(isset($_GET['week'])){
+				$this->dataCorrente = $_GET['week'];
+			}else{
+				$this->dataCorrente = date('Y-m-j',time()); // Data corrente
+			}
 
 			$this->timestampCorrente = strtotime($this->dataCorrente);
+
+			if($this->timestampCorrente === false){ // se i valori passati con GET non erano validi calcolo comunque la data corrente
+				$this->dataCorrente = date('Y-m-j',time()); // Data corrente
+				$this->timestampCorrente = strtotime($this->dataCorrente);
+			}
 
 			$this->giornoDellaSettimana = getNumeroGiornoSettimana(strtotime($this->dataCorrente));
 
@@ -37,22 +48,27 @@
 
 			$this->timestampPrimoGiornoSettimana = strtotime($dataPrimoGiornoSettimana.' '.$this->inizio); // timestamp completo del primo giorno della settimana comprende anche l'ra di inizio degli appuntamenti
 
-			/*
+
+			
 			$dataPrimoGiornoSettimana = date('Y-m-j',$this->timestampPrimoGiornoSettimana);
 
-			$timestampUltimoGiornoSettimana = $this->timestampPrimoGiornoSettimana + 518400;
+			$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
+			$this->dataPrimoGiornoSettimanaSuccessiva = date('Y-m-j',$timestampPrimoGiornoSettimanaSuccessiva);
 
-			$dataUltimoGiornoSettimana = date('Y-m-j',$timestampUltimoGiornoSettimana);
-
+			$timestampPrimoGiornoSettimanaPrecedente = ($this->timestampPrimoGiornoSettimana - (7*86400));
+			$this->dataPrimoGiornoSettimanaPrecedente = date('Y-m-j',$timestampPrimoGiornoSettimanaPrecedente);
+			/*
 			echo "Data primo giorno settimana: $dataPrimoGiornoSettimana <br><br>";
-			echo "Data ultimo giorno settimana: $dataUltimoGiornoSettimana <br><br>";
-			*/
+			echo "Data primo giorno settimana successiva: $this->dataPrimoGiornoSettimanaSuccessiva <br><br>";
+			echo "Data primo giorno settimana precedente: $this->dataPrimoGiornoSettimanaPrecedente <br><br>";
+			
 			// stampo per dubug tutte le date della settimana
 			for($i=0; $i<7; $i++){
 				$timestampGiorno = ($this->timestampPrimoGiornoSettimana + ($i*86400)); // 86400 = numero di secondi in un giorno
 				$data = date('Y-m-j H:i:s',$timestampGiorno);
 				echo "$data<br>";
 			}
+			*/
 
 		}
 
@@ -61,9 +77,9 @@
 			echo "<div class='appointment-table-container'>";
 
 				echo "<div class='appointment-table-header'>";
-					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons'><img width='100%' src='./../img/icon/set1/left-arrow-1.png'></button></div>";
+					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=window.location.href=\"?week=$this->dataPrimoGiornoSettimanaPrecedente\"><img width='100%' src='./../img/icon/set1/left-arrow-1.png'></button></div>";
 					echo "<div id='table-header-title' class='table-header-components'> <p > Mese / Settimana</p> </div>";
-					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons'><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
+					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=window.location.href=\"?week=$this->dataPrimoGiornoSettimanaSuccessiva\"><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
 				echo "<div style='clear:both;''></div></div>";
 				// fine table header
 				echo "<table class='appointment-table'>";
@@ -110,7 +126,7 @@
 						}else{
 							if($this->findValue($this->giorni,$j)){
 								$classname='selected';
-								$button="<button class='appointment-button'>$dataOraAppuntamento</button>";
+								$button="<button class='appointment-button' title='$dataOraAppuntamento'>$dataOraAppuntamento</button>";
 							}else{
 								$classname='not-selected';
 							}
