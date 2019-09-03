@@ -92,9 +92,9 @@
 					$tableTitle = $this->mesiAnno[$numeroMeseInizio-1];
 				}
 				echo "<div class='appointment-table-header'>";
-					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=window.location.href=\"?week=$this->dataPrimoGiornoSettimanaPrecedente\"><img width='100%' src='./../img/icon/set1/left-arrow-1.png'></button></div>";
+					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=window.location.href=\"?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaPrecedente\"><img width='100%' src='./../img/icon/set1/left-arrow-1.png'></button></div>";
 					echo "<div id='table-header-title' class='table-header-components'> <p >$tableTitle</p> </div>";
-					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=window.location.href=\"?week=$this->dataPrimoGiornoSettimanaSuccessiva\"><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
+					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=window.location.href=\"?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaSuccessiva\"><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
 				echo "<div style='clear:both;'></div></div>";
 				// fine table header
 				echo "<table class='appointment-table'>";
