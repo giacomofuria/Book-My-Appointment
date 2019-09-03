@@ -29,3 +29,21 @@ CREATE TABLE struttura_tabella_appuntamenti (
     ON UPDATE NO ACTION
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS appuntamento;
+CREATE TABLE appuntamento(
+    idAppuntamento INT(11) NOT NULL AUTO_INCREMENT,
+    idRichiedente INT(11) NOT NULL,
+    idRicevente INT(11) NOT NULL,
+    dataOra TIMESTAMP NOT NULL,
+    durata INT(11) NOT NULL,
+    PRIMARY KEY (idAppuntamento),
+    CONSTRAINT vincolo_utente_ricevente FOREIGN KEY (idRicevente)
+    REFERENCES user(userId)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
+    CONSTRAINT vincolo_utente_richiedente FOREIGN KEY (idRichiedente)
+    REFERENCES user(userId)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
