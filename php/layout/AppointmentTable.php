@@ -69,7 +69,6 @@
 				echo "$data<br>";
 			}
 			*/
-
 		}
 
 		public function show(){	

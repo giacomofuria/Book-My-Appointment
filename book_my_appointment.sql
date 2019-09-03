@@ -37,6 +37,7 @@ CREATE TABLE appuntamento(
     idRicevente INT(11) NOT NULL,
     dataOra TIMESTAMP NOT NULL,
     durata INT(11) NOT NULL,
+    note MEDIUMTEXT DEFAULT NULL,
     PRIMARY KEY (idAppuntamento),
     CONSTRAINT vincolo_utente_ricevente FOREIGN KEY (idRicevente)
     REFERENCES user(userId)
