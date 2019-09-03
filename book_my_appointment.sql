@@ -11,6 +11,7 @@ CREATE TABLE `user` (
   `password` varchar(64) NOT NULL,
   profile_image MEDIUMBLOB DEFAULT NULL,
   profession VARCHAR(100) DEFAULT NULL,
+  address VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
