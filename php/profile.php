@@ -86,10 +86,13 @@
 		<div id="workspace">
 			<div id="user_info">
 				<?php
-					if(){
-						
+					$userInfo = null;
+					if(isset($_GET['user'])){
+						$userInfo = getUserInfo($_GET['user']);
+					}else{
+						$userInfo = getUserInfo($_SESSION['userId']);
 					}
-					$userInfo = getUserInfo($_SESSION['userId']);
+					
 				?>
 				<p>Immagine del profilo</p>
 				<?php
@@ -123,7 +126,7 @@
 			<div id="booking_table"> 
 				<div id='booking-table-info'>
 				<?php
-					$tableConfiguration = loadConfig($_SESSION['userId']);
+					$tableConfiguration = loadConfig($userInfo['userId']);
 					if(!$tableConfiguration){
 						echo "<p>Configura la tabella degli appuntamenti</p></div>";
 					}else{
@@ -134,7 +137,7 @@
 						$durata = $tableConfiguration['durataIntervalli'];
 						$pause = explode(',',$tableConfiguration['intervalliPausa']);
 
-						$receiverUser = 1; // DA CAMBIARE !!!
+						$receiverUser = $userInfo['userId']; // DA CAMBIARE !!!
 						$applyingUser = $_SESSION['userId'];
 
 						$appointmentTable = new AppointmentTable($giorni, $inizio, $fine, $durata, $pause,$applyingUser,$receiverUser);
