@@ -58,16 +58,18 @@
 					// Restanti elementi della tabella
 					for($j=1; $j<8; $j++){
 						$classname=null;
+						$button='';
 						if($this->findValue($this->pause,$i)){
 							$classname='not-selected';
 						}else{
 							if($this->findValue($this->giorni,$j)){
 								$classname='selected';
+								$button="<button class='appointment-button'></button>";
 							}else{
 								$classname='not-selected';
 							}
 						}
-						echo "<td class=$classname><button>giorno</button></td>";
+						echo "<td class=$classname>$button</td>";
 						
 					}
 					echo "</tr>";
