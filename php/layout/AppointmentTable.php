@@ -7,6 +7,8 @@
 		private $durata;
 		private $pause;
 
+		private $dataCorrente;
+
 		public function AppointmentTable($giorni, $inizio, $fine, $durata, $pause){
 			$this->giorni = $giorni;
 			$this->inizio = $inizio;
@@ -19,6 +21,49 @@
 
 			//echo "Numero appuntamenti: ".$this->numeroAppuntamenti.'<br>'; // DEBUG
 			//echo "Inizio in secondi: ".$this->inizioInSecondi.'<br>'; // DEBUG
+
+			$this->dataCorrente = date('Y-m-j',time()); // Data corrente
+
+			$timestampCorrente = strtotime($this->dataCorrente);
+
+			$anno = date("Y",$timestampCorrente);
+			$mese = date("m",$timestampCorrente);
+
+
+			$giornoAnno = date('z',strtotime($this->dataCorrente));
+			$giornoDelMese = date('d',strtotime($this->dataCorrente));
+			$giornoDellaSettimana = getNumeroGiornoSettimana(strtotime($this->dataCorrente));
+
+			
+
+			$primoGiornoSettimanaCorrente = $giornoAnno - $giornoDellaSettimana;
+
+			
+
+			$timestampPrimoGiornoSettimana = ($timestampCorrente - ($giornoDellaSettimana*86400)); // Sottraggo al timestamp corrente (in secondi) - i secondi passati dal lunedì della settimana corrente
+
+			$dataPrimoGiornoSettimana = date('Y-m-j',$timestampPrimoGiornoSettimana);
+
+			$timestampUltimoGiornoSettimana = $timestampPrimoGiornoSettimana + 518400;
+
+			$dataUltimoGiornoSettimana = date('Y-m-j',$timestampUltimoGiornoSettimana);
+			/*
+			echo "Data corrente: $this->dataCorrente <br><br>";
+			echo "Anno: $anno<br>";
+			echo "Mese: $mese<br>";
+			echo "Giorno del mese: $giornoDelMese <br><br>";
+			echo "Giorno della settimana $giornoDellaSettimana <br><br>";
+			echo "Giorno dell'anno $giornoAnno <br><br>";
+			echo "Primo giorno settimana corrente: $primoGiornoSettimanaCorrente <br><br>";
+			*/
+			echo "Data primo giorno settimana: $dataPrimoGiornoSettimana <br><br>";
+			echo "Data ultimo giorno settimana: $dataUltimoGiornoSettimana <br><br>";
+
+			for($i=0; $i<7; $i++){
+				$timestampGiorno = ($timestampPrimoGiornoSettimana + ($i*86400));
+				$data = date('Y-m-j',$timestampGiorno);
+				echo "$data<br>";
+			}
 
 		}
 
@@ -113,6 +158,18 @@
 			return $numeroAppuntamenti;
 		}else{
 			return 0;
+		}
+	}
+	function getNumeroGiornoSettimana($timestamp){
+		$giornoInFormatoUS = date('w',$timestamp);
+		if($giornoInFormatoUS == 0)
+			return 6;
+		else{
+			if($giornoInFormatoUS >= 1 && $giornoInFormatoUS <= 6){
+				return $giornoInFormatoUS - 1;
+			}else{
+				return null;
+			}
 		}
 	}
 ?>
