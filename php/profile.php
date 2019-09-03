@@ -148,7 +148,14 @@
 		</div> <!-- fine workspace -->
 		<div style='clear:both;'></div>
 		<div id="confirm_form_container" class='form-container'>
-			<form id="confirm-appointment-form" method="POST" action="./profile.php">
+			<?php
+				// prelevo i parametri GET per mantenere lo stato
+				$parametro="";
+				if(isset($_GET['week'])){
+					$parametro="&week=".$_GET['week'];
+				}
+			?>
+			<form id="confirm-appointment-form" method="POST" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
 				<p> Conferma prenotazione appuntamento </p>
 				<label>Utente ricevente<br><input id="receveir_user" name="appointment_receiver_user"></label><br>
 				<label>Utente richiedente<br><input id="applying_user" name="appointment_applying_user"></label><br>
