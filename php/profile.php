@@ -20,7 +20,9 @@
 			$_POST['appointment_data'], 
 			$_POST['appointment_hour'], 
 			$_POST['appointment_duration'], $note);
-		if(!$res){
+		if($res){
+			// Faccio apparire qualcosa sulla pagina che fonferma il savataggio
+		}else{
 			//echo "ERRORE<br>";//DEBUG
 		}
 	}
@@ -75,6 +77,7 @@
 		//echo "Data: $dataPerMysql, Query: $queryText<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
+		
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 	}
 ?>

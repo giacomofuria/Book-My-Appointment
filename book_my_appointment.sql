@@ -40,6 +40,7 @@ CREATE TABLE appuntamento(
     durata INT(11) NOT NULL,
     note MEDIUMTEXT DEFAULT NULL,
     PRIMARY KEY (idAppuntamento),
+    UNIQUE (dataOra),
     CONSTRAINT vincolo_utente_ricevente FOREIGN KEY (idRicevente)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
