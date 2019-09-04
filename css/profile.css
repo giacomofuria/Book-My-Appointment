@@ -3,13 +3,26 @@
 	float: left;
 	margin-top: 10px;
 	margin-left: 20px;
+
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+
+	padding: 10px;
 }
 #booking_table{
 	margin-top: 10px;
 	margin-left: 20px;
 	/*padding: 20px;*/
-	width: 47%;
+	width: 43%;
+	margin-left: 4%;
 	float: left;
+	/*
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+	*/
+
 }
 .profile_image{
 	width: 40%;
@@ -52,4 +65,102 @@
 }
 .img-confirm-box{
 	width: 10%;
+}
+.profile-img-container{
+	text-align: center;
+}
+.profile-name-container{
+	text-align: center;
+	font-weight: bold;
+	font-size: 26px;
+}
+.profile-setting-icon{
+	width: 100%;
+}
+.profile-setting-button{
+	margin-left: 10px;
+	width: 5%;
+	border-style: none;
+	background-color: #FFFFFF;
+}
+.profile-setting-button:hover{
+	cursor: pointer;
+}
+.profile-info-container{
+	padding: 10%;
+}
+#profile-info-labels{
+	margin-left: 25%;
+	font-size: 16px;
+	font-weight: normal;
+}
+.profile-info{
+	float: left;
+	padding-left: 3%;
+	padding-top: 3%;
+	padding-right: 5%;
+	font-size: 16px;
+	font-weight: bold;
+}
+.save-button{
+	text-align: center;
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	width: 96%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	cursor: pointer;
+	background-color: #91DFAA;
+	color: #000000;
+	/*background-color: #91DFAA;*/
+	/*color: #000000;*/
+	border-style: none;
+	border-width: 0;
+	border-radius: 0;
+}
+.save-button:hover{
+	background-color: #91DFAF;
+	/*background-color: #91DF00;*/
+}
+.input-text{
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 4%;
+	width: 96%;
+	padding-left: 4%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+}
+.input-text:focus{
+	border-style: solid;
+	border-width: 1.2px;
+	border-color: #4285F4;
+}
+.input-text-error{
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 4%;
+	width: 96%;
+	padding-left: 4%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	background-color: rgb(255,0,0,0.1);
+	border-style: solid;
+	border-width: 1.2px;
+	border-color: #8B0000;
+}
+.error_message{
+	display: none; /* Viene modificato poi dal javascript*/
+	background-color: rgb(255,0,0,0.1);
+	color: #8B0000;
+	font-size: 15px;
+	margin-bottom: 3%;
+	padding-left: 2%;
+	padding-right: 2%;
+	border-style: solid;
+	border-width: 1.5px;
+	border-color: red;
 }

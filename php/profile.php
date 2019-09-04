@@ -111,19 +111,47 @@
 					}else{
 						$userInfo = getUserInfo($_SESSION['userId']);
 					}
-					
-				?>
-				<p><?php echo $userInfo['first_name']." ".$userInfo['last_name'] ?></p>
-				<?php
+					$flagPaginaPersonale = false; // flag che indica se l'utente che sta visitando il profilo è il proprietario del profilo
+					if($_SESSION['userId'] == $userInfo['userId']){
+						$flagPaginaPersonale = true;
+					}
+				
+					echo "<div class='profile-name-container'>";
+						echo "<p> ".$userInfo['first_name']." ".$userInfo['last_name'];
+							if($flagPaginaPersonale){
+								$nome = $userInfo['first_name'];
+								$cognome = $userInfo['last_name'];
+								$professione = $userInfo['profession'];
+								$indirizzo = $userInfo['address'];
+								echo "<button class='profile-setting-button' onclick=openProfileSettings('$nome','$cognome','$professione','$indirizzo')>";
+								echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png'>";
+								echo "</button>";
+							}
+						echo "</p>";
+					echo "</div>";
 
 					if($userInfo['profile_image'] == null){
 						// Metto l'immagine di default
-						echo "<img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'>";
+						echo "<div class='profile-img-container'><img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'></div>";
 					}else{
 						echo "Img dal DB";
 					}
 				?>
-				<p><?php echo "Professione: ".$userInfo['profession']?></p>
+				<div id='profile-info-container' class='profile-info-container'>
+					<div id='profile-info-labels' class='profile-info'>
+						<p>Nome</p>
+						<p>Cognome</p>
+						<p>Professione</p>
+						<p>Indirizzo</p>
+					</div>
+					<div class='profile-info'>
+						<p><?php echo $userInfo['first_name']; ?></p>
+						<p><?php echo $userInfo['last_name']; ?></p>
+						<p><?php echo $userInfo['profession']; ?></p>
+						<p><?php echo $userInfo['address']; ?></p>
+					</div>
+					<div style='clear:both;'></div>
+				</div>
 			</div>
 			<div id="booking_table"> 
 				<div id='booking-table-info'>

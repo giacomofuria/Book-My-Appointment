@@ -10,6 +10,8 @@ td{
 	margin: 0;
 	height: 40px;
 	border: none;
+	background-color: #FFFFFF;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
 	/*padding-top: 4%;*/
 	/*padding-bottom: 4%;*/
 	/*
@@ -22,7 +24,7 @@ td:nth-of-type(1){
 	font-size: 12px;
 	padding-top: 0px;
 	opacity: 1;
-	background-color: #FFFFFF;
+	
 }
 td.not-selected{
 	background-color: #c5c8c9;
