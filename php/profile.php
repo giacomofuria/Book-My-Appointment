@@ -94,7 +94,7 @@
 					}
 					
 				?>
-				<p>Immagine del profilo</p>
+				<p><?php echo $userInfo['first_name']." ".$userInfo['last_name'] ?></p>
 				<?php
 					/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST */
 
@@ -120,7 +120,6 @@
 						echo "Img dal DB";
 					}
 				?>
-				<p><?php echo $userInfo['first_name']." ".$userInfo['last_name'] ?></p>
 				<p><?php echo "Professione: ".$userInfo['profession']?></p>
 			</div>
 			<div id="booking_table"> 

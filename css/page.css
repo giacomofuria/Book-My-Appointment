@@ -70,7 +70,8 @@ div{
 	border-color: #FFFFFF;
 }
 #search-bar:focus{
-	/*Il border c'è sempre, quando l'elemento ha il focus cambio colore al border. 
+	/*
+	  Il border c'è sempre, quando l'elemento ha il focus cambio colore al border. 
 	  In questo modo non ho movimenti nel resto del layout
 	*/
 	border-color: #91DFAA;

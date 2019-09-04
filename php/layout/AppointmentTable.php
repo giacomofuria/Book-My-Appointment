@@ -182,8 +182,9 @@
 				echo $pausa.'<br>';
 			}
 		}
+
 		/* Funzione che dato un certo timestamp cerca se l'utente receiver ha un appuntamento prenotato con quel timestamp */
-		private function cercaAppuntameenti($timestamp){
+		private function cercaAppuntamenti($timestamp){
 
 		}
 	}
