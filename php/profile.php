@@ -7,25 +7,8 @@
 		header('Location: ./../index.php');
 		exit;
 	}
-	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
-	   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
-	*/
-	if(parametriRicevuti()){
-		$note = null;
-		if(isset($_POST['appointment_notes'])){
-			$note = $_POST['appointment_notes'];
-		}
-		$res = saveAppointment($_POST['appointment_receiver_user'], 
-			$_POST['appointment_applying_user'], 
-			$_POST['appointment_data'], 
-			$_POST['appointment_hour'], 
-			$_POST['appointment_duration'], $note);
-		if($res){
-			// Faccio apparire qualcosa sulla pagina che fonferma il savataggio
-		}else{
-			//echo "ERRORE<br>";//DEBUG
-		}
-	}
+	
+	
 	function getUserInfo($userId){
 		global $bookMyAppointmentDb;
 		$queryText = "SELECT * FROM USER WHERE userId='".$userId."';";
@@ -79,6 +62,22 @@
 		$bookMyAppointmentDb->closeConnection();
 		
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
+	}
+	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
+		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
+		*/
+	echo "<script src='./../js/effects.js'></script>
+	         <script src='./../js/profile.js'></script>";
+	if(parametriRicevuti()){
+		$note = null;
+		if(isset($_POST['appointment_notes'])){
+			$note = $_POST['appointment_notes'];
+		}
+		$res = saveAppointment($_POST['appointment_receiver_user'], 
+			$_POST['appointment_applying_user'], 
+			$_POST['appointment_data'], 
+			$_POST['appointment_hour'], 
+			$_POST['appointment_duration'], $note);
 	}
 ?>
 <!DOCTYPE html>
@@ -170,6 +169,18 @@
 			</form>
 		</div>
 	</div>
+	<?php
+		if($res){
+			// Faccio apparire qualcosa sulla pagina che fonferma il savataggio
+			
+			echo "<div id='confirm-box' class='confirm-message-box'> 
+				<p>Prenotazione avvenuta con successo</p><img class='img-confirm-box' src='./../img/icon/set1/correct.png'></div>"; // DA SPOSTARE QUI ^
+				echo "<script type='text/javascript'> showConfirmBox(); </script>";
+			
+		}else{
+			//echo "ERRORE<br>";//DEBUG
+		}
+	?>
 	<script type="text/javascript">
 		// evidenzio il pulsante della pagina
 		var btn = document.getElementById("profile_button");
