@@ -1,4 +1,5 @@
 <?php 
+	include "./util/Appointments.php";
 	class AppointmentTable{
 		private $giorniSettimana =  array('Lun','Mar','Mer','Gio','Ven','Sab','Dom');
 		private $mesiAnno = array('Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre');
@@ -97,6 +98,12 @@
 					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=window.location.href=\"?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaSuccessiva\"><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
 				echo "<div style='clear:both;'></div></div>";
 				// fine table header
+
+				$dataPrimoGiornoSettimana = date('Y-m-d G:i:s',$timestampPrimoAppuntamentoSettimana);
+				$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
+				$dataPrimoGiornoSettimanaSuccessiva = date('Y-m-d G:i:s',$timestampPrimoGiornoSettimanaSuccessiva);
+				$appointmentList = new Appointments($this->receiverUser, $dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
+
 				echo "<table class='appointment-table'>";
 				echo "<tr>";
 				echo "<th></th>";
@@ -131,27 +138,43 @@
 					echo "<td><p class='start-time'>".$inizioLeggibile."</p><p class='end-time'>".$fineLeggibile."</p></td>";
 					// Restanti elementi della tabella
 					for($j=1; $j<8; $j++){
-						$classname=null;
+						$tdClassname=null;
+						$buttonClassname='';
 						$button='';
 
 						// Calcolo il timestamp del singolo appuntamento
 						$timestampAppuntamento = ($timestampPrimoAppuntamentoSettimana + (($j-1)*86400));
 						$dataOraAppuntamento = date('Y-m-j H:i',$timestampAppuntamento);
 
+						// verifico se l'appuntamento è già stato prenotato
+						$prenotato = $appointmentList->booked(date('Y-m-d G:i:s',$timestampAppuntamento));
+
 						if($this->findValue($this->pause,$i)){
-							$classname='not-selected';
+							$tdClassname='not-selected';
 						}else{
 							if($this->findValue($this->giorni,$j)){
-								$classname='selected';
+								$tdClassname='selected';
 								$dataAppuntamento = date('j-m-Y',$timestampAppuntamento);
 								$oraAppuntamento = date('H:i',$timestampAppuntamento);
-								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);;
-								$button="<button class='appointment-button' title='$dataOraAppuntamento' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")'></button>";
+								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);
+								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/correct.png'>";
+								if(!$prenotato){
+									$button="<button class='appointment-button free' title='$dataOraAppuntamento disponibile' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")'></button>";
+								}else{
+									// appuntamento prenotato
+									if($this->applyingUser == $this->receiverUser){
+										// l'utente loggato sta guardando la sua tabelle
+										$button="<button class='appointment-button booked owner' title='$dataOraAppuntamento prenotato' onclick='console.log(\"tua\")'>$imgBooked</button>";
+									}else{
+										// Un utente sta guardando la tabella di un altro utente
+										$button="<button class='appointment-button booked viewer' title='$dataOraAppuntamento prenotato' onclick='console.log(\"non tua\")'>$imgBooked</button>";
+									}
+								}
 							}else{
-								$classname='not-selected';
+								$tdClassname='not-selected';
 							}
 						}
-						echo "<td class=$classname>$button</td>";
+						echo "<td class=$tdClassname>$button</td>";
 						
 					}
 					$timestampPrimoAppuntamentoSettimana+=($this->durata*60);
@@ -189,9 +212,9 @@
 		}
 	}
 	function getNumeroAppuntamenti($inizio, $fine,$durata){
-		if($inizio != null && $fine != null){
+		if($inizio != null && $fine != null){ 
 			$dataInizio = strtotime($inizio); // timestamp ora inizio (in secondi)
-			$dataFine = strtotime($fine); // timestamp ora fine (in secondi)
+			$dataFine = strtotime($fine);     // timestamp ora fine (in secondi)
 			$differenza = ($dataFine - $dataInizio)/60;
 			if($differenza < 0){
 				echo "Errore: inserisci correttamente gli orari di inizio e di fine<br>"; 

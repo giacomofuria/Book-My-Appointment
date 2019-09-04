@@ -117,7 +117,22 @@ p.end-time{
 	border: none;
 	cursor: pointer;
 }
-.appointment-button:hover{
+.booked{
+	background-color: #B4D0E7;
+}
+.booked:hover{
+	background-color: #B4D0E7;
+}
+.free:hover{
 	background-color: #91DFAA;
 	color: #FFFFFF;
+}
+.owner{
+	cursor: pointer;
+}
+.viewer{
+	cursor: default;
+}
+.booked-icon{
+	width: 30%;
 }
