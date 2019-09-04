@@ -117,6 +117,10 @@ p.end-time{
 	border: none;
 	cursor: pointer;
 }
+.appointment-button:focus{
+	background-color: #91DFAA;
+	color: #FFFFFF;
+}
 .booked{
 	background-color: #B4D0E7;
 }
