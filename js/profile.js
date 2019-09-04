@@ -20,8 +20,20 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 	// Creo il form di modifica
 	var form = document.createElement("form");
 
+	form.setAttribute("enctype","multipart/form-data");
 	form.setAttribute("method","POST");
 	form.setAttribute("action","./profile.php");
+
+	var dim = document.createElement("input");
+	dim.setAttribute("type","hidden");
+	dim.setAttribute("name","MAX_FILE_SIZE");
+	dim.setAttribute("value","30000");
+	form.appendChild(dim);
+
+	var inputFile = document.createElement("input");
+	inputFile.setAttribute("name","user_pic");
+	inputFile.setAttribute("type","file");
+	form.appendChild(inputFile);
 
 	var inputFirstName = document.createElement("input");
 	inputFirstName.value = nome;
