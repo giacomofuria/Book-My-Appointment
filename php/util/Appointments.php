@@ -10,6 +10,7 @@
 			global $bookMyAppointmentDb;
 			//echo "dataInizio: $dataInizio, dataFine: $dataFine<br>"; // DEBUG
 			$queryText = "SELECT * FROM appuntamento WHERE idRicevente='".$this->utente."' AND dataOra>='".$dataInizio."' AND dataOra<'".$dataFine."';";
+			//echo "Query: $queryText<br>"; // DEBUG
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$numRow = mysqli_num_rows($result);
 			$this->numeroAppuntamenti = $numRow;
@@ -25,11 +26,25 @@
 		}
 		/* verifica se alla dataOra passata come parametro è stato memorizzato un appuntamento */
 		public function booked($dataOra){
+			
 			$time = strtotime($dataOra);
-			$dataOraMysql = date('Y-m-d G:i:s',$time);
+			$dataOraMysql = date('Y-m-d H:i:s',$time);
 			return isset($this->datiAppuntamenti["$dataOraMysql"]);
+			/*
+			$time = strtotime($dataOra);
+			$dataOraMysql = date('Y-m-d H:i:s',$time);
+			foreach($this->datiAppuntamenti as $row){
+				echo "riga: ".$row['dataOra'].", dataOraMysql: ".$dataOraMysql."<br>";
+				if($row['dataOra'] == $dataOraMysql){
+					return true;
+				}
+			}
+			*/
+			return false;
 		}
 		public function stampa(){
+			if($this->numeroAppuntamenti == 0)
+				return;
 			foreach ($this->datiAppuntamenti as $key => $val) {
 				echo "$key = ".$val['dataOra']."<br>";}
 			}

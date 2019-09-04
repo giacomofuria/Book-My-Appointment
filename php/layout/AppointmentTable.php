@@ -103,7 +103,7 @@
 				$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
 				$dataPrimoGiornoSettimanaSuccessiva = date('Y-m-d G:i:s',$timestampPrimoGiornoSettimanaSuccessiva);
 				$appointmentList = new Appointments($this->receiverUser, $dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
-
+				//$appointmentList->stampa(); // DEBUG
 				echo "<table class='appointment-table'>";
 				echo "<tr>";
 				echo "<th></th>";
@@ -147,8 +147,7 @@
 						$dataOraAppuntamento = date('Y-m-j H:i',$timestampAppuntamento);
 
 						// verifico se l'appuntamento è già stato prenotato
-						$prenotato = $appointmentList->booked(date('Y-m-d G:i:s',$timestampAppuntamento));
-
+						$prenotato = $appointmentList->booked($dataOraAppuntamento);
 						if($this->findValue($this->pause,$i)){
 							$tdClassname='not-selected';
 						}else{

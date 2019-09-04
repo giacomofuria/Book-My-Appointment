@@ -49,7 +49,7 @@
 		global $bookMyAppointmentDb;
 
 		$time = strtotime($date.' '.$hour);
-		$dataPerMysql = date('Y-m-d G:i:s',$time);
+		$dataPerMysql = date('Y-m-d H:i:s',$time);
 		//echo $dataPerMysql.'<br>'; // DEBUG
 
 		$queryText = "INSERT 
