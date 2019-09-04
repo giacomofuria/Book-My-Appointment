@@ -157,7 +157,7 @@
 								$dataAppuntamento = date('j-m-Y',$timestampAppuntamento);
 								$oraAppuntamento = date('H:i',$timestampAppuntamento);
 								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);
-								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/correct.png'>";
+								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/calendar.png'>";
 								if(!$prenotato){
 									$button="<button class='appointment-button free' title='$dataOraAppuntamento disponibile' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")'></button>";
 								}else{
