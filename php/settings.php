@@ -242,7 +242,7 @@
 							?>
 						</select>
 					</div>
-					<button>Salva</button>
+					<button class='save-button'>Salva</button>
 				</form>
 			</div>
 			<div id="preview_container">

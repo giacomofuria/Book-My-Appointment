@@ -10,10 +10,35 @@
 
 	padding: 10px;
 }
+#creator_container p{
+	font-weight: bold;
+}
 #preview_container{
 	margin-top: 10px;
 	margin-left: 20px;
 	/*padding: 20px;*/
 	width: 42%;
 	float: left;
+}
+.save-button{
+	text-align: center;
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 10px;
+	width: 100%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	cursor: pointer;
+	background-color: #91DFAA;
+	color: #000000;
+	/*background-color: #91DFAA;*/
+	/*color: #000000;*/
+	border-style: none;
+	border-width: 0;
+	border-radius: 0;
+}
+.save-button:hover{
+	background-color: #91DFAF;
+	/*background-color: #91DF00;*/
 }
