@@ -1,6 +1,16 @@
 function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, receiverUser, duration){
 	var formContainer = document.getElementById("confirm_form_container");
+	var confirmAppointmentForm = document.getElementById("confirm-appointment-form");
+	confirmAppointmentForm.style.display = 'block';
 	formContainer.style.display = 'block';
+
+	document.addEventListener('keydown', function(event) {
+            console.log("ok");
+			if (event.keyCode == 27 || event.which == 27){
+		        closeConfirmAppointmentBox();
+		    }
+    }, false);
+
 	var appyingUserElem = document.getElementById("applying_user");
 	var receiverUserElem = document.getElementById("receveir_user");
 	var dataInputElem = document.getElementById("confirm_data_appointment");
@@ -11,4 +21,13 @@ function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, rec
 	dataInputElem.value = dataAppuntamento;
 	oraInputElem.value = oraAppuntamento;
 	durataInputElem.value = duration;
+
+
 }
+function closeConfirmAppointmentBox(){
+	var formContainer = document.getElementById("confirm_form_container");
+	var confirmAppointmentForm = document.getElementById("confirm-appointment-form");
+	confirmAppointmentForm.style.display = 'none';
+	formContainer.style.display = 'none';
+}
+

@@ -282,7 +282,8 @@
 					$parametro="&week=".$_GET['week'];
 				}
 			?>
-			<form id="confirm-appointment-form" method="POST" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
+		</div>
+		<form id="confirm-appointment-form" method="POST" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
 				<p> Conferma prenotazione appuntamento </p>
 				<label>Utente ricevente<br><input id="receveir_user" name="appointment_receiver_user"></label><br>
 				<label>Utente richiedente<br><input id="applying_user" name="appointment_applying_user"></label><br>
@@ -290,9 +291,9 @@
 				<label>Ora<br><input id="confirm_hour_appointment" name="appointment_hour"></label><br>
 				<label>Durata<br><input id="confirm_duration_appointment" name="appointment_duration"></label><br><br>
 				<input type="text" placeholder="Aggiungi una nota:" name="appointment_notes"><br>
-				<button>Conferma prenotazione</button>
+				<button type="submit">Conferma prenotazione</button>
+				<button id="exit_button" onclick="closeConfirmAppointmentBox()" type="button">Elimina prenotazione</button>
 			</form>
-		</div>
 	</div>
 	<?php
 		if($esitoSalvataggio){
