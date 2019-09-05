@@ -94,6 +94,20 @@
 		return $result;
 		
 	}
+	function getProfileImage($utente){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT profile_image FROM USER WHERE userId=$utente;";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		if($numRow != 1) // l'utente non è proprio registrato al sito
+			return null;
+
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+
+		$img = $userRow['profile_image'];
+		return base64_encode($img);
+	}
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
 		*/
@@ -200,9 +214,16 @@
 
 					if($userInfo['profile_image'] == null){
 						// Metto l'immagine di default
-						echo "<div class='profile-img-container'><img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'></div>";
+						echo "<div class='profile-img-container'>";
+							echo "<img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'>";
+						echo "</div>";
 					}else{
-						echo "Img dal DB";
+						$utente = $userInfo['userId'];
+						$immagineProfilo = getProfileImage($utente);
+						
+						echo "<div class='profile-img-container'>";
+							echo "<img class='profile_image' src=\"data:image/jpeg;base64,$immagineProfilo\" alt='Profile image'>";
+						echo "</div>";
 					}
 				?>
 				<div id='profile-info-container' class='profile-info-container'>
