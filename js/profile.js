@@ -64,20 +64,34 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 
 	var password = document.createElement("input");
 	password.setAttribute("name","newPassword");
+	password.setAttribute("type","password");
 	password.className='input-text';
 	password.setAttribute("placeholder","Nuova password");
 	form.appendChild(password);
 
 	var rePassword = document.createElement("input");
 	rePassword.setAttribute("name","reNewPassword");
+	rePassword.setAttribute("type","password");
 	rePassword.className='input-text';
 	rePassword.setAttribute("placeholder","Ripeti password");
 	form.appendChild(rePassword);
 
 	var bottone = document.createElement("button");
 	bottone.className = 'save-button';
+	bottone.setAttribute("onclick","return checkPasswords(form)");
 	var txt = document.createTextNode("Salva");
 	bottone.appendChild(txt);
 	form.appendChild(bottone);
 	profileInfoContainer.appendChild(form);
+}
+function checkPasswords(form){
+	var password = form.newPassword;
+	var repassword = form.reNewPassword;
+	//console.log("password: "+password.value+", repassword: "+repassword.value);//DEBUG
+	if(password.value != repassword.value){
+		password.setAttribute('class','input-text-error');
+		repassword.setAttribute('class','input-text-error');
+		return false;
+	}
+	return true;
 }

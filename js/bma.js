@@ -208,7 +208,7 @@ function checkPasswords(form){
 	}
 	return true;
 }
-/* Rimuove tutti i figlio del nodo passato come parametro */
+/* Rimuove tutti i figli del nodo passato come parametro */
 function removeAllChildren(elem){
 	if(elem == null)
 		return;

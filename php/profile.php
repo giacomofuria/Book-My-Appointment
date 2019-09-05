@@ -81,7 +81,8 @@
 			$sets.=",profession='".$profession."'";
 		}
 		if($newPassword){
-			$sets.=",password='".$newPassword."'";
+			$hash = password_hash($newPassword, PASSWORD_BCRYPT);
+			$sets.=",password='".$hash."'";
 		}
 		$utente = $_SESSION['userId'];
 		$queryText = "UPDATE USER 
