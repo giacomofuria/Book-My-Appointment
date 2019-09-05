@@ -11,7 +11,7 @@ function showConfirmBox(){
 	
 }
 function openProfileSettings(nome,cognome,professione,indirizzo){
-	console.log("nome: "+nome+", cognome: "+cognome);
+	console.log("nome: "+nome+", cognome: "+cognome+", professione: "+professione+", indirizzo: "+indirizzo);
 	var profileInfoContainer = document.getElementById("profile-info-container");
 	// cancello gli elementi che ci sono
 	while(profileInfoContainer.lastChild){
@@ -27,7 +27,7 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 	var dim = document.createElement("input");
 	dim.setAttribute("type","hidden");
 	dim.setAttribute("name","MAX_FILE_SIZE");
-	dim.setAttribute("value","30000");
+	dim.setAttribute("value","16777215");
 	form.appendChild(dim);
 
 	var inputFile = document.createElement("input");
@@ -36,32 +36,40 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 	form.appendChild(inputFile);
 
 	var inputFirstName = document.createElement("input");
+	inputFirstName.setAttribute("name","first_name");
 	inputFirstName.value = nome;
 	inputFirstName.className='input-text';
 	form.appendChild(inputFirstName);
+
 	var inputLastName = document.createElement("input");
+	inputLastName.setAttribute("name","last_name");
 	inputLastName.value = cognome;
 	inputLastName.className='input-text';
 	form.appendChild(inputLastName);
 
 	var inputProfessione = document.createElement("input");
+	inputProfessione.setAttribute("name","profession");
 	inputProfessione.value = professione;
 	inputProfessione.className='input-text';
 	inputProfessione.setAttribute("placeholder","professione");
 	form.appendChild(inputProfessione);
 
 	var inputIndirizzo = document.createElement("input");
+	inputIndirizzo.setAttribute("name","address");
+	inputIndirizzo.setAttribute("required","true");
 	inputIndirizzo.value = indirizzo;
 	inputIndirizzo.className='input-text';
 	inputIndirizzo.setAttribute("placeholder","indirizzo");
 	form.appendChild(inputIndirizzo);
 
 	var password = document.createElement("input");
+	password.setAttribute("name","newPassword");
 	password.className='input-text';
 	password.setAttribute("placeholder","Nuova password");
 	form.appendChild(password);
 
 	var rePassword = document.createElement("input");
+	rePassword.setAttribute("name","reNewPassword");
 	rePassword.className='input-text';
 	rePassword.setAttribute("placeholder","Ripeti password");
 	form.appendChild(rePassword);

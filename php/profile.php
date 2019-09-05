@@ -37,8 +37,15 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $userRow;
 	}
-	function parametriRicevuti(){
+	function parametriAppuntamentoRicevuti(){
 		if(!isset($_POST['appointment_receiver_user']) || !isset($_POST['appointment_applying_user']) || !isset($_POST['appointment_data']) || !isset($_POST['appointment_hour']) || !isset($_POST['appointment_duration'])){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function parametriProfiloRicevuti(){
+		if(!isset($_POST['MAX_FILE_SIZE']) || !isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['address'])){
 			return false;
 		}else{
 			return true;
@@ -63,22 +70,83 @@
 		
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 	}
+	function saveUserSettings($dimMax, $userPicPath, $firstName, $lastName, $profession, $address, $newPassword){
+		global $bookMyAppointmentDb;
+		$sets="first_name='".$firstName."',last_name='".$lastName."',address='".$address."'";
+		if($userPicPath){
+			$data = $bookMyAppointmentDb->sqlInjectionFilter(file_get_contents($userPicPath));
+			$sets.=",profile_image='".$data."'";
+		}
+		if($profession){
+			$sets.=",profession='".$profession."'";
+		}
+		if($newPassword){
+			$sets.=",password='".$newPassword."'";
+		}
+		$utente = $_SESSION['userId'];
+		$queryText = "UPDATE USER 
+						SET $sets
+						WHERE userId=$utente;";
+		//echo "QUERY: $queryText<br>"; //DEBUG
+		
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$bookMyAppointmentDb->closeConnection();
+		return $result;
+		
+	}
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
 		*/
 	echo "<script src='./../js/effects.js'></script>
 	         <script src='./../js/profile.js'></script>";
-	if(parametriRicevuti()){
+	if(parametriAppuntamentoRicevuti()){
 		$note = null;
 		if(isset($_POST['appointment_notes'])){
 			$note = $_POST['appointment_notes'];
 		}
-		$res = saveAppointment($_POST['appointment_receiver_user'], 
+		$esitoSalvataggio = saveAppointment($_POST['appointment_receiver_user'], 
 			$_POST['appointment_applying_user'], 
 			$_POST['appointment_data'], 
 			$_POST['appointment_hour'], 
 			$_POST['appointment_duration'], $note);
+
+		// testare esitoSalvataggio per verificare se la prenotazione è avvenuta correttamente
 	}
+
+	// SPOSTARE SOPRA !!!
+	if(parametriProfiloRicevuti()){
+		$dimMax = $_POST['MAX_FILE_SIZE'];
+		$userPicPath = false;
+		$firstName = $_POST['first_name'];
+		$lastName = $_POST['last_name'];
+		$profession = false;
+		$address = $_POST['address'];
+		$newPassword=false;
+		$reNewPassword=false;
+		// verifico la presenza dei parametri non obbligatori (userPic, professione e le password)
+		if(isset($_FILES['user_pic']) && is_uploaded_file($_FILES['user_pic']['tmp_name'])){
+			//echo $_FILES['user_pic']['tmp_name']."<br>";
+			$userPicPath = $_FILES['user_pic']['tmp_name'];
+		}
+		if(!is_uploaded_file($_FILES['user_pic']['tmp_name'])){
+			//echo "Problemi di caricamento <br>";
+			//echo $_FILES['user_pic']['error']."<br>";
+		}
+		if(isset($_POST['profession'])){
+			$profession = $_POST['profession'];
+		}
+		if(isset($_POST['newPassword']) && isset($_POST['reNewPassword'])){
+			$newPassword = $_POST['newPassword'];
+			$reNewPassword = $_POST['reNewPassword'];
+			// controllo se le due password inviate coincidono
+			if($newPassword != $reNewPassword){
+				// ERRORE !!
+			}
+		}
+		$esitoSalvataggioImpostazioniUtente = saveUserSettings($dimMax, $userPicPath, $firstName, $lastName, $profession, $address, $newPassword);
+		//echo "Esito: ".$esitoSalvataggioImpostazioniUtente."<br>";//DEBUG
+	}
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,7 +191,7 @@
 								$cognome = $userInfo['last_name'];
 								$professione = $userInfo['profession'];
 								$indirizzo = $userInfo['address'];
-								echo "<button class='profile-setting-button' onclick=openProfileSettings('$nome','$cognome','$professione','$indirizzo')>";
+								echo "<button class='profile-setting-button' onclick=\"openProfileSettings('$nome','$cognome','$professione','$indirizzo');\">";
 								echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png'>";
 								echo "</button>";
 							}
@@ -147,7 +215,14 @@
 					<div class='profile-info'>
 						<p><?php echo $userInfo['first_name']; ?></p>
 						<p><?php echo $userInfo['last_name']; ?></p>
-						<p><?php echo $userInfo['profession']; ?></p>
+						<p>
+							<?php 
+								if($userInfo['profession'] == null){
+									echo "&nbsp;"; 
+								}else
+									echo $userInfo['profession']; 
+							?>
+						</p>
 						<p><?php echo $userInfo['address']; ?></p>
 					</div>
 					<div style='clear:both;'></div>
@@ -198,13 +273,11 @@
 		</div>
 	</div>
 	<?php
-		if($res){
+		if($esitoSalvataggio){
 			// Faccio apparire qualcosa sulla pagina che fonferma il savataggio
-			
 			echo "<div id='confirm-box' class='confirm-message-box'> 
 				<p>Prenotazione avvenuta con successo</p><img class='img-confirm-box' src='./../img/icon/set1/correct.png'></div>"; // DA SPOSTARE QUI ^
 				echo "<script type='text/javascript'> showConfirmBox(); </script>";
-			
 		}else{
 			//echo "ERRORE<br>";//DEBUG
 		}
