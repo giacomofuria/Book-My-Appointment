@@ -264,7 +264,7 @@
 						$durata = $tableConfiguration['durataIntervalli'];
 						$pause = explode(',',$tableConfiguration['intervalliPausa']);
 
-						$receiverUser = $userInfo['userId']; // DA CAMBIARE !!!
+						$receiverUser = $userInfo['userId'];
 						$applyingUser = $_SESSION['userId'];
 
 						$appointmentTable = new AppointmentTable($giorni, $inizio, $fine, $durata, $pause,$applyingUser,$receiverUser);
@@ -284,15 +284,18 @@
 			?>
 		</div>
 		<form id="confirm-appointment-form" method="POST" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
-				<p style='text-align:center;'> Conferma prenotazione appuntamento </p>
-				<label>Utente ricevente<br><input id="receveir_user" name="appointment_receiver_user" readonly></label><br>
-				<label>Utente richiedente<br><input id="applying_user" name="appointment_applying_user" readonly></label><br>
+				<p class='confirm-appointment-header'>Conferma prenotazione appuntamento</p>
+				<input id="receveir_user" type="hidden" name="appointment_receiver_user" readonly>
+				<input id="applying_user" type="hidden" name="appointment_applying_user" readonly>
+				<label>Utente ricevente<br><input class="input-text" value="<?php echo $userInfo['first_name'].' '.$userInfo['last_name'];?>" readonly></label><br>
+				<label>Utente richiedente<br><input class="input-text" value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>" readonly></label><br>
+
 				<label>Giorno<br><input id="confirm_data_appointment" name="appointment_data" readonly></label><br>
 				<label>Ora<br><input id="confirm_hour_appointment" name="appointment_hour" readonly></label><br>
 				<label>Durata<br><input id="confirm_duration_appointment" name="appointment_duration" readonly></label><br><br>
 				<input id="confirm_notes_appointment" type="text" placeholder="Aggiungi una nota:" name="appointment_notes"><br>
 				<button id="confirm_appointment_button" class="save-button" type="submit">Conferma prenotazione</button><br>
-				<button id="exit_button" class="save-button" onclick="closeConfirmAppointmentBox()" type="button">Elimina prenotazione</button>
+				<button id="exit_button" class="save-button" onclick="closeConfirmAppointmentBox()" type="button">Esci</button>
 			</form>
 	</div>
 	<?php

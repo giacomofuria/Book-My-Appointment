@@ -57,7 +57,7 @@
 
 	z-index: 3; /* livello superiore al sito */
 	position: absolute;
-	top:20%;
+	top:20;
 	left:33%;
 	width: 30%;
 	display:none;
@@ -112,10 +112,15 @@
 	padding: 10%;
 }
 #profile-info-labels{
-	margin-left: 25%;
+	margin-left: 13%;
 	font-size: 16px;
 	font-weight: normal;
 	text-align: right;
+}
+.confirm-appointment-header{
+	text-align:center;
+	font-size: 18px;
+	font-weight: bold;
 }
 .profile-info{
 	float: left;
@@ -124,6 +129,7 @@
 	padding-right: 5%;
 	font-size: 16px;
 	font-weight: bold;
+	width: 30%;
 }
 .save-button{
 	text-align: center;
@@ -131,7 +137,7 @@
 	margin-left: 0;
 	margin-right: 0;
 	margin-top: 10px;
-	width: 96%;
+	width: 100%;
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;
 	cursor: pointer;
@@ -159,7 +165,7 @@
 	margin-left: 0;
 	margin-right: 0;
 	margin-bottom: 4%;
-	width: 96%;
+	width: 100%;
 	padding-left: 4%;
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;

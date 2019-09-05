@@ -32,6 +32,7 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 
 	var inputFile = document.createElement("input");
 	inputFile.setAttribute("name","user_pic");
+	inputFile.setAttribute("class","");
 	inputFile.setAttribute("type","file");
 	form.appendChild(inputFile);
 
