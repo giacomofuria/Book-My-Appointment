@@ -61,6 +61,7 @@
 	left:33%;
 	width: 30%;
 	display:none;
+	padding: 1%;
 }
 .confirm-message-box{
 	position: absolute; /* elemento fisso, non segue lo scroll */
@@ -129,6 +130,7 @@
 	font-size: 16px;
 	margin-left: 0;
 	margin-right: 0;
+	margin-top: 10px;
 	width: 96%;
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;
@@ -144,6 +146,13 @@
 .save-button:hover{
 	background-color: #91DFAF;
 	/*background-color: #91DF00;*/
+}
+#exit_button{
+	background-color: red;
+	color: #FFFFFF;
+}
+#exit_button:hover{
+	background-color: red;
 }
 .input-text{
 	font-size: 16px;

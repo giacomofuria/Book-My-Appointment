@@ -5,7 +5,6 @@ function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, rec
 	formContainer.style.display = 'block';
 
 	document.addEventListener('keydown', function(event) {
-            console.log("ok");
 			if (event.keyCode == 27 || event.which == 27){
 		        closeConfirmAppointmentBox();
 		    }
@@ -16,11 +15,19 @@ function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, rec
 	var dataInputElem = document.getElementById("confirm_data_appointment");
 	var oraInputElem = document.getElementById("confirm_hour_appointment");
 	var durataInputElem = document.getElementById("confirm_duration_appointment");
+	var confirmNotesAppointment = document.getElementById("confirm_notes_appointment");
+
 	appyingUserElem.value = applyingUser;
+	appyingUserElem.className = "input-text";
 	receiverUserElem.value = receiverUser;
+	receiverUserElem.className = "input-text";
 	dataInputElem.value = dataAppuntamento;
+	dataInputElem.className = "input-text";
 	oraInputElem.value = oraAppuntamento;
+	oraInputElem.className = "input-text";
 	durataInputElem.value = duration;
+	durataInputElem.className = "input-text";
+	confirmNotesAppointment.className = "input-text";
 
 
 }
