@@ -139,6 +139,28 @@
 			return true;
 		}
 	}
+	/* Funzione che restituisce le recensioni di un utente in ordine cronologico (dalla più recente) */
+	function getReviews($utente){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT U2.first_name AS nome_recensore,
+							 U2.last_name AS cognome_recensore, 
+							 U2.profile_image AS img_recensore,
+							 R.punteggio AS punteggio, 
+							 R.testoRecensione AS testo_recensione
+						FROM user U INNER JOIN recensione R INNER JOIN  user U2 ON U.userId=R.idRicevente AND R.idRecensore=U2.userId
+						WHERE U.userId=$utente;";
+		//echo $queryText."<br>"; // DEBUG
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		$bookMyAppointmentDb->closeConnection();
+		$recensioni = array();
+		while($row = $result->fetch_assoc()){
+			//echo $row['idAppuntamento']." ".$row['dataOra']."<br>";
+			//echo "punteggio: ".$row['punteggio'].", recensione: ".$row['testoRecensione']."<br>";
+			$recensioni[] = $row;
+		}
+		return $recensioni;
+	}
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
 		*/
@@ -269,6 +291,7 @@
 							<p>Email</p>
 							<p>Professione</p>
 							<p>Indirizzo</p>
+							<p>Punteggio medio</p>
 						</div>
 						<div id='profile-info-fields' class='profile-info'>
 							<p><?php echo $userInfo['first_name']; ?></p>
@@ -283,6 +306,7 @@
 								?>
 							</p>
 							<p><?php echo $userInfo['address']; ?></p>
+							<p><?php echo "lo calcolo";?></p>
 						</div>
 						<div style='clear:both;'></div>
 						<?php
@@ -297,11 +321,25 @@
 						?>	
 					</div>
 				</div>
-				<div id="review_container" class="container">
-					<!-- recensione campo mostrato solo se ci sono state almeno un appuntamento -->
-					<h2>Recensioni degli utenti</h2>
-					
-				</div>
+				<?php
+					$utente = $userInfo['userId'];
+					$recensioni = getReviews($utente); // restituisce le recensioni, dalla più recente alla più vecchia
+					foreach($recensioni as $recensione){
+						echo "<div class='container'>";
+						$src = "./../img/icon/set1/man.png";
+						if($recensione['img_recensore'] != null){
+							$img = base64_encode($recensione['img_recensore']);
+							$src = "data:image/jpeg;base64,$img";
+						}
+						echo "<img class='reviewer_profile_img' src=\"$src\">";
+						echo "<h3>".$recensione['nome_recensore']." ".$recensione['cognome_recensore']."</h3>";
+						echo "<div class='review-body'>";
+							echo "<p>Punteggio <b>".$recensione['punteggio']."</b>";
+							echo "<p> <b>\"</b>".$recensione['testo_recensione']."<b>\"</b>";
+						echo "</div>";
+						echo "</div>";
+					}
+				?>
 			</div>
 			<div id="booking_table"> 
 				<div id='booking-table-info'>
