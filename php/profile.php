@@ -146,9 +146,10 @@
 							 U2.last_name AS cognome_recensore, 
 							 U2.profile_image AS img_recensore,
 							 R.punteggio AS punteggio, 
-							 R.testoRecensione AS testo_recensione
+							 R.testoRecensione AS testo_recensione,
+							 R.dataOra AS dataOra
 						FROM user U INNER JOIN recensione R INNER JOIN  user U2 ON U.userId=R.idRicevente AND R.idRecensore=U2.userId
-						WHERE U.userId=$utente;";
+						WHERE U.userId=$utente ORDER BY dataOra DESC;";
 		//echo $queryText."<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$numRow = mysqli_num_rows($result);
@@ -160,6 +161,25 @@
 			$recensioni[] = $row;
 		}
 		return $recensioni;
+	}
+	/* Funzione che calcola il punteggio medio di un utente*/
+	function getPunteggioMedio($utente){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT AVG(R.punteggio) AS media 
+						FROM user U INNER JOIN recensione R ON U.userId=R.idRicevente  
+						WHERE U.userId=$utente;";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		if($numRow != 1) // l'utente non è proprio registrato al sito
+			return false;
+
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+		$media = $userRow['media'];
+		if($media == null)
+			return false;
+		else
+			return $media;
 	}
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
@@ -306,7 +326,11 @@
 								?>
 							</p>
 							<p><?php echo $userInfo['address']; ?></p>
-							<p><?php echo "lo calcolo";?></p>
+							<?php 
+								$utente = $userInfo['userId'];
+								$media = getPunteggioMedio($utente); 
+								echo "<p>$media</p>";
+							?>
 						</div>
 						<div style='clear:both;'></div>
 						<?php
@@ -331,8 +355,12 @@
 							$img = base64_encode($recensione['img_recensore']);
 							$src = "data:image/jpeg;base64,$img";
 						}
-						echo "<img class='reviewer_profile_img' src=\"$src\">";
-						echo "<h3>".$recensione['nome_recensore']." ".$recensione['cognome_recensore']."</h3>";
+						echo "<div class='review-header'>";
+							echo "<div class='review-header-element'><img class='reviewer_profile_img' src=\"$src\"></div>";
+							echo "<div class='review-header-element'><h3 >".$recensione['nome_recensore']." ".$recensione['cognome_recensore']."</h3></div>";
+							echo "<p class='review-time'>il ".$recensione['dataOra']."</p>";
+							echo "<div style='clear:both;'></div>";
+						echo "</div>";
 						echo "<div class='review-body'>";
 							echo "<p>Punteggio <b>".$recensione['punteggio']."</b>";
 							echo "<p> <b>\"</b>".$recensione['testo_recensione']."<b>\"</b>";
