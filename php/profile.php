@@ -190,70 +190,90 @@
 		?>
 		<div id="workspace">
 			<div id="user_info">
-				<?php
-					$userInfo = null;
-					if(isset($_GET['user'])){
-						$userInfo = getUserInfo($_GET['user']);
-					}else{
-						$userInfo = getUserInfo($_SESSION['userId']);
-					}
-					$flagPaginaPersonale = false; // flag che indica se l'utente che sta visitando il profilo è il proprietario del profilo
-					if($_SESSION['userId'] == $userInfo['userId']){
-						$flagPaginaPersonale = true;
-					}
-				
-					echo "<div class='profile-name-container'>";
-						echo "<p> ".$userInfo['first_name']." ".$userInfo['last_name'];
-							if($flagPaginaPersonale){
-								$nome = $userInfo['first_name'];
-								$cognome = $userInfo['last_name'];
-								$email = $userInfo['email'];
-								$professione = $userInfo['profession'];
-								$indirizzo = $userInfo['address'];
-								echo "<button class='profile-setting-button' onclick=\"openProfileSettings('$nome','$cognome','$email','$professione','$indirizzo');\">";
-								echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png'>";
-								echo "</button>";
-							}
-						echo "</p>";
-					echo "</div>";
+				<div class="container">
+					<?php
+						$userInfo = null;
+						if(isset($_GET['user'])){
+							$userInfo = getUserInfo($_GET['user']);
+						}else{
+							$userInfo = getUserInfo($_SESSION['userId']);
+						}
+						$flagPaginaPersonale = false; // flag che indica se l'utente che sta visitando il profilo è il proprietario del profilo
+						if($_SESSION['userId'] == $userInfo['userId']){
+							$flagPaginaPersonale = true;
+						}
+					
+						echo "<div class='profile-name-container'>";
+							echo "<p> ".$userInfo['first_name']." ".$userInfo['last_name'];
+								if($flagPaginaPersonale){
+									$nome = $userInfo['first_name'];
+									$cognome = $userInfo['last_name'];
+									$email = $userInfo['email'];
+									$professione = $userInfo['profession'];
+									$indirizzo = $userInfo['address'];
+									echo "<button class='profile-setting-button' onclick=\"openProfileSettings('$nome','$cognome','$email','$professione','$indirizzo');\">";
+									echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png'>";
+									echo "</button>";
+								}
+							echo "</p>";
+						echo "</div>";
 
-					if($userInfo['profile_image'] == null){
-						// Metto l'immagine di default
-						echo "<div class='profile-img-container'>";
-							echo "<img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'>";
-						echo "</div>";
-					}else{
-						$utente = $userInfo['userId'];
-						$immagineProfilo = getProfileImage($utente);
-						$src="data:image/jpeg;base64,$immagineProfilo";
-						echo "<div class='profile-img-container'>";
-							echo "<img class='profile_image' src=\"$src\" alt='Profile image'>";
-						echo "</div>";
-					}
-				?>
-				<div id='profile-info-container' class='profile-info-container'>
-					<div id='profile-info-labels' class='profile-info'>
-						<p>Nome</p>
-						<p>Cognome</p>
-						<p>Email</p>
-						<p>Professione</p>
-						<p>Indirizzo</p>
+						if($userInfo['profile_image'] == null){
+							// Metto l'immagine di default
+							echo "<div class='profile-img-container'>";
+								echo "<img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'>";
+							echo "</div>";
+						}else{
+							$utente = $userInfo['userId'];
+							$immagineProfilo = getProfileImage($utente);
+							$src="data:image/jpeg;base64,$immagineProfilo";
+							echo "<div class='profile-img-container'>";
+								echo "<img class='profile_image' src=\"$src\" alt='Profile image'>";
+							echo "</div>";
+						}
+					?>
+					<div id='profile-info-container' class='profile-info-container'>
+						<div id='profile-info-labels' class='profile-info'>
+							<p>Nome</p>
+							<p>Cognome</p>
+							<p>Email</p>
+							<p>Professione</p>
+							<p>Indirizzo</p>
+						</div>
+						<div id='profile-info-fields' class='profile-info'>
+							<p><?php echo $userInfo['first_name']; ?></p>
+							<p><?php echo $userInfo['last_name']; ?></p>
+							<p><?php echo $userInfo['email']; ?></p>
+							<p>
+								<?php 
+									if($userInfo['profession'] == null){
+										echo "&nbsp;"; 
+									}else
+										echo $userInfo['profession']; 
+								?>
+							</p>
+							<p><?php echo $userInfo['address']; ?></p>
+						</div>
+						<div style='clear:both;'></div>
 					</div>
-					<div id='profile-info-fields' class='profile-info'>
-						<p><?php echo $userInfo['first_name']; ?></p>
-						<p><?php echo $userInfo['last_name']; ?></p>
-						<p><?php echo $userInfo['email']; ?></p>
-						<p>
-							<?php 
-								if($userInfo['profession'] == null){
-									echo "&nbsp;"; 
-								}else
-									echo $userInfo['profession']; 
-							?>
-						</p>
-						<p><?php echo $userInfo['address']; ?></p>
-					</div>
-					<div style='clear:both;'></div>
+				</div>
+				<div id="review_container" class="container">
+					<!-- recensione campo mostrato solo se ci sono state almeno un appuntamento -->
+					<h2>La tua opione</h2>
+					<form method="post" action="./profile.php">
+						<p>Voto</p>
+						<p class="sub-header">da 1(min) a 5(max)</p>
+						<select class="selector">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+						<p>Scrivi una recensione</p>
+						<textarea class="review" placeholder="Scrivi qui"></textarea>
+						<button type="submit" class="save-button">Invia</button>
+					</form>
 				</div>
 			</div>
 			<div id="booking_table"> 

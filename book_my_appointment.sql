@@ -50,3 +50,22 @@ CREATE TABLE appuntamento(
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS recensione;
+CREATE TABLE recensione(
+    idRecensione INT(11) NOT NULL AUTO_INCREMENT,
+    idRicevente INT(11) NOT NULL,
+    idRecensore INT(11) NOT NULL,
+    dataOra TIMESTAMP NOT NULL,
+    punteggio INT(11) NOT NULL,
+    note MEDIUMTEXT DEFAULT NULL,
+    PRIMARY KEY (idRecensione),
+    CONSTRAINT vincolo_utente_ricevente_recensione FOREIGN KEY (idRicevente)
+    REFERENCES user(userId)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
+    CONSTRAINT vincolo_utente_recensore FOREIGN KEY (idRecensore)
+    REFERENCES user(userId)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
