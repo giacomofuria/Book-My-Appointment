@@ -196,6 +196,7 @@
 					
 
 				?>
+				<h2>Configura la tua tabella degli appuntamenti</h2><hr>
 				<form method="post" action="./settings.php">
 					<div id="work_days" class="appointment_setting_container">
 						<h2>Seleziona i giorni di lavoro</h2>
@@ -244,7 +245,7 @@
 				</form>
 			</div>
 			<div id="preview_container">
-
+				<h2>Anteprima</h2>
 			</div>
 		</div> <!-- fine workspace -->
 	</div>
