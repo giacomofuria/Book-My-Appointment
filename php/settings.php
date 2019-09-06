@@ -225,8 +225,8 @@
 					</div>
 					<div id="pauses" class="appointment_setting_container">
 
-						<h2>Seleziona uno o più intervalli che non vuoi rendere prenotabili:</h2>
-						<p class="sub-header">(puoi selezionare più intervalli tenendo premuto il tasto ctrl</p>
+						<h2>Seleziona uno o più intervalli che non vuoi rendere prenotabili</h2>
+						<p class="sub-header">(puoi selezionare più intervalli tenendo premuto il tasto ctrl)</p>
 						<select id="pauses_selector" class="selector" name="pauses_selector[]" multiple>
 							<?php
 								for($i = 0; $i < $numeroAppuntamenti; $i++){

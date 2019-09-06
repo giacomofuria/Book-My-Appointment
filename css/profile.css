@@ -156,11 +156,11 @@
 	background-color: #91DFAF;
 	/*background-color: #91DF00;*/
 }
-#exit_button{
+.exit-button{
 	background-color: red;
 	color: #FFFFFF;
 }
-#exit_button:hover{
+.exit-button:hover{
 	background-color: red;
 }
 .input-text{

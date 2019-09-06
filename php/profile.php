@@ -239,7 +239,7 @@
 						<p>Professione</p>
 						<p>Indirizzo</p>
 					</div>
-					<div class='profile-info'>
+					<div id='profile-info-fields' class='profile-info'>
 						<p><?php echo $userInfo['first_name']; ?></p>
 						<p><?php echo $userInfo['last_name']; ?></p>
 						<p><?php echo $userInfo['email']; ?></p>
@@ -302,7 +302,7 @@
 				<!-- <label>Note: <input id="confirm_notes_appointment" type="text" placeholder="Aggiungi una nota:" name="appointment_notes"><br></label> -->
 				<label>Note: <textarea id="confirm_notes_appointment" placeholder="Aggiungi una nota:" name="appointment_notes"></textarea><br></label>
 				<button id="confirm_appointment_button" class="save-button" type="submit">Conferma prenotazione</button><br>
-				<button id="exit_button" class="save-button" onclick="closeConfirmAppointmentBox()" type="button">Esci</button>
+				<button class="save-button exit-button" onclick="closeConfirmAppointmentBox()" type="button">Esci</button>
 			</form>
 	</div>
 	<?php

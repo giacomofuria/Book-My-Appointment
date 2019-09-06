@@ -13,13 +13,26 @@ function showConfirmBox(){
 function openProfileSettings(nome,cognome,email,professione,indirizzo){
 	console.log("nome: "+nome+", cognome: "+cognome+",email: "+email+", professione: "+professione+", indirizzo: "+indirizzo);
 	var profileInfoContainer = document.getElementById("profile-info-container");
+	
+	var profileInfoLabels = document.getElementById("profile-info-labels");
+	var profileInfoFields = document.getElementById("profile-info-fields");
+	profileInfoLabels.style.display = "none";
+	profileInfoFields.style.display = "none";
+
+	var form = document.getElementById("setting_form");
+	if(form != null){
+		form.remove();
+	}
+	
+	/*
 	// cancello gli elementi che ci sono
 	while(profileInfoContainer.lastChild){
 		profileInfoContainer.lastChild.remove();
 	}
+	*/
 	// Creo il form di modifica
 	var form = document.createElement("form");
-
+	form.setAttribute("id","setting_form");
 	form.setAttribute("enctype","multipart/form-data");
 	form.setAttribute("method","POST");
 	form.setAttribute("action","./profile.php");
@@ -84,10 +97,20 @@ function openProfileSettings(nome,cognome,email,professione,indirizzo){
 
 	var bottone = document.createElement("button");
 	bottone.className = 'save-button';
+	bottone.setAttribute("type","submit");
 	bottone.setAttribute("onclick","return checkPasswords(form)");
 	var txt = document.createTextNode("Salva");
 	bottone.appendChild(txt);
 	form.appendChild(bottone);
+
+	var exit = document.createElement("button");
+	exit.className = 'exit-button save-button';
+	exit.setAttribute("type","button");
+	exit.setAttribute("onclick","closeSettingsBox()");
+	txt = document.createTextNode("Esci");
+	exit.appendChild(txt);
+	form.appendChild(exit);
+
 	profileInfoContainer.appendChild(form);
 }
 function checkPasswords(form){
@@ -100,4 +123,19 @@ function checkPasswords(form){
 		return false;
 	}
 	return true;
+}
+function closeSettingsBox(){
+
+	// cancello il form
+	var form = document.getElementById("setting_form");
+	if(form != null){
+		form.remove();
+	}
+
+	var profileInfoLabels = document.getElementById("profile-info-labels");
+	var profileInfoFields = document.getElementById("profile-info-fields");
+	profileInfoLabels.style.display = "block";
+	profileInfoFields.style.display = "block";
+
+
 }
