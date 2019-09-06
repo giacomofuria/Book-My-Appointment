@@ -280,7 +280,7 @@
 			</div>
 		</div> <!-- fine workspace -->
 		<div style='clear:both;'></div>
-		<div id="confirm_form_container" class='form-container'>
+		<div id="confirm_form_container" class='form-container' onclick="closeConfirmAppointmentBox()">
 			<?php
 				// prelevo i parametri GET per mantenere lo stato
 				$parametro="";

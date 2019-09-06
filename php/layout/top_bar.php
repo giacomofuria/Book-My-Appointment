@@ -4,7 +4,7 @@
 		<?php echo ' '.$_SESSION['first_name'].' '.$_SESSION['last_name']; ?>
 	</div>
 	<div id="search-bar-container" class="top-bar-box">
-		<input id="search-bar" placeholder="Search for a name or a job">
+		<input id="search-bar" placeholder="Cerca un nome o una professione">
 		<button id="search-button" title="search"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;"></button>
 	</div>
 	<div class="top-bar-box">
