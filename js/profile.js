@@ -10,8 +10,8 @@ function showConfirmBox(){
 	},4000);
 	
 }
-function openProfileSettings(nome,cognome,professione,indirizzo){
-	console.log("nome: "+nome+", cognome: "+cognome+", professione: "+professione+", indirizzo: "+indirizzo);
+function openProfileSettings(nome,cognome,email,professione,indirizzo){
+	console.log("nome: "+nome+", cognome: "+cognome+",email: "+email+", professione: "+professione+", indirizzo: "+indirizzo);
 	var profileInfoContainer = document.getElementById("profile-info-container");
 	// cancello gli elementi che ci sono
 	while(profileInfoContainer.lastChild){
@@ -32,7 +32,6 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 
 	var inputFile = document.createElement("input");
 	inputFile.setAttribute("name","user_pic");
-	inputFile.setAttribute("class","");
 	inputFile.setAttribute("type","file");
 	form.appendChild(inputFile);
 
@@ -47,6 +46,12 @@ function openProfileSettings(nome,cognome,professione,indirizzo){
 	inputLastName.value = cognome;
 	inputLastName.className='input-text';
 	form.appendChild(inputLastName);
+
+	var inputEmail = document.createElement("input");
+	inputEmail.setAttribute("name","email");
+	inputEmail.value = email;
+	inputEmail.className='input-text';
+	form.appendChild(inputEmail);
 
 	var inputProfessione = document.createElement("input");
 	inputProfessione.setAttribute("name","profession");

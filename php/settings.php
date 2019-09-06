@@ -197,8 +197,8 @@
 
 				?>
 				<form method="post" action="./settings.php">
-					<div id="work_days">
-						<p>Seleziona i giorni di lavoro</p>
+					<div id="work_days" class="appointment_setting_container">
+						<h2>Seleziona i giorni di lavoro</h2>
 						<label><input type="checkbox" name="work_days[]" value="1" <?php if(findValue($giorni,'1')) echo 'checked';?>>Lun</label>
 						<label><input type="checkbox" name="work_days[]" value="2" <?php if(findValue($giorni,'2')) echo 'checked';?> >Mar</label>
 						<label><input type="checkbox" name="work_days[]" value="3" <?php if(findValue($giorni,'3')) echo 'checked';?> >Mer</label>
@@ -207,18 +207,15 @@
 						<label><input type="checkbox" name="work_days[]" value="6" <?php if(findValue($giorni,'6')) echo 'checked';?> >Sab</label>
 						<label><input type="checkbox" name="work_days[]" value="7" <?php if(findValue($giorni,'7')) echo 'checked';?> >Dom</label>
 					</div>
-					<div id="open_close_times">
-						<p>Inserisci gli orari di apertura e di chiusura</p>
-						<label>Orario di apertura 
-							<input type="time" name="opening_time" value="<?php if($inizio!=null) echo $inizio; else echo '00:00'; ?>" required>
-						<label>
-						<label>Orario di chiusura 
-							<input type="time" name="closing_time" value="<?php if($fine!=null) echo $fine; else echo '00:00'; ?>" required>
-						<label>
+					<div id="open_close_times" class="appointment_setting_container">
+						<h2>Orario di apertura </h2>
+							<input class="selector" type="time" name="opening_time" value="<?php if($inizio!=null) echo $inizio; else echo '00:00'; ?>" required>
+						<h2>Orario di chiusura </h2>
+							<input class="selector" type="time" name="closing_time" value="<?php if($fine!=null) echo $fine; else echo '00:00'; ?>" required>
 					</div>
-					<div id="appointment_duration">
-						<p>Durata media di ogni appuntamento</p>
-  						<select name="select_duration" id="select_duration">
+					<div id="appointment_duration" class="appointment_setting_container">
+						<h2>Durata media di ogni appuntamento</h2>
+  						<select id="select_duration" class="selector" name="select_duration">
   							<option value="10" <?php if($durata==10)echo 'selected';?>>10 min</option>
   							<option value="30" <?php if($durata==30)echo 'selected';?>>30 min</option>
   							<option value="60" <?php if($durata==60)echo 'selected';?>>1 h</option>
@@ -226,10 +223,11 @@
   							<!-- <option value="variabile">variabile</option> -->
   						</select>
 					</div>
-					<div id="pauses">
+					<div id="pauses" class="appointment_setting_container">
 
-						<p>Seleziona uno o più intervalli che non vuoi rendere prenotabili:</p>
-						<select id="pauses_selector" name="pauses_selector[]" multiple>
+						<h2>Seleziona uno o più intervalli che non vuoi rendere prenotabili:</h2>
+						<p class="sub-header">(puoi selezionare più intervalli tenendo premuto il tasto ctrl</p>
+						<select id="pauses_selector" class="selector" name="pauses_selector[]" multiple>
 							<?php
 								for($i = 0; $i < $numeroAppuntamenti; $i++){
 									if(findValue($pause,$i)){

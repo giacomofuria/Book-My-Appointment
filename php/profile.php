@@ -70,9 +70,9 @@
 		
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 	}
-	function saveUserSettings($dimMax, $userPicPath, $firstName, $lastName, $profession, $address, $newPassword){
+	function saveUserSettings($dimMax, $userPicPath, $firstName, $lastName, $newEmail, $profession, $address, $newPassword){
 		global $bookMyAppointmentDb;
-		$sets="first_name='".$firstName."',last_name='".$lastName."',address='".$address."'";
+		$sets="first_name='".$firstName."',last_name='".$lastName."',email='".$newEmail."',address='".$address."'";
 		if($userPicPath){
 			$data = $bookMyAppointmentDb->sqlInjectionFilter(file_get_contents($userPicPath));
 			$sets.=",profile_image='".$data."'";
@@ -95,6 +95,7 @@
 		return $result;
 		
 	}
+	/*
 	function getProfileImage($utente){
 		global $bookMyAppointmentDb;
 		$queryText = "SELECT profile_image FROM USER WHERE userId=$utente;";
@@ -109,6 +110,7 @@
 		$img = $userRow['profile_image'];
 		return base64_encode($img);
 	}
+	*/
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
 		*/
@@ -134,6 +136,7 @@
 		$userPicPath = false;
 		$firstName = $_POST['first_name'];
 		$lastName = $_POST['last_name'];
+		$newEmail = $_POST['email'];
 		$profession = false;
 		$address = $_POST['address'];
 		$newPassword=false;
@@ -158,7 +161,7 @@
 				// ERRORE !!
 			}
 		}
-		$esitoSalvataggioImpostazioniUtente = saveUserSettings($dimMax, $userPicPath, $firstName, $lastName, $profession, $address, $newPassword);
+		$esitoSalvataggioImpostazioniUtente = saveUserSettings($dimMax, $userPicPath, $firstName, $lastName,$newEmail, $profession, $address, $newPassword);
 		//echo "Esito: ".$esitoSalvataggioImpostazioniUtente."<br>";//DEBUG
 	}
 	
@@ -204,9 +207,10 @@
 							if($flagPaginaPersonale){
 								$nome = $userInfo['first_name'];
 								$cognome = $userInfo['last_name'];
+								$email = $userInfo['email'];
 								$professione = $userInfo['profession'];
 								$indirizzo = $userInfo['address'];
-								echo "<button class='profile-setting-button' onclick=\"openProfileSettings('$nome','$cognome','$professione','$indirizzo');\">";
+								echo "<button class='profile-setting-button' onclick=\"openProfileSettings('$nome','$cognome','$email','$professione','$indirizzo');\">";
 								echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png'>";
 								echo "</button>";
 							}
@@ -221,9 +225,9 @@
 					}else{
 						$utente = $userInfo['userId'];
 						$immagineProfilo = getProfileImage($utente);
-						
+						$src="data:image/jpeg;base64,$immagineProfilo";
 						echo "<div class='profile-img-container'>";
-							echo "<img class='profile_image' src=\"data:image/jpeg;base64,$immagineProfilo\" alt='Profile image'>";
+							echo "<img class='profile_image' src=\"$src\" alt='Profile image'>";
 						echo "</div>";
 					}
 				?>
@@ -231,12 +235,14 @@
 					<div id='profile-info-labels' class='profile-info'>
 						<p>Nome</p>
 						<p>Cognome</p>
+						<p>Email</p>
 						<p>Professione</p>
 						<p>Indirizzo</p>
 					</div>
 					<div class='profile-info'>
 						<p><?php echo $userInfo['first_name']; ?></p>
 						<p><?php echo $userInfo['last_name']; ?></p>
+						<p><?php echo $userInfo['email']; ?></p>
 						<p>
 							<?php 
 								if($userInfo['profession'] == null){
@@ -287,13 +293,14 @@
 				<p class='confirm-appointment-header'>Conferma prenotazione appuntamento</p>
 				<input id="receveir_user" type="hidden" name="appointment_receiver_user" readonly>
 				<input id="applying_user" type="hidden" name="appointment_applying_user" readonly>
-				<label>Utente ricevente<br><input class="input-text" value="<?php echo $userInfo['first_name'].' '.$userInfo['last_name'];?>" readonly></label><br>
-				<label>Utente richiedente<br><input class="input-text" value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>" readonly></label><br>
+				<label>Utente ricevente:<br><input class="input-text" value="<?php echo $userInfo['first_name'].' '.$userInfo['last_name'];?>" readonly></label><br>
+				<label>Utente richiedente:<br><input class="input-text" value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>" readonly></label><br>
 
-				<label>Giorno<br><input id="confirm_data_appointment" name="appointment_data" readonly></label><br>
-				<label>Ora<br><input id="confirm_hour_appointment" name="appointment_hour" readonly></label><br>
-				<label>Durata<br><input id="confirm_duration_appointment" name="appointment_duration" readonly></label><br><br>
-				<input id="confirm_notes_appointment" type="text" placeholder="Aggiungi una nota:" name="appointment_notes"><br>
+				<label>Data:<br><input id="confirm_data_appointment" name="appointment_data" readonly></label><br>
+				<label>Ora:<br><input id="confirm_hour_appointment" name="appointment_hour" readonly></label><br>
+				<label>Durata (in minuti):<br><input id="confirm_duration_appointment" name="appointment_duration" readonly></label><br>
+				<!-- <label>Note: <input id="confirm_notes_appointment" type="text" placeholder="Aggiungi una nota:" name="appointment_notes"><br></label> -->
+				<label>Note: <textarea id="confirm_notes_appointment" placeholder="Aggiungi una nota:" name="appointment_notes"></textarea><br></label>
 				<button id="confirm_appointment_button" class="save-button" type="submit">Conferma prenotazione</button><br>
 				<button id="exit_button" class="save-button" onclick="closeConfirmAppointmentBox()" type="button">Esci</button>
 			</form>

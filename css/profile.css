@@ -63,6 +63,9 @@
 	display:none;
 	padding: 1%;
 }
+#confirm_notes_appointment{
+	resize: none;
+}
 .confirm-message-box{
 	position: absolute; /* elemento fisso, non segue lo scroll */
 	z-index: 2; /* livello superiore al sito */

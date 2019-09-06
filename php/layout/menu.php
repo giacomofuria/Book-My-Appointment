@@ -1,5 +1,35 @@
 <!-- sezione menu -->
-<div id="profile-img" class="side-menu-box" onclick='location.href="./profile.php"'>
+<?php
+	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
+	// se è stato caricato significa che la sessione è stata già verificata
+	// quindi posso caricare l'immagine di login
+	function getProfileImage($utente){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT profile_image FROM USER WHERE userId=$utente;";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+
+		$img = $userRow['profile_image'];
+		if($img == null){
+			return false;
+		}else{
+			return base64_encode($img);
+		}
+	}
+	
+	$utente = $_SESSION['userId'];
+	$immagineProfilo = getProfileImage($utente);
+	$src=null;
+	if(!$immagineProfilo){
+		$src="./../img/icon/set1/man.png";
+	}else{
+		$src="data:image/jpeg;base64,$immagineProfilo";
+	}
+?>
+<div  class="side-menu-box" onclick='location.href="./profile.php"'>
+	<img id="profile-img" src="<?php echo $src;?>" style="width: 100%;">
 </div>
 <div class="side-menu-box">
 	<button id="home_button" class="menu_buttons" onclick="window.location.href='./home.php'">			Home 		</button>
