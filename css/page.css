@@ -119,27 +119,7 @@ div{
 	border-width: 1px;
 	background-color: #91DFAA;
 }
-.appointment-container{
-	margin-top: 10px;
-	/*margin-bottom: 0.5%;*/
-	height: 80px;
-	background-color: #FFFFFF;
-	box-shadow: 0 2px 8px rgba(0,0,0,.12);
-	border-radius: 2px;
-}
-.appointment-container:last-child{
-	/*background-color: #000000;*/
-	margin-bottom: 10px;
-}
-.appointment-header{
-	width: 100%;
-	background-color: #ECEEF0;
-	height: 25px;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	/*box-shadow: 0 8px 6px -6px black;*/
-	box-shadow: 0 2px 8px rgba(0,0,0,.12);
-}
+
 #workspace{
 	margin-top: 65px;
 }

@@ -14,6 +14,7 @@
 	<meta name = "author" content = "Giacomo Furia">
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="./../css/home.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/calendar.css" type="text/css" media="screen">
 </head>
 <body>
@@ -30,7 +31,7 @@
 			<div id="appointments-viewer">
 				<div id="my-appointments">
 					<div class="appointment-header">
-						Booked appointments for you
+						<h3>I tuoi prossimi appuntamenti</h3>
 					</div>
 					<div class="appointment-container">
 						Appuntamento 1 
@@ -42,7 +43,7 @@
 
 				<div id="clients-appointments">
 					<div class="appointment-header">
-						Booked appointments by your clients
+						<h3>I prossimi appuntamenti con i tuoi clienti</h3>
 					</div>
 					<div class="appointment-container">
 						Appuntamento 1
