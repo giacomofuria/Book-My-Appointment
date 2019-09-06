@@ -2,6 +2,7 @@ function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, rec
 	var formContainer = document.getElementById("confirm_form_container");
 	var confirmAppointmentForm = document.getElementById("confirm-appointment-form");
 	confirmAppointmentForm.style.display = 'block';
+	formContainer.setAttribute("onclick","closeConfirmAppointmentBox()");
 	formContainer.style.display = 'block';
 
 	document.addEventListener('keydown', function(event) {

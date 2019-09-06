@@ -5,8 +5,8 @@
 	box-shadow: 0 2px 8px rgba(0,0,0,.08);
 	padding-top: 2%;
 	padding-bottom: 2%;
-	padding-left: 4%;
-	padding-right: 4%;
+	padding-left: 2%;
+	padding-right: 2%;
 }
 #user_info{
 	width: 45%;
@@ -73,6 +73,14 @@
 }
 #confirm_notes_appointment{
 	resize: none;
+}
+#add_review_form{
+	z-index: 3; /* livello superiore al sito */
+	position: absolute;
+	top:40;
+	left:30%;
+	width: 30%;
+	display:none;
 }
 .confirm-message-box{
 	position: absolute; /* elemento fisso, non segue lo scroll */

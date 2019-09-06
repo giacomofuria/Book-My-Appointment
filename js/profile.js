@@ -23,7 +23,7 @@ function openProfileSettings(nome,cognome,email,professione,indirizzo){
 	if(form != null){
 		form.remove();
 	}
-	
+
 	/*
 	// cancello gli elementi che ci sono
 	while(profileInfoContainer.lastChild){
@@ -138,4 +138,23 @@ function closeSettingsBox(){
 	profileInfoFields.style.display = "block";
 
 
+}
+function openReviewBox(){
+	var formContainer = document.getElementById("confirm_form_container");
+	var addReviewForm = document.getElementById("add_review_form");
+	formContainer.style.display = 'block';
+	formContainer.setAttribute("onclick","closeReviewBox()");
+	addReviewForm.style.display = 'block';
+
+	document.addEventListener('keydown', function(event) {
+			if (event.keyCode == 27 || event.which == 27){
+		        closeReviewBox();
+		    }
+    }, false);
+}
+function closeReviewBox(){
+	var formContainer = document.getElementById("confirm_form_container");
+	var addReviewForm = document.getElementById("add_review_form");
+	formContainer.style.display = 'none';
+	addReviewForm.style.display = 'none';
 }

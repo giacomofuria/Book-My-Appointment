@@ -7,7 +7,16 @@
 		header('Location: ./../index.php');
 		exit;
 	}
-	
+	$userInfo = null;
+	if(isset($_GET['user'])){
+		$userInfo = getUserInfo($_GET['user']);
+	}else{
+		$userInfo = getUserInfo($_SESSION['userId']);
+	}
+	$flagPaginaPersonale = false; // flag che indica se l'utente che sta visitando il profilo è il proprietario del profilo
+	if($_SESSION['userId'] == $userInfo['userId']){
+		$flagPaginaPersonale = true;
+	}
 	
 	function getUserInfo($userId){
 		global $bookMyAppointmentDb;
@@ -95,22 +104,41 @@
 		return $result;
 		
 	}
-	/*
-	function getProfileImage($utente){
+	function parametriRecensioneRicevuti(){
+		if(!isset($_POST['punteggio'])){
+			return false;
+		}
+		return true;
+	}
+	function saveNewReview($utenteRicevente, $utenteRecensore, $dataOra, $punteggio, $testoRecensione){
 		global $bookMyAppointmentDb;
-		$queryText = "SELECT profile_image FROM USER WHERE userId=$utente;";
+		$queryText = null;
+		if($testoRecensione == null){
+			$queryText = "INSERT INTO recensione (idRicevente, idRecensore, dataOra, punteggio) 
+					  VALUES ($utenteRicevente, $utenteRecensore, \"$dataOra\", $punteggio)";
+		}else{
+			$queryText = "INSERT INTO recensione (idRicevente, idRecensore, dataOra, punteggio, testoRecensione) 
+					  VALUES ($utenteRicevente, $utenteRecensore, \"$dataOra\", $punteggio, \"$testoRecensione\")";
+		}
+		//echo "$queryText<br>"; // DEBUG
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$bookMyAppointmentDb->closeConnection();
+		return $result;
+	}
+	/* funzione che verifica se l'utente recensore ha già effettuato in passato appuntamenti con l'utente ricevente */
+	function findOldAppointments($utenteRecensore, $utenteRicevente){
+		global $bookMyAppointmentDb;
+		$dataOraAttuale = date('Y-m-d H:i:s',time());
+		$queryText = "SELECT * FROM appuntamento 
+					  WHERE idRichiedente=$utenteRecensore AND idRicevente=$utenteRicevente AND dataOra<\"$dataOraAttuale\";";
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$numRow = mysqli_num_rows($result);
-		if($numRow != 1) // l'utente non è proprio registrato al sito
-			return null;
-
-		$bookMyAppointmentDb->closeConnection();
-		$userRow = $result->fetch_assoc();
-
-		$img = $userRow['profile_image'];
-		return base64_encode($img);
+		if($numRow <= 0){
+			return false;
+		}else{
+			return true;
+		}
 	}
-	*/
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
 		*/
@@ -130,7 +158,6 @@
 		// testare esitoSalvataggio per verificare se la prenotazione è avvenuta correttamente
 	}
 
-	// SPOSTARE SOPRA !!!
 	if(parametriProfiloRicevuti()){
 		$dimMax = $_POST['MAX_FILE_SIZE'];
 		$userPicPath = false;
@@ -164,6 +191,18 @@
 		$esitoSalvataggioImpostazioniUtente = saveUserSettings($dimMax, $userPicPath, $firstName, $lastName,$newEmail, $profession, $address, $newPassword);
 		//echo "Esito: ".$esitoSalvataggioImpostazioniUtente."<br>";//DEBUG
 	}
+	if(parametriRecensioneRicevuti()){
+		$punteggio = $_POST['punteggio'];
+		$testoRecensione = null;
+		if(isset($_POST['testo_recensione'])){
+			$testoRecensione = $_POST['testo_recensione'];
+		}
+		$utenteRicevente = $userInfo['userId'];
+		$utenteRecensore = $_SESSION['userId'];
+
+		$dataOra = date('Y-m-d H:i:s',time());
+		$esitoSalvataggioRecensione = saveNewReview($utenteRicevente, $utenteRecensore, $dataOra, $punteggio, $testoRecensione);
+	}
 	
 ?>
 <!DOCTYPE html>
@@ -192,16 +231,7 @@
 			<div id="user_info">
 				<div class="container">
 					<?php
-						$userInfo = null;
-						if(isset($_GET['user'])){
-							$userInfo = getUserInfo($_GET['user']);
-						}else{
-							$userInfo = getUserInfo($_SESSION['userId']);
-						}
-						$flagPaginaPersonale = false; // flag che indica se l'utente che sta visitando il profilo è il proprietario del profilo
-						if($_SESSION['userId'] == $userInfo['userId']){
-							$flagPaginaPersonale = true;
-						}
+						
 					
 						echo "<div class='profile-name-container'>";
 							echo "<p> ".$userInfo['first_name']." ".$userInfo['last_name'];
@@ -255,25 +285,22 @@
 							<p><?php echo $userInfo['address']; ?></p>
 						</div>
 						<div style='clear:both;'></div>
+						<?php
+							// controllo le l'utente visitatore ha già avuto appuntamenti in passato e in caso positivo gli do la
+						    // possivilità di lasciare una recensione cliccando sul bottone
+							$utenteRecensore = $_SESSION['userId'];
+							$utenteRicevente = $userInfo['userId'];
+							$appuntamentiInPassato = findOldAppointments($utenteRecensore, $utenteRicevente);
+							if($appuntamentiInPassato){
+								echo "<button class='save-button' onclick='openReviewBox()'>Scrivi una recensione</button>";
+							}
+						?>	
 					</div>
 				</div>
 				<div id="review_container" class="container">
 					<!-- recensione campo mostrato solo se ci sono state almeno un appuntamento -->
-					<h2>La tua opione</h2>
-					<form method="post" action="./profile.php">
-						<p>Voto</p>
-						<p class="sub-header">da 1(min) a 5(max)</p>
-						<select class="selector">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-						</select>
-						<p>Scrivi una recensione</p>
-						<textarea class="review" placeholder="Scrivi qui"></textarea>
-						<button type="submit" class="save-button">Invia</button>
-					</form>
+					<h2>Recensioni degli utenti</h2>
+					
 				</div>
 			</div>
 			<div id="booking_table"> 
@@ -300,7 +327,7 @@
 			</div>
 		</div> <!-- fine workspace -->
 		<div style='clear:both;'></div>
-		<div id="confirm_form_container" class='form-container' onclick="closeConfirmAppointmentBox()">
+		<div id="confirm_form_container" class='form-container'>
 			<?php
 				// prelevo i parametri GET per mantenere lo stato
 				$parametro="";
@@ -309,6 +336,22 @@
 				}
 			?>
 		</div>
+		<form id="add_review_form" class="container" method="post" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
+			<h2>La tua opione</h2>
+			<p>Voto</p>
+			<p class="sub-header">da 1 (min) a 5 (max)</p>
+			<select class="selector" name="punteggio" required>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
+			<p>Scrivi una recensione</p>
+			<textarea class="review" placeholder="Scrivi qui" name="testo_recensione"></textarea>
+			<button type="submit" class="save-button">Invia</button>
+			<button type="button" class="save-button exit-button" onclick="closeReviewBox()">Esci</button>
+		</form>
 		<form id="confirm-appointment-form" method="POST" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
 				<p class='confirm-appointment-header'>Conferma prenotazione appuntamento</p>
 				<input id="receveir_user" type="hidden" name="appointment_receiver_user" readonly>

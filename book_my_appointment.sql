@@ -40,7 +40,7 @@ CREATE TABLE appuntamento(
     durata INT(11) NOT NULL,
     note MEDIUMTEXT DEFAULT NULL,
     PRIMARY KEY (idAppuntamento),
-    UNIQUE (dataOra),
+    UNIQUE (idRichiedente,idRicevente,dataOra),
     CONSTRAINT vincolo_utente_ricevente FOREIGN KEY (idRicevente)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
@@ -58,7 +58,7 @@ CREATE TABLE recensione(
     idRecensore INT(11) NOT NULL,
     dataOra TIMESTAMP NOT NULL,
     punteggio INT(11) NOT NULL,
-    note MEDIUMTEXT DEFAULT NULL,
+    testoRecensione MEDIUMTEXT DEFAULT NULL,
     PRIMARY KEY (idRecensione),
     CONSTRAINT vincolo_utente_ricevente_recensione FOREIGN KEY (idRicevente)
     REFERENCES user(userId)

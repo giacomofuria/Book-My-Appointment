@@ -47,9 +47,9 @@
 		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
 
 		//$giorni = $bookMyAppointmentDb->sqlInjectionFilter($giorni);
-		$inizio = $bookMyAppointmentDb->sqlInjectionFilter($inizio);
-		$fine = $bookMyAppointmentDb->sqlInjectionFilter($fine);
-		$durata = $bookMyAppointmentDb->sqlInjectionFilter($durata);
+		//$inizio = $bookMyAppointmentDb->sqlInjectionFilter($inizio);
+		//$fine = $bookMyAppointmentDb->sqlInjectionFilter($fine);
+		//$durata = $bookMyAppointmentDb->sqlInjectionFilter($durata);
 		//$pause = $bookMyAppointmentDb->sqlInjectionFilter($pause);
 		$queryText = null;
 		$utente = $_SESSION['userId'];
