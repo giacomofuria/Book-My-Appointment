@@ -108,6 +108,14 @@
 			echo "</div>";
 		}
 	}
+	function mostraTasto($tipo){
+		if($tipo == 0){
+
+		}else{
+
+		}
+		echo "<div class='button-container'><button class='save-button'>Altri appuntamenti</button></div>";
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,9 +147,10 @@
 					<?php
 						$appuntamenti = getMyAppointments($_SESSION['userId'],3);
 						if(!$appuntamenti){
-							echo "<p>Non hai appuntamenti</p>";
+							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
 							stampaAppuntamenti($appuntamenti);
+							mostraTasto(0);
 						}
 					?>
 				</div>
@@ -153,9 +162,10 @@
 					<?php
 						$appuntamenti = getMyClientAppointments($_SESSION['userId'], 3);
 						if(!$appuntamenti){
-							echo "<p>Non hai appuntamenti</p>";
+							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
 							stampaAppuntamenti($appuntamenti);
+							mostraTasto(1);
 						}
 					?>
 					
