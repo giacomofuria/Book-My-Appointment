@@ -20,16 +20,49 @@
 		$dataOraAttuale = date('Y-m-d H:i:s',time());
 		$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
 							 A.dataOra AS dataOra, 
-		                     A.idRicevente AS idRicevente, 
-		                     U.first_name AS nomeRicevente, 
-		                     U.last_name AS cognomeRicevente, 
-		                     U.email AS emailRicevente, 
-		                     U.profile_image AS profileImageRicevente, 
+		                     A.idRicevente AS id, 
+		                     U.first_name AS nome, 
+		                     U.last_name AS cognome, 
+		                     U.email AS email, 
+		                     U.profile_image AS profileImage, 
 		                     A.note AS note, 
-		                     U.profession AS professioneRicevente, 
-		                     U.address AS indirizzoRicevente
+		                     U.profession AS professione, 
+		                     U.address AS indirizzo
 					  FROM appuntamento A INNER JOIN USER U ON A.idRicevente=U.userId
 					  WHERE A.idRichiedente  = $user AND A.dataOra >= \"$dataOraAttuale\"
+					  ORDER BY A.dataOra ASC $limiter;";
+		//echo $queryText."<br>"; // DEBUG
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		$bookMyAppointmentDb->closeConnection();
+		if($numRow == 0){
+			return false;
+		}
+		$appuntamenti = array();
+		while($row = $result->fetch_assoc()){
+			$appuntamenti[] = $row;
+		}
+		return $appuntamenti;
+	}
+	function getMyClientAppointments($user, $limit){
+		global $bookMyAppointmentDb;
+		$limiter="";
+		if($limit>0){
+			$limiter="LIMIT ".$limit;
+		}
+		$dataOraAttuale = date('Y-m-d H:i:s',time());
+		$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
+							 A.dataOra AS dataOra, 
+		                     A.idRichiedente AS id, 
+		                     U.first_name AS nome, 
+		                     U.last_name AS cognome, 
+		                     U.email AS email, 
+		                     U.profile_image AS profileImage, 
+		                     A.note AS note, 
+		                     U.profession AS professione, 
+		                     U.address AS indirizzo
+					  FROM appuntamento A INNER JOIN USER U ON A.idRichiedente=U.userId
+					  WHERE A.idRicevente  = $user AND A.dataOra >= \"$dataOraAttuale\"
 					  ORDER BY A.dataOra ASC $limiter;";
 		//echo $queryText."<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
@@ -50,6 +83,30 @@
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
+	}
+	function stampaAppuntamenti($appuntamenti){
+		foreach($appuntamenti as $appuntamento){
+			echo "<div class='appointment-container'>";
+			$src = "./../img/icon/set1/man.png";
+			if($appuntamento['profileImage'] != null){
+				$img = base64_encode($appuntamento['profileImage']);
+				$src = "data:image/jpeg;base64,$img";
+			}
+			$time = strtotime($appuntamento['dataOra']);
+			$data = date('d-m-Y',$time);
+			$ora = date('H:i',$time);
+			$idAppuntamento = $appuntamento['idAppuntamento'];
+			echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente'></div>";
+			echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
+			echo "<div class='appointment-element appointment-element-info'><p><b>".$appuntamento['nome']." ".$appuntamento['cognome']."</b></p>";
+			echo "<p>".$appuntamento['professione']."</p>";
+			echo "<p><a href='mailto:".$appuntamento['email']."''>Email</a></p></div>";
+			echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
+			echo "<div class='appointment-element appointment-element-img'><button onclick=location.href='./home.php?delAppointment=$idAppuntamento'><img src='./../img/icon/set1/garbage.png' class='delete-icon'></button></div>";
+			echo "<div style='clear:both;'></div>";
+			//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
+			echo "</div>";
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -84,28 +141,7 @@
 						if(!$appuntamenti){
 							echo "<p>Non hai appuntamenti</p>";
 						}else{
-							foreach($appuntamenti as $appuntamento){
-								echo "<div class='appointment-container'>";
-									$src = "./../img/icon/set1/man.png";
-									if($appuntamento['profileImageRicevente'] != null){
-										$img = base64_encode($appuntamento['profileImageRicevente']);
-										$src = "data:image/jpeg;base64,$img";
-									}
-									$time = strtotime($appuntamento['dataOra']);
-									$data = date('d-m-Y',$time);
-									$ora = date('H:i',$time);
-									$idAppuntamento = $appuntamento['idAppuntamento'];
-									echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente'></div>";
-									echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
-									echo "<div class='appointment-element appointment-element-info'><p>".$appuntamento['nomeRicevente']." ".$appuntamento['cognomeRicevente']."</p>";
-									echo "<p>".$appuntamento['professioneRicevente']."</p>";
-									echo "<p>".$appuntamento['emailRicevente']."</p></div>";
-									echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
-									echo "<div class='appointment-element appointment-element-img'><button onclick=location.href='./home.php?delAppointment=$idAppuntamento'><img src='./../img/icon/set1/garbage.png' class='delete-icon'></button></div>";
-									echo "<div style='clear:both;'></div>";
-									//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
-								echo "</div>";
-							}
+							stampaAppuntamenti($appuntamenti);
 						}
 					?>
 				</div>
@@ -114,21 +150,15 @@
 					<div class="appointment-header">
 						<h3>I prossimi appuntamenti con i tuoi clienti</h3>
 					</div>
-					<div class="appointment-container">
-						Appuntamento 1
-					</div>
-					<div class="appointment-container">
-						Appuntamento 2
-					</div>
-					<div class="appointment-container">
-						Appuntamento 3
-					</div>
-					<div class="appointment-container">
-						Appuntamento 4
-					</div>
-					<div class="appointment-container">
-						Appuntamento 5
-					</div>
+					<?php
+						$appuntamenti = getMyClientAppointments($_SESSION['userId'], 3);
+						if(!$appuntamenti){
+							echo "<p>Non hai appuntamenti</p>";
+						}else{
+							stampaAppuntamenti($appuntamenti);
+						}
+					?>
+					
 				</div>
 			</div>
 			<div id="calendar-container">
