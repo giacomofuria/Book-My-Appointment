@@ -83,7 +83,8 @@
 		global $bookMyAppointmentDb;
 		$sets="first_name='".$firstName."',last_name='".$lastName."',email='".$newEmail."',address='".$address."'";
 		if($userPicPath){
-			$data = $bookMyAppointmentDb->sqlInjectionFilter(file_get_contents($userPicPath));
+			//$data = $bookMyAppointmentDb->sqlInjectionFilter(file_get_contents($userPicPath));
+			$data = addslashes(file_get_contents($userPicPath));
 			$sets.=",profile_image='".$data."'";
 		}
 		if($profession){
@@ -340,6 +341,9 @@
 				<?php
 					$utente = $userInfo['userId'];
 					$recensioni = getReviews($utente); // restituisce le recensioni, dalla più recente alla più vecchia
+					if($recensioni || $recensioni != null){
+						echo "<div class='container'> <h2>Recensioni degli utenti</h2> </div>";
+					}
 					foreach($recensioni as $recensione){
 						echo "<div class='container'>";
 						$src = "./../img/icon/set1/man.png";
@@ -366,7 +370,7 @@
 				<?php
 					$tableConfiguration = loadConfig($userInfo['userId']);
 					if(!$tableConfiguration){
-						echo "<p>Configura la tabella degli appuntamenti</p></div>";
+						echo "<p>Configura la tabella degli appuntamenti (<a href='./settings.php'>Impostazioni</a>)</p></div>";
 					}else{
 						echo "<p>Tabella degli appuntamenti</p></div>";
 						$giorni = explode(',',$tableConfiguration['giorni']);
