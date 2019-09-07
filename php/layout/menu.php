@@ -36,7 +36,7 @@
 	<button id="settings_button" class="menu_buttons" onclick="window.location.href='./settings.php'">	Impostazioni    </button>
 	<?php
 		if($_SESSION['admin']){
-			echo "<button id='settings_button' class='menu_buttons' onclick=window.location.href='./admin.php'>	Amministrazione    </button>";
+			echo "<button id='admin_button' class='menu_buttons' onclick=window.location.href='./admin.php'>	Admin    </button>";
 		}
 	?>
 	<button id="signout_button" class="menu_buttons" onclick="window.location.href='./logout.php'">		Disconnetti     </button>
