@@ -96,11 +96,12 @@
 			$data = date('d-m-Y',$time);
 			$ora = date('H:i',$time);
 			$idAppuntamento = $appuntamento['idAppuntamento'];
-			echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente'></div>";
+			echo "<div class='appointment-element appointment-element-img'><a href='./profile.php?user=".$appuntamento['id']."'><img src=$src class='img-ricevente'></a></div>";
 			echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
-			echo "<div class='appointment-element appointment-element-info'><p><b>".$appuntamento['nome']." ".$appuntamento['cognome']."</b></p>";
+			echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['id']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
 			echo "<p>".$appuntamento['professione']."</p>";
-			echo "<p><a href='mailto:".$appuntamento['email']."''>Email</a></p></div>";
+			echo "<p><a href='mailto:".$appuntamento['email']."''><img src='./../img/icon/set1/envelope.png' class='icon-email'></a></p></div>";
+			echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
 			echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
 			echo "<div class='appointment-element appointment-element-img'><button onclick=location.href='./home.php?delAppointment=$idAppuntamento'><img src='./../img/icon/set1/garbage.png' class='delete-icon'></button></div>";
 			echo "<div style='clear:both;'></div>";
@@ -142,7 +143,7 @@
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
 							stampaAppuntamenti($appuntamenti);
-							echo "<div class='link-container'><p><a href='./myAppointments.php'>altri appuntamenti</a></p></div>";
+							echo "<div class='link-container'><p><a href='./myAppointments.php'>tutti i tuoi appuntamenti</a></p></div>";
 						}
 					?>
 				</div>
@@ -157,7 +158,7 @@
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
 							stampaAppuntamenti($appuntamenti);
-							echo "<div class='link-container'><p><a href='./clientsAppointments.php'>altri appuntamenti</a></p></div>";
+							echo "<div class='link-container'><p><a href='./clientsAppointments.php'>tutti gli appuntamenti dei clienti</a></p></div>";
 						}
 					?>
 					
