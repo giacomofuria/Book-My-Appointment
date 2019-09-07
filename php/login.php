@@ -30,9 +30,13 @@
 			$userId = authenticate($email, $password);
 			if($userId > 0){
 				session_start();
+				/*
 				$firstName = getFirstName($userId);
 				$lastName = getLastName($userId);
 				setSession($email, $userId, $firstName, $lastName);
+				*/
+				$rigaUtente = getUserInfo($userId);
+				setSession($email, $userId, $rigaUtente['first_name'], $rigaUtente['last_name'],$rigaUtente['admin']);
 				return null;
 			}else{
 				switch ($userId) {
@@ -94,6 +98,20 @@
 			return -2; // Errore: l'utente è registrato nel sito ma la pwd è errata
 
 	}
+
+	function getUserInfo($userId){
+		global $bookMyAppointmentDb;
+		$queryText = "SELECT * FROM USER WHERE userId=$userId;";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$numRow = mysqli_num_rows($result);
+		if($numRow != 1)
+			return -1;
+		$bookMyAppointmentDb->closeConnection();
+		$userRow = $result->fetch_assoc();
+		$bookMyAppointmentDb->closeConnection();
+		return $userRow;
+	}
+
 	/* Restituisce first name dell'utente con un certo id */
 
 	function getFirstName($userId){
