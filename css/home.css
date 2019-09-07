@@ -1,14 +1,8 @@
-.appointment-container{
-	margin-top: 10px;
-	/*margin-bottom: 0.5%;*/
-	height: 80px;
-	background-color: #FFFFFF;
-	box-shadow: 0 2px 8px rgba(0,0,0,.12);
-	border-radius: 2px;
-}
-.appointment-container:last-child{
-	/*background-color: #000000;*/
-	margin-bottom: 10px;
+#appointments-viewer{
+	float:left;
+	width: 70%;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 .appointment-header{
 	width: 100%;
@@ -24,9 +18,61 @@
 	/*box-shadow: 0 8px 6px -6px black;*/
 	box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
-#appointments-viewer{
-	float:left;
-	width: 70%;
-	padding-left: 10px;
-	padding-right: 10px;
+.appointment-container{
+	width: 100%;
+	margin-top: 10px;
+	/*margin-bottom: 0.5%;*/
+	height: 80px;
+	background-color: #FFFFFF;
+	box-shadow: 0 2px 8px rgba(0,0,0,.12);
+	border-radius: 2px;
+}
+.appointment-container:last-child{
+	/*background-color: #000000;*/
+	margin-bottom: 10px;
+}
+.appointment-element{
+	float :left;
+	width: 12%;
+	height: 80%;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 12px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 14px;
+}
+.appointment-element-img{
+	width: 10%;
+
+	margin-top: 8px;
+}
+.appointment-element-info{
+	
+	width: 30%;
+}
+.appointment-element-notes{
+	width: 30%;
+}
+.appointment-element-notes p{
+	margin-top: 4px;
+	margin-bottom: 0;
+
+	line-height: 16px;
+}
+.appointment-element-info p{
+	line-height: 4px;
+}
+.img-ricevente{
+	width: 50px;
+	height: 50px;
+	border-radius: 3px;
+}
+.delete-icon{
+	width: 20px;
+}
+button{
+	background-color: #FFFFFF;
+	border-style: none;
+	cursor: pointer;
 }

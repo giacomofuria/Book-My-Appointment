@@ -12,21 +12,20 @@
 		$userRow = $result->fetch_assoc();
 
 		$img = $userRow['profile_image'];
+		$src = null;
 		if($img == null){
-			return false;
+			$src = "./../img/icon/set1/man.png";
+			//return false;
 		}else{
-			return base64_encode($img);
+			$imgProfilo = base64_encode($img);
+			$src="data:image/jpeg;base64,$imgProfilo";
 		}
+		return $src;
 	}
 	
 	$utente = $_SESSION['userId'];
 	$immagineProfilo = getProfileImage($utente);
-	$src=null;
-	if(!$immagineProfilo){
-		$src="./../img/icon/set1/man.png";
-	}else{
-		$src="data:image/jpeg;base64,$immagineProfilo";
-	}
+	$src = $immagineProfilo;
 ?>
 <div  class="side-menu-box" onclick='location.href="./profile.php"'>
 	<img id="profile-img" src="<?php echo $src;?>" style="width: 100%;">

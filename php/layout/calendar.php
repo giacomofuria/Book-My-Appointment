@@ -37,12 +37,10 @@ class Calendar{
 
 		echo '<div id=\'calendar\'>';
 		//echo 'Year-Month: '.$this->year_month.',<br>today: '.$this->today.',<br>in questo mese ci sono '.$this->daysInMonth.' giorni,<br>il primo giorno del mese e\': '.$this->numeroPrimoGiornoDelMese.'<br>';
-
 		/*
 		echo "<p><a href='?ym=$prev' >mese precedente</a></p>"; // DEBUG
 		echo '<p><a href=\'?ym='.$next.'\' >mese successivo</a></p>'; // DEBUG
 		*/
-
 		$monthName = $this->getMonthName();
 		$year = $this->getYear();
 

@@ -290,19 +290,11 @@
 							echo "</p>";
 						echo "</div>";
 
-						if($userInfo['profile_image'] == null){
-							// Metto l'immagine di default
-							echo "<div class='profile-img-container'>";
-								echo "<img class='profile_image' src='./../img/icon/set1/man.png' alt='Profile image'>";
-							echo "</div>";
-						}else{
-							$utente = $userInfo['userId'];
-							$immagineProfilo = getProfileImage($utente);
-							$src="data:image/jpeg;base64,$immagineProfilo";
-							echo "<div class='profile-img-container'>";
-								echo "<img class='profile_image' src=\"$src\" alt='Profile image'>";
-							echo "</div>";
-						}
+						$utente = $userInfo['userId'];
+						$src = getProfileImage($utente);
+						echo "<div class='profile-img-container'>";
+							echo "<img class='profile_image' src=$src alt='Profile image'>";
+						echo "</div>";
 					?>
 					<div id='profile-info-container' class='profile-info-container'>
 						<div id='profile-info-labels' class='profile-info'>
