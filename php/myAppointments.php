@@ -99,9 +99,10 @@
 			$idAppuntamento = $appuntamento['idAppuntamento'];
 			echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente'></div>";
 			echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
-			echo "<div class='appointment-element appointment-element-info'><p><b>".$appuntamento['nome']." ".$appuntamento['cognome']."</b></p>";
+			echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['id']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
 			echo "<p>".$appuntamento['professione']."</p>";
-			echo "<p><a href='mailto:".$appuntamento['email']."''>Email</a></p></div>";
+			echo "<p><a href='mailto:".$appuntamento['email']."''><img src='./../img/icon/set1/envelope.png' class='icon-email'></a></p></div>";
+			echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
 			echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
 			if($appuntamento['dataOra']<$dataOraAttuale){
 				echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon'></div>";

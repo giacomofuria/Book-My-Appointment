@@ -1,7 +1,7 @@
 <!-- Inizio sezione barra superiore -->
 <div id="top-bar-container">
 	<div class="top-bar-box">
-		<?php echo ' '.$_SESSION['first_name'].' '.$_SESSION['last_name']; ?>
+		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
 	</div>
 	<div id="search-bar-container" class="top-bar-box">
 		<input id="search-bar" placeholder="Cerca un nome o una professione">
