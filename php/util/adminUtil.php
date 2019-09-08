@@ -48,7 +48,7 @@
 					  USER ($values,admin) 
 					  VALUES ('$email','$nome','$cognome','$password' $elements,$admin)";
 
-		echo "$queryText<br>";
+		//echo "$queryText<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
 		return $result;

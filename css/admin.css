@@ -3,12 +3,19 @@
 	padding-left: 2%;
 	padding-top: 2px;
 	padding-bottom: 2px;
+	/*
 	margin-left: 2%;
 	margin-right: 2%;
 	margin-top: 10px;
+	*/
+	margin-top: -10px;
 	margin-bottom: 10px;
-	text-align: center;
+	text-align: left;
 	box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.page-header p{
+	font-size: 14px;
+	margin-top: -15px;
 }
 .container{
 	background-color: #FFFFFF;
@@ -32,6 +39,10 @@
 	width: 96%;
 	padding: 10px;
 }
+.button-icon{
+	width: 15px;
+	margin-right: 10px;
+}
 .tool-button{
 	text-align: center;
 	font-size: 16px;
@@ -49,6 +60,7 @@
 	border-style: none;
 	border-width: 0;
 	border-radius: 4px;
+	font-weight: bold;
 }
 .tool-button:hover{
 	background-color: #91DF00;

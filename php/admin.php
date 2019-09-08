@@ -2,6 +2,7 @@
 	session_start();
 	include "./util/sessionUtil.php";
 	include "./util/adminUtil.php";
+
 	require_once "./util/BMADbManager.php";
 	if(!isLogged() || !$_SESSION['admin']){
 		header('Location: ./../index.php');
@@ -33,15 +34,15 @@
 		<div id="workspace">
 			<div class='page-header'>
 				<h2>Pagina di amministrazione</h2>
+				<p>Da questa pagina puoi modificare i dati degli utenti e visualizzare delle statistiche del sito web.</p>
 				<?php addNewUser(); ?>
 			</div>
 			<div id='tool_button_container' class='button-container'>
-				<button id='new_user_button' value='new_user_form' class='tool-button'>Aggiungi nuovo utente</button>
+				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon'>Aggiungi nuovo utente</button>
+				<button id='change_password_button' value='change_user_password_form' class='tool-button'><img src='./../img/icon/set1/profile.png' class='button-icon'>Modificare dati utente</button>
+				<button id='remove_review_button' value='remove_review_form' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon'>Rimuovi recensione</button>
 				<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
-				<button id='remove_review_button' value='remove_review_form' class='tool-button'>Rimuovi recensione</button>
-				<button id='new_admin_button' value='add_admin_form' class='tool-button'>Aggiungi amministratore</button>
 				<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
-				<button id='change_password_button' value='change_user_password_form' class='tool-button'>Cambiare la password di un utente</button>
 			</div>
 			<div id='new_user_form' class='container tool-form-container'>
 				<h2>Inserisci un nuovo utente</h2>
@@ -74,7 +75,7 @@
 				Resetta la password di un utente
 			</div>
 			<div id='change_user_password_form' class='container tool-form-container'>
-				Cambia la password di un utente
+				Modifica i dati di un utente
 			</div>
 		</div> <!-- fine workspace -->
 
