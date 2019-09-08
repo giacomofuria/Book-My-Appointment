@@ -22,10 +22,14 @@
 	padding-right: 2%;
 	margin-bottom: 10px;
 }
+#new_user_form{
+	margin-left: 30%;
+	width:40%;
+}
 .button-container{
 	margin-left: 2%;
 	margin-right: 2%;
-	width: 100%;
+	width: 96%;
 	padding: 10px;
 }
 .tool-button{
@@ -34,7 +38,7 @@
 	margin-left: 0;
 	margin-right: 0;
 	margin-top: 10px;
-	width: 23%;
+	width: 24%;
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;
 	cursor: pointer;
@@ -52,4 +56,69 @@
 }
 .tool-form-container{
 	display: none;
+}
+
+.input-text{
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 5px;
+	width: 96%;
+	padding-left: 4%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+}
+.input-text:focus{
+	border-style: solid;
+	border-width: 1.2px;
+	border-color: #4285F4;
+}
+.input-text-error{
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 4%;
+	width: 96%;
+	padding-left: 4%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	background-color: rgb(255,0,0,0.1);
+	border-style: solid;
+	border-width: 1.2px;
+	border-color: #8B0000;
+}
+
+.error_message{
+	display: none; /* Viene modificato poi dal javascript*/
+	background-color: rgb(255,0,0,0.1);
+	color: #8B0000;
+	font-size: 15px;
+	margin-bottom: 3%;
+	padding-left: 2%;
+	padding-right: 2%;
+	border-style: solid;
+	border-width: 1.5px;
+	border-color: red;
+}
+.save-button{
+	text-align: center;
+	font-size: 16px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 10px;
+	width: 100%;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	cursor: pointer;
+	background-color: #91DFAA;
+	color: #000000;
+	/*background-color: #91DFAA;*/
+	/*color: #000000;*/
+	border-style: none;
+	border-width: 0;
+	border-radius: 4px;
+}
+.save-button:hover{
+	background-color: #91DFAF;
+	/*background-color: #91DF00;*/
 }

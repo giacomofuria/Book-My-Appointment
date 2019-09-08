@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include "./util/sessionUtil.php";
+	include "./util/adminUtil.php";
 	require_once "./util/BMADbManager.php";
 	if(!isLogged() || !$_SESSION['admin']){
 		header('Location: ./../index.php');
@@ -32,6 +33,7 @@
 		<div id="workspace">
 			<div class='page-header'>
 				<h2>Pagina di amministrazione</h2>
+				<?php addNewUser(); ?>
 			</div>
 			<div id='tool_button_container' class='button-container'>
 				<button id='new_user_button' value='new_user_form' class='tool-button'>Aggiungi nuovo utente</button>
@@ -42,7 +44,22 @@
 				<button id='change_password_button' value='change_user_password_form' class='tool-button'>Cambiare la password di un utente</button>
 			</div>
 			<div id='new_user_form' class='container tool-form-container'>
-				Nuovo utente
+				<h2>Inserisci un nuovo utente</h2>
+				<form enctype='multipart/form-data' method='POST' action='./admin.php'>
+					<input name='email' class='input-text' placeholder='Email' type='email' required>
+					<input name='first_name' class='input-text' placeholder='Nome' required>
+					<input name='last_name' class='input-text' placeholder='Cognome' required>
+					<input name='profession' class='input-text' placeholder='Professione'>
+					<input name='address' class='input-text' placeholder='Inidirizzo'>
+					<input name='password' class='input-text' placeholder='Password' type='password' required>
+					<input name='re_password' class='input-text' placeholder='Ripeti password' type='password' required>
+					<p><input name='admin' type='checkbox' > Utente amministratore</p>
+					<p><b>Immagine del profilo</b>
+					<input type='hidden' name='MAX_FILE_SIZE' value='16777215'>
+					<input type='file' name='img_profile'>
+					</p>
+					<button type='submit' class='save-button'>Crea utente</button>
+				</form>
 			</div>
 			<div id='new_appointment_form' class='container tool-form-container'>
 				Nuovo appuntamento
