@@ -28,7 +28,7 @@
 	width: 100%;
 	padding: 10px;
 }
-.save-button{
+.tool-button{
 	text-align: center;
 	font-size: 16px;
 	margin-left: 0;
@@ -46,7 +46,10 @@
 	border-width: 0;
 	border-radius: 4px;
 }
-.save-button:hover{
-	background-color: #91DFAF;
+.tool-button:hover{
+	background-color: #91DF00;
 	/*background-color: #91DF00;*/
+}
+.tool-form-container{
+	display: none;
 }
