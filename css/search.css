@@ -1,0 +1,27 @@
+.results-container{
+	float:left;
+	width: 68%;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	background-color: #FFFFFF;
+	box-shadow: 0 2px 8px rgba(0,0,0,.12);
+	border-radius: 2px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.results-container p{
+	margin-top: 20px;
+}
+.results-container img{
+	margin-top: 0;
+}
+.search-result-img{
+	width: 50px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float: left;
+
+}

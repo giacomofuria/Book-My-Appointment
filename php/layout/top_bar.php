@@ -6,8 +6,10 @@
 		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
 	</div>
 	<div id="search-bar-container" class="top-bar-box">
-		<input id="search-bar" placeholder="Cerca un nome o una professione" onkeyup="TopBar.search(this.value)">
-		<button id="search-button" title="search"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;" alt="Cerca"></button>
+		<form method="POST" action="./search.php">
+			<input id="search-bar" name='pattern' placeholder="Cerca un nome o una professione" onkeyup="TopBar.search(this.value)">
+			<button id="search-button" title="search" type="submit"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;" alt="Cerca"></button>
+		</form>
 		<div id='search_results_container'>Risultati:<br></div>
 	</div>
 	<div class="top-bar-box">
