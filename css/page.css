@@ -111,11 +111,31 @@ div{
 	display: none;
 	padding: 2%;
 }
-.search-result-elem{
-	float: left;
+.row-container{
+	border-radius: 5px;
+	height: 50px;
+	padding-bottom: 10px;
+}
+.row-container:hover{
+	background-color: #F3F7FD;
+}
+.row-container a{
+	text-decoration: none;
+	color: #000000;
+	padding-bottom: 10px;
+}
+.profession-paragraph{
+	font-size: 12px;
+	margin-top: -18px;
+	margin-left: 40px;
 }
 .search-result-img{
 	width: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 20px;
+	float: left;
+
 }
 .command-buttons{
 	outline: none;

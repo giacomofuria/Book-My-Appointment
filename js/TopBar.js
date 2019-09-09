@@ -35,6 +35,9 @@ TopBar.getAjaxResponse =
 TopBar.refresh = 
 	function(data){
 		var searchBox = document.getElementById("search_results_container");
+		while(searchBox.lastChild){
+			searchBox.lastChild.remove();
+		}
 		searchBox.style.display="block";
 		for(var i=0; i<data.length; i++){
 			TopBar.addRow(data[i],searchBox);
@@ -42,7 +45,8 @@ TopBar.refresh =
 	}
 TopBar.addRow = 
 	function(row, elem){
-		
+		var div = document.createElement("div");
+		div.className="row-container";
 		var p = document.createElement("p");
 
 		var img = document.createElement("img");
@@ -50,14 +54,25 @@ TopBar.addRow =
 		var imgSource = row.profileImage;
 		imgSource = "./../img/icon/set1/man.png"; // metto sempre l'icona perché trasmettere l'immagine mi genera un problema di lunghezza
 		img.setAttribute("src",imgSource);
-
-		p.appendChild(img);
+		div.appendChild(img);
 		
+		var a = document.createElement("a");
+		a.setAttribute("href","./profile.php?user="+row.userId);
+
 		var txt = document.createTextNode(row.firstName+" "+row.lastName);
 		p.appendChild(txt);
 
+		a.appendChild(p);
+		div.appendChild(a);
+		if(row.profession!=null && row.profession != "null"){
+			var subP = document.createElement("p");
+			subP.className='profession-paragraph';
+			txt = document.createTextNode(row.profession);
+			subP.appendChild(txt);
+			div.appendChild(subP);
+		}
 
-		elem.appendChild(p);
+		elem.appendChild(div);
 	}
 TopBar.close = 
 	function(){
