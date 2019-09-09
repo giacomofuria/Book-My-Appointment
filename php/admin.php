@@ -8,6 +8,7 @@
 		header('Location: ./../index.php');
 		exit;
 	}
+	addNewUser();
 	
 ?>
 <!DOCTYPE html>
@@ -34,8 +35,7 @@
 		<div id="workspace">
 			<div class='page-header'>
 				<h2>Pagina di amministrazione</h2>
-				<p>Da questa pagina puoi modificare i dati degli utenti e visualizzare delle statistiche del sito web.</p>
-				<?php addNewUser(); ?>
+				<p>Da questa pagina puoi modificare i dati degli utenti e visualizzare delle statistiche del sito.</p>
 			</div>
 			<div id='tool_button_container' class='button-container'>
 				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon'>Aggiungi nuovo utente</button>
@@ -62,6 +62,14 @@
 					<button type='submit' class='save-button'>Crea utente</button>
 				</form>
 			</div>
+			<div id='change_user_password_form' class='container tool-form-container'>
+				<h2>Seleziona l'utente che vuoi modificare</h2>
+				<form>
+					<p>Cerca l'utente che vuoi modificare</p>
+					<input type="text" placeholder="Nome utente">
+					<button type='submit'>Cerca</button>
+				</form>
+			</div>
 			<div id='new_appointment_form' class='container tool-form-container'>
 				Nuovo appuntamento
 			</div>
@@ -73,9 +81,6 @@
 			</div>
 			<div id='reset_user_password_form' class='container tool-form-container'>
 				Resetta la password di un utente
-			</div>
-			<div id='change_user_password_form' class='container tool-form-container'>
-				Modifica i dati di un utente
 			</div>
 		</div> <!-- fine workspace -->
 

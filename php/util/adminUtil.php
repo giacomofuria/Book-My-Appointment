@@ -53,5 +53,5 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
 	}
-
+	
 ?>

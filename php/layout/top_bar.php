@@ -1,25 +1,27 @@
 <!-- Inizio sezione barra superiore -->
+<script src="./../js/ajaxManager.js"></script>
+<script src="./../js/TopBar.js"></script>
 <div id="top-bar-container">
 	<div class="top-bar-box">
 		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
 	</div>
 	<div id="search-bar-container" class="top-bar-box">
-		<input id="search-bar" placeholder="Cerca un nome o una professione">
-		<button id="search-button" title="search"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;"></button>
+		<input id="search-bar" placeholder="Cerca un nome o una professione" onkeyup="TopBar.search(this.value)">
+		<button id="search-button" title="search"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;" alt="Cerca"></button>
 	</div>
 	<div class="top-bar-box">
 		<button id="calendar-button" class="command-buttons" title="Calendar">
-			<img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;">
+			<img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;" alt="Calendario">
 		</button>
 	</div>
 	<div class="top-bar-box">
 		<button id="notification-button" class="command-buttons" title="Notifications">
-			<img src="./../img/icon/set1/notification.png" style="width:100%; height:62%;">
+			<img src="./../img/icon/set1/notification.png" style="width:100%; height:62%;" alt="Notifiche">
 		</button>
 	</div>	
 	<div class="top-bar-box">
 		<button id="add-button" class="command-buttons" title="Add new appointment schedule" onclick="window.location.href='./settings.php'">
-			<img src="./../img/icon/set1/add.png" style="width:100%; height:62%;">
+			<img src="./../img/icon/set1/add.png" style="width:100%; height:62%;" alt="Aggiungi">
 		</button>
 	</div>
 </div>

@@ -47,16 +47,16 @@ class Calendar{
 		echo '<div class=\'calendar-header\'>';
 
 		echo '<div id=\'prev-month-arrow\' class=\'calendar-header-components\'>';
-			echo '<button class=\'calendar-header-buttons\' onclick=\'window.location.href="?ym='.$prev.'"\'>';
-				echo '<img src=\'./../img/icon/set1/left-arrow-1.png\' style=\'width:80%\'>';
+			echo "<button class='calendar-header-buttons' onclick=\"window.location.href='?ym=$prev'\">";
+				echo "<img src='./../img/icon/set1/left-arrow-1.png' style='width:80%;' alt='prev week'>";
 			echo '</button>';
 		echo '</div>';
 
 		echo '<div id=\'calendar-header-title\' class=\'calendar-header-components\'><b>'.$monthName.' - '.$year.'</b></div>';
 
 		echo '<div id=\'next-month-arrow\' class=\'calendar-header-components\'>';
-			echo '<button class=\'calendar-header-buttons\' onclick=\'window.location.href="?ym='.$next.'"\'>';
-			echo '<img src=\'./../img/icon/set1/right-arrow-1.png\' style=\'width:80%\'>'; 
+			echo "<button class='calendar-header-buttons' onclick=\"window.location.href='?ym=$next'\">";
+			echo "<img src='./../img/icon/set1/right-arrow-1.png' style='width:80%;' alt='next week'>"; 
 			echo '</button>';
 		echo '</div>';
 

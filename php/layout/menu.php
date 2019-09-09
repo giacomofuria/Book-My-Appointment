@@ -27,8 +27,8 @@
 	$immagineProfilo = getProfileImage($utente);
 	$src = $immagineProfilo;
 ?>
-<div  class="side-menu-box" onclick='location.href="./profile.php"'>
-	<img id="profile-img" src="<?php echo $src;?>" style="width: 100%;">
+<div  class="side-menu-box" onclick="location.href='./profile.php'">
+	<img id="profile-img" src="<?php echo $src;?>" style="width: 100%;" alt="profile image">
 </div>
 <div class="side-menu-box">
 	<button id="home_button" class="menu_buttons" onclick="window.location.href='./home.php'">			Home 		</button>
@@ -36,7 +36,7 @@
 	<button id="settings_button" class="menu_buttons" onclick="window.location.href='./settings.php'">	Impostazioni    </button>
 	<?php
 		if($_SESSION['admin']){
-			echo "<button id='admin_button' class='menu_buttons' onclick=window.location.href='./admin.php'>	Admin    </button>";
+			echo "<button id='admin_button' class='menu_buttons' onclick=\"window.location.href='./admin.php'\">	Admin    </button>";
 		}
 	?>
 	<button id="signout_button" class="menu_buttons" onclick="window.location.href='./logout.php'">		Disconnetti     </button>
