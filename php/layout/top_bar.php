@@ -6,7 +6,7 @@
 		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
 	</div>
 	<div id="search-bar-container" class="top-bar-box">
-		<form method="POST" action="./search.php">
+		<form method="GET" action="./search.php">
 			<input id="search-bar" name='pattern' placeholder="Cerca un nome o una professione" onkeyup="TopBar.search(this.value)">
 			<button id="search-button" title="search" type="submit"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;" alt="Cerca"></button>
 		</form>

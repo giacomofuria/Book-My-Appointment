@@ -32,10 +32,12 @@
 		<div id="workspace">
 			<div class='results-container'>
 				<?php
-					if(isset($_POST['pattern'])){
-						$pattern = $_POST['pattern'];
-						echo "Hai cercato: $pattern<br>";
+					if(isset($_GET['pattern'])){
+						$pattern = $_GET['pattern'];
 						$result = searchUsers($pattern);
+						$numRow = mysqli_num_rows($result);
+						echo "Hai cercato: <b>\"</b> $pattern <b>\"</b>, numero di risultati: <b>$numRow</b><br>";
+						
 						printSearchResult($result);
 					}else{
 						echo "Non hai cercato niente";
@@ -66,7 +68,7 @@
 
 	function searchUsers($pattern){
 		global $bookMyAppointmentDb;
-		$queryText = "SELECT * FROM USER WHERE first_name LIKE'%".$pattern."%' OR last_name LIKE '%".$pattern."%' OR profession LIKE '%".$pattern."%' ORDER BY first_name LIMIT 5;";
+		$queryText = "SELECT * FROM USER WHERE first_name LIKE'%".$pattern."%' OR last_name LIKE '%".$pattern."%' OR profession LIKE '%".$pattern."%' ;";
 
 
 		$result = $bookMyAppointmentDb->performQuery($queryText);
