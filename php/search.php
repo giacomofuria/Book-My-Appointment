@@ -32,7 +32,7 @@
 		<div id="workspace">
 			<div class='results-container'>
 				<?php
-					if(isset($_GET['pattern'])){
+					if(isset($_GET['pattern']) && $_GET['pattern'] != ''){
 						$pattern = $_GET['pattern'];
 						$result = searchUsers($pattern);
 						$numRow = mysqli_num_rows($result);
