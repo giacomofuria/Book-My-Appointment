@@ -9,11 +9,11 @@ body,html{
 	height: 100%;
 }
 div{
-	/*
+	
 	border-style: solid;
 	border-width: 0.1px;
 	border-color: black;
-	*/
+	
 }
 #left-side{
 	position: fixed;
@@ -99,6 +99,23 @@ div{
 }
 #search-button:hover{
 	background-color: #91DF00;
+}
+#search_results_container{
+	width: 430px;
+	margin-top: 5px;
+	margin-left:0;
+
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+	display: none;
+	padding: 2%;
+}
+.search-result-elem{
+	float: left;
+}
+.search-result-img{
+	width: 20px;
 }
 .command-buttons{
 	outline: none;

@@ -21,7 +21,7 @@ AjaxManager.getAjaxObject =
 
 AjaxManager.performAjaxRequest = 
 	function(method, url, isAsync, dataToSend, responseFunction){
-		console.log("ajax request");
+		//console.log("ajax request");
 		var xmlHttp = AjaxManager.getAjaxObject();
 		if (xmlHttp === null){
 			window.alert("Your browser does not support AJAX!"); // set error function
@@ -31,7 +31,7 @@ AjaxManager.performAjaxRequest =
 		xmlHttp.open(method, url, isAsync); 
 		xmlHttp.onreadystatechange = function (){
 			if (xmlHttp.readyState == 4){
-				console.log(xmlHttp.responseText);
+				//console.log(xmlHttp.responseText);
 				var data = JSON.parse(xmlHttp.responseText);
 				responseFunction(data);
 			}
