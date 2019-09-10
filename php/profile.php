@@ -393,8 +393,12 @@
 					}
 				?>
 			</div>
+			<div style='clear:both;'></div>
+			<?php
+				include "./layout/footer.php";
+		    ?>
 		</div> <!-- fine workspace -->
-		<div style='clear:both;'></div>
+		
 		<div id="confirm_form_container" class='form-container'>
 			<?php
 				// prelevo i parametri GET per mantenere lo stato

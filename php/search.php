@@ -36,17 +36,14 @@
 						$pattern = $_GET['pattern'];
 						$result = searchUsers($pattern);
 						$numRow=0;
-						if(!$result || $result==null){
+						if(!$result || $result===null){
 							echo "Nessun risultato";
 						}else{
-							echo $result;
+							//echo $result;
 							$numRow = mysqli_num_rows($result);
 							echo "Hai cercato: <b>\"</b> $pattern <b>\"</b>, numero di risultati: <b>$numRow</b><br>";
 							printSearchResult($result);
 						}
-						
-						
-						
 						
 					}else{
 						echo "Non hai cercato niente";
@@ -60,8 +57,11 @@
 					$calendar->show();
 				?>
 			</div>
+			<div style='clear:both;'></div>
+			<?php
+				include "./layout/footer.php";
+		    ?>
 		</div> <!-- fine workspace -->
-
 	</div>
 	<script>
 		// evidenzio il pulsante della pagina

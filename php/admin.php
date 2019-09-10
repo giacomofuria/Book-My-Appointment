@@ -150,7 +150,9 @@
 				Nuovo appuntamento
 			</div>
 		</div> <!-- fine workspace -->
-
+		<?php
+			include "./layout/footer.php";
+		?>
 	</div>
 	<script type="text/javascript">
 		// evidenzio il pulsante della pagina

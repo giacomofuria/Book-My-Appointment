@@ -172,7 +172,9 @@
 			</div>
 			<div style="clear:both;"></div>
 		</div> <!-- fine workspace -->
-
+		<?php
+			include "./layout/footer.php";
+		?>
 	</div>
 	<script>
 		// evidenzio il pulsante della pagina
