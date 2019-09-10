@@ -1,49 +1,70 @@
-function TopBar(){}
+function SearchBar(){}
 
-TopBar.DEFAUL_METHOD = "GET";
-//TopBar.URL_REQUEST = "./ajax/movieLoader.php";
-TopBar.EXPLORE_REQUEST = "./ajax/userFinder.php";
-TopBar.ASYNC_TYPE = true;
+SearchBar.DEFAUL_METHOD = "GET";
+//SearchBar.URL_REQUEST = "./ajax/movieLoader.php";
+SearchBar.EXPLORE_REQUEST = "./ajax/userFinder.php";
+SearchBar.ASYNC_TYPE = true;
+SearchBar.resultBox = null;
+SearchBar.MODE = "USER_SEARCH";
+SearchBar.adminResultBox=null;
+SearchBar.choosenUser = null;
+SearchBar.bar=null;
 
-TopBar.search =
-	function(pattern){
+SearchBar.search =
+	function(elem, pattern){
 		//console.log("Cercato: "+pattern); // DEBUG
 		if (pattern === null || pattern.length === 0 || pattern==''){
 			// chiudo la box e ne cancello il contenuto
-			TopBar.close();
+			SearchBar.close();
 			return;	
 		}
-		
+		//console.log(elem.id);
+		SearchBar.bar = elem;
+		if(elem.id=="search-bar"){
+			resultBox = document.getElementById("search_results_container");
+			SearchBar.MODE = "USER_SEARCH";
+		}else{
+			resultBox = document.getElementById("user_admin_search");
+			SearchBar.adminResultBox = document.getElementById("change_user_password_form");
+			SearchBar.MODE = "ADMIN_SEARCH";
+		}
 		var queryString = "?search=" + pattern;
-		var url = TopBar.EXPLORE_REQUEST + queryString;
-		var responseFunction = TopBar.getAjaxResponse;
+		var url = SearchBar.EXPLORE_REQUEST + queryString;
+		var responseFunction = SearchBar.getAjaxResponse;
 	
-		AjaxManager.performAjaxRequest(TopBar.DEFAUL_METHOD, 
-										url, TopBar.ASYNC_TYPE, 
+		AjaxManager.performAjaxRequest(SearchBar.DEFAUL_METHOD, 
+										url, SearchBar.ASYNC_TYPE, 
 										null, responseFunction);
 		
 		
 	}
-TopBar.getAjaxResponse = 
+SearchBar.getAjaxResponse = 
 	function(response){
 		if(response.data != null){
 			console.log(response.data);
-			TopBar.refresh(response.data);
+			SearchBar.refresh(response.data);
 		}
 
 	}
-TopBar.refresh = 
+SearchBar.refresh = 
 	function(data){
-		var searchBox = document.getElementById("search_results_container");
+		//var searchBox = document.getElementById("search_results_container");
+		var searchBox = resultBox;
 		while(searchBox.lastChild){
 			searchBox.lastChild.remove();
 		}
 		searchBox.style.display="block";
+		document.addEventListener('keydown', function(event) {
+			if (event.keyCode == 27 || event.which == 27){
+		        SearchBar.close();
+		        SearchBar.bar.value="";
+		    }
+   		 }, false);
 		for(var i=0; i<data.length; i++){
-			TopBar.addRow(data[i],searchBox);
+			SearchBar.addRow(data[i],searchBox);
 		}
 	}
-TopBar.addRow = 
+SearchBar.addRow = 
 	function(row, elem){
 		var div = document.createElement("div");
 		div.className="row-container";
@@ -55,15 +76,25 @@ TopBar.addRow =
 		imgSource = "./../img/icon/set1/man.png"; // metto sempre l'icona perché trasmettere l'immagine mi genera un problema di lunghezza
 		img.setAttribute("src",imgSource);
 		div.appendChild(img);
+	
+		var href=null;
+		if(SearchBar.MODE=="USER_SEARCH"){
+			href="./profile.php?user="+row.userId;
+		}else{
+			var utente = new User(row.userId,row.email,row.firstName,row.lastName,row.profileImage,row.profession,row.address,row.admin);
+			SearchBar.choosenUser = utente;
+			href="javascript:SearchBar.showUserSettingsForm()";
+		}
 		
+
 		var a = document.createElement("a");
-		a.setAttribute("href","./profile.php?user="+row.userId);
+		a.setAttribute("href",href);
 
 		var txt = document.createTextNode(row.firstName+" "+row.lastName);
-		p.appendChild(txt);
+		a.appendChild(txt);
 
-		a.appendChild(p);
-		div.appendChild(a);
+		p.appendChild(a);
+		div.appendChild(p);
 		if(row.profession!=null && row.profession != "null"){
 			var subP = document.createElement("p");
 			subP.className='profession-paragraph';
@@ -74,11 +105,31 @@ TopBar.addRow =
 
 		elem.appendChild(div);
 	}
-TopBar.close = 
+SearchBar.close = 
 	function(){
-		var searchBox = document.getElementById("search_results_container");
+		//var searchBox = document.getElementById("search_results_container");
+		var searchBox = resultBox;
 		searchBox.style.display="none";
 		while(searchBox.lastChild){
 			searchBox.lastChild.remove();
 		}
+	}
+SearchBar.showUserSettingsForm = 
+	function(){
+		SearchBar.adminResultBox.style.display = "block";
+		var inputs = SearchBar.adminResultBox.getElementsByTagName("input");
+
+		inputs[0].value = SearchBar.choosenUser.id;
+		inputs[1].value = SearchBar.choosenUser.email;
+		inputs[2].value = SearchBar.choosenUser.nome;
+		inputs[3].value = SearchBar.choosenUser.cognome;
+		inputs[4].value = SearchBar.choosenUser.professione;
+		inputs[5].value = SearchBar.choosenUser.indirizzo;
+		if(SearchBar.choosenUser.admin==1 || SearchBar.choosenUser.admin == "1"){
+			inputs[5].checked = true;
+		}else{
+			inputs[5].checked = false;
+		}
+		
+		
 	}

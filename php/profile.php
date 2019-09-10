@@ -370,7 +370,13 @@
 				<?php
 					$tableConfiguration = loadConfig($userInfo['userId']);
 					if(!$tableConfiguration){
-						echo "<p>Configura la tabella degli appuntamenti (<a href='./settings.php'>Impostazioni</a>)</p></div>";
+						if($_SESSION['userId']==$userInfo['userId']){
+							echo "<p>Configura la tabella degli appuntamenti (<a href='./settings.php'>Impostazioni</a>)</p></div>";
+						}else{
+							$u = $userInfo['first_name'];
+							echo "<p>$u non ha ancora configurato la sua tabella degli appuntamenti</p></div>";
+						}
+						
 					}else{
 						echo "<p>Tabella degli appuntamenti</p></div>";
 						$giorni = explode(',',$tableConfiguration['giorni']);

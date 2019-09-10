@@ -1,13 +1,14 @@
 <!-- Inizio sezione barra superiore -->
 <script src="./../js/ajaxManager.js"></script>
 <script src="./../js/TopBar.js"></script>
+<script src="./../js/user.js"></script>
 <div id="top-bar-container">
 	<div class="top-bar-box">
 		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
 	</div>
 	<div id="search-bar-container" class="top-bar-box">
 		<form method="GET" action="./search.php">
-			<input id="search-bar" name='pattern' placeholder="Cerca un nome o una professione" onkeyup="TopBar.search(this.value)">
+			<input id="search-bar" name='pattern' placeholder="Cerca un nome o una professione" onkeyup="SearchBar.search(this,this.value)">
 			<button id="search-button" title="search" type="submit"><img src="./../img/icon/set1/search.png" style="width:40%; height:35%;" alt="Cerca"></button>
 		</form>
 		<div id='search_results_container'>Risultati:<br></div>

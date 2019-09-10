@@ -53,5 +53,36 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
 	}
-	
+	function parametriProfiloRicevuti(){
+		if(!isset($_POST['email']) || !isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['address'])){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function saveUserSettings($utente,$dimMax, $userPicPath, $firstName, $lastName, $newEmail, $profession, $address, $newPassword,$newAdmin){
+		global $bookMyAppointmentDb;
+		$sets="first_name='".$firstName."',last_name='".$lastName."',email='".$newEmail."',address='".$address."', admin='".$newAdmin."'";
+		if($userPicPath){
+			//$data = $bookMyAppointmentDb->sqlInjectionFilter(file_get_contents($userPicPath));
+			$data = addslashes(file_get_contents($userPicPath));
+			$sets.=",profile_image='".$data."'";
+		}
+		if($profession){
+			$sets.=",profession='".$profession."'";
+		}
+		if($newPassword){
+			$hash = password_hash($newPassword, PASSWORD_BCRYPT);
+			$sets.=",password='".$hash."'";
+		}
+		$queryText = "UPDATE USER 
+						SET $sets
+						WHERE userId=$utente;";
+		//echo "QUERY: $queryText<br>"; //DEBUG
+		
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$bookMyAppointmentDb->closeConnection();
+		return $result;
+		
+	}
 ?>

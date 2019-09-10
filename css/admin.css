@@ -134,3 +134,16 @@
 	background-color: #91DFAF;
 	/*background-color: #91DF00;*/
 }
+#search_user_form{
+	width: 30%;
+	float:left;
+}
+#user_search{
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+#change_user_password_form{
+	width: 40%;
+	float: left;
+}
