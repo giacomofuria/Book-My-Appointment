@@ -7,7 +7,6 @@
 	*/
 	require_once "./../util/BMADbManager.php";
 	include "./AjaxResponse.php";
-
 	$response = new AjaxResponse();
 	
 	if (!isset($_GET['search'])){
@@ -50,7 +49,6 @@
 			$professione = $row['profession'];
 			$address = $row['address'];
 			$admin = $row['admin'];
-
 			//$user = new User($id, $email, $nome, $cognome, $profileImage, $professione, $address, $admin);
 			$user = new User($id, $email, $nome, $cognome, $profileImage, $professione,$address,$admin);
 			$response->data[$index] = $user;
@@ -66,8 +64,6 @@
 	function searchUsers($pattern){
 		global $bookMyAppointmentDb;
 		$queryText = "SELECT * FROM USER WHERE first_name LIKE'%".$pattern."%' OR last_name LIKE '%".$pattern."%' OR profession LIKE '%".$pattern."%' ORDER BY first_name LIMIT 5;";
-
-
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		if(!$result){
 			return false;
@@ -79,5 +75,4 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
 	}
-
 ?>

@@ -81,7 +81,7 @@
 			<div id='tool_button_container' class='button-container'>
 				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon'>Aggiungi nuovo utente</button>
 				<button id='change_password_button' value='search_user_form' class='tool-button'><img src='./../img/icon/set1/profile.png' class='button-icon'>Modificare dati utente</button>
-				<button id='remove_review_button' value='remove_review_form' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon'>Rimuovi recensione</button>
+				<button id='remove_review_button' value='search_user_form_review' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon'>Rimuovi recensione</button>
 				<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
 				<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
 			</div>
@@ -104,9 +104,8 @@
 				</form>
 			</div>
 			<div id='search_user_form' class='container tool-form-container '>
-				<h2>Seleziona l'utente che vuoi modificare</h2>
-					<p>Cerca l'utente che vuoi modificare</p>
-					<input type="text" placeholder="Nome utente" class="input-text" onkeyup="SearchBar.search(this,this.value)">
+				<h3>Cerca e seleziona l'utente che vuoi modificare</h3>
+					<input id='search_user_to_modify' type="text" placeholder="Nome utente" class="input-text" onkeyup="SearchBar.search(this,this.value)">
 					<div id="user_admin_search">
 						<!-- Risultati: -->
 					</div>
@@ -129,20 +128,20 @@
 					<input type='file' name='user_pic'>
 					</p>
 					<button type='submit' class='save-button'>Salva</button>
-				</form>
-				
+				</form>				
+			</div>
+			<div id='search_user_form_review' class='container tool-form-container '>
+				<h3>Cerca e seleziona l'utente che ha ricevuto la recensione che vuoi eliminare</h3>
+					<input type="text" placeholder="Nome utente" class="input-text" onkeyup="SearchBar.search(this,this.value)">
+					<div id="user_admin_search_review">
+						<!-- Risultati: -->
+					</div>
+			</div>
+			<div id='remove_review_form' class='container tool-form-container'>
+				<p>Clicca sull'icona per rimuovere la recensione</p>
 			</div>
 			<div id='new_appointment_form' class='container tool-form-container'>
 				Nuovo appuntamento
-			</div>
-			<div id='remove_review_form' class='container tool-form-container'>
-				Rimozione recensione
-			</div>
-			<div id='add_admin_form' class='container tool-form-container'>
-				Aggiungi amministratore
-			</div>
-			<div id='reset_user_password_form' class='container tool-form-container'>
-				Resetta la password di un utente
 			</div>
 		</div> <!-- fine workspace -->
 

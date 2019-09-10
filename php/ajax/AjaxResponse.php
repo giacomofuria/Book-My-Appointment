@@ -24,19 +24,7 @@
 		public $profession=null;
 		public $address=null;
 		public $admin=null;
-		
-		/*
-		function User($userId, $email, $firstName, $lastName, $profileImage=null, $profession=null,$address=null,$admin=0){
-			$this->userId = $userId;
-			$this->email = $email;
-			$this->firstName = $firstName;
-			$this->lastName = $lastName;
-			$this->profileImage = $profileImage;
-			$this->profession = $profession;
-			$this->address = $address;
-			$this->admin = $admin;
-		}
-		*/
+
 		function User($userId, $email, $firstName, $lastName, $profileImage,$professione,$address,$admin){
 			$this->userId = $userId;
 			$this->email = $email;
@@ -48,4 +36,5 @@
 			$this->admin = $admin;
 		}
 	}
+	
 ?>
