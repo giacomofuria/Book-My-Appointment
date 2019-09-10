@@ -97,19 +97,29 @@ SearchBar.addRow =
 		div.appendChild(img);
 	
 		var href=null;
+		var a = document.createElement("a");
+		
 		switch(SearchBar.MODE){
 			case "USER_SEARCH":
 				href="./profile.php?user="+row.userId;
+				a.setAttribute("href",href);
 				break;
 			case "ADMIN_SEARCH":
 				var utente = new User(row.userId,row.email,row.firstName,row.lastName,row.profileImage,row.profession,row.address,row.admin);
 				SearchBar.choosenUser = utente;
-				href="javascript:SearchBar.showUserSettingsForm()";
+				a.style.cursor="pointer";
+				a.addEventListener('click', function() {
+				    SearchBar.showUserSettingsForm(utente);
+				}, false);
 				break;
 			case "ADMIN_SEARCH_REVIEW":
 				var utente = new User(row.userId,row.email,row.firstName,row.lastName,row.profileImage,row.profession,row.address,row.admin);
 				SearchBar.choosenUser = utente;
-				href="javascript:SearchBar.showDeleteReviewForm()";
+				//href="javascript:SearchBar.showDeleteReviewForm()";
+				a.style.cursor="pointer";
+				a.addEventListener('click', function() {
+				    SearchBar.showDeleteReviewForm(utente);
+				}, false);
 				break;
 			default:
 				break;
@@ -121,9 +131,8 @@ SearchBar.addRow =
 			
 		}
 		*/
-
-		var a = document.createElement("a");
-		a.setAttribute("href",href);
+		
+		
 
 		var txt = document.createTextNode(row.firstName+" "+row.lastName);
 		a.appendChild(txt);
@@ -150,17 +159,18 @@ SearchBar.close =
 		}
 	}
 SearchBar.showUserSettingsForm = 
-	function(){
+	function(utente){
+		console.log(utente);
 		SearchBar.adminResultBox.style.display = "block";
 		var inputs = SearchBar.adminResultBox.getElementsByTagName("input");
 
-		inputs[0].value = SearchBar.choosenUser.id;
-		inputs[1].value = SearchBar.choosenUser.email;
-		inputs[2].value = SearchBar.choosenUser.nome;
-		inputs[3].value = SearchBar.choosenUser.cognome;
-		inputs[4].value = SearchBar.choosenUser.professione;
-		inputs[5].value = SearchBar.choosenUser.indirizzo;
-		if(SearchBar.choosenUser.admin==1 || SearchBar.choosenUser.admin == "1"){
+		inputs[0].value = utente.id;
+		inputs[1].value = utente.email;
+		inputs[2].value = utente.nome;
+		inputs[3].value = utente.cognome;
+		inputs[4].value = utente.professione;
+		inputs[5].value = utente.indirizzo;
+		if(utente.admin==1 || utente.admin == "1"){
 			inputs[5].checked = true;
 		}else{
 			inputs[5].checked = false;
@@ -169,9 +179,9 @@ SearchBar.showUserSettingsForm =
 		
 	}
 SearchBar.showDeleteReviewForm = 
-	function(){
+	function(utente){
 		SearchBar.adminResultBox.style.display = "block";
-		var queryString = "?reviewsReceiver=" + SearchBar.choosenUser.id;
+		var queryString = "?reviewsReceiver=" + utente.id;
 		var url = SearchBar.REVIEW_REQUEST + queryString;
 		console.log(url);
 		var responseFunction = SearchBar.getAjaxReviewResponse;
@@ -192,6 +202,11 @@ SearchBar.getAjaxReviewResponse =
 SearchBar.refreshReviewList = 
 	function(data){
 		var container = SearchBar.adminResultBox;
+
+		while(container.lastChild){
+			container.lastChild.remove();
+		}
+
 		for(var i=0; i<data.length; i++){
 			var div = document.createElement("div");
 			div.className="review-container";

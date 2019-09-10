@@ -86,8 +86,10 @@
 				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon'>Aggiungi nuovo utente</button>
 				<button id='change_password_button' value='search_user_form' class='tool-button'><img src='./../img/icon/set1/profile.png' class='button-icon'>Modificare dati utente</button>
 				<button id='remove_review_button' value='search_user_form_review' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon'>Rimuovi recensione</button>
-				<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
-				<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
+				<!--
+					<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
+					<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
+				-->
 			</div>
 			<div id='new_user_form' class='container tool-form-container'>
 				<h2>Inserisci un nuovo utente</h2>

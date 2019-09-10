@@ -309,7 +309,7 @@
 						<div id='profile-info-fields' class='profile-info'>
 							<p><?php echo $userInfo['first_name']; ?></p>
 							<p><?php echo $userInfo['last_name']; ?></p>
-							<p><?php echo $userInfo['email']; ?></p>
+							<p><a href="mailto:<?php echo $userInfo['email']; ?>"><img style="width:20px;" src="./../img/icon/set1/envelope.png"></a></p>
 							<p>
 								<?php 
 									if($userInfo['profession'] == null){
@@ -321,8 +321,8 @@
 							<p><?php echo $userInfo['address']; ?></p>
 							<?php 
 								$utente = $userInfo['userId'];
-								$media = getPunteggioMedio($utente); 
-								echo "<p>$media</p>";
+								$media = round(getPunteggioMedio($utente),1); 
+								echo "<p>$media / 5</p>";
 							?>
 						</div>
 						<div style='clear:both;'></div>
