@@ -10,12 +10,12 @@
 
 	$response = new AjaxResponse();
 	
-	if (!isset($_GET['reviewsReceviver'])){
+	if (!isset($_GET['reviewsReceiver'])){
 		echo json_encode($response);
 		return;
 	}		
 	
-	$user = $_GET['reviewsReceviver'];
+	$user = $_GET['reviewsReceiver'];
 	// Qui chiamo la funzione che esegue la query sulla tabella USER
 	$result = getReviews($user);
 	
@@ -40,18 +40,13 @@
 			$nome_recensore = $row['nome_recensore'];
 			$cognome_recensore = $row['cognome_recensore'];
 			$punteggio = $row['punteggio'];
-			
-			if($row['img_recensore'] == null || !isset($row['img_recensore'])){
-				$profileImage = null;
-			}else{
-				$profileImage = base64_encode($row['img_recensore']);
-			}
+
 			
 			$testo_recensione = $row['testo_recensione'];
 			$dataOra = $row['dataOra'];
 
 			//$user = new User($id, $email, $nome, $cognome, $profileImage, $professione, $address, $admin);
-			$recensione = new Review($idRecensione,$nome_recensore,$cognome_recensore,$img_recensore,$punteggio,$testo_recensione,$dataOra);
+			$recensione = new Review($idRecensione,$nome_recensore,$cognome_recensore,$punteggio,$testo_recensione,$dataOra);
 			$response->data[$index] = $recensione;
 			$index++;
 		}
@@ -68,7 +63,7 @@
 		$queryText = "SELECT R.idRecensione AS idRecensione,
 							 U2.first_name AS nome_recensore,
 							 U2.last_name AS cognome_recensore, 
-							 U2.profile_image AS img_recensore,
+							 
 							 R.punteggio AS punteggio, 
 							 R.testoRecensione AS testo_recensione,
 							 R.dataOra AS dataOra
@@ -78,16 +73,8 @@
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$numRow = mysqli_num_rows($result);
 		$bookMyAppointmentDb->closeConnection();
-		$recensioni = array();
 		return $result;
-		/*
-		while($row = $result->fetch_assoc()){
-			//echo $row['idAppuntamento']." ".$row['dataOra']."<br>";
-			//echo "punteggio: ".$row['punteggio'].", recensione: ".$row['testoRecensione']."<br>";
-			$recensioni[] = $row;
-		}
-		return $recensioni;
-		*/
+
 	}
 
 ?>

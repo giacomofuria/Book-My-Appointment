@@ -3,6 +3,7 @@ function SearchBar(){}
 SearchBar.DEFAUL_METHOD = "GET";
 //SearchBar.URL_REQUEST = "./ajax/movieLoader.php";
 SearchBar.EXPLORE_REQUEST = "./ajax/userFinder.php";
+SearchBar.REVIEW_REQUEST = "./ajax/reviewFinder.php";
 SearchBar.ASYNC_TYPE = true;
 SearchBar.resultBox = null;
 SearchBar.MODE = "USER_SEARCH";
@@ -170,4 +171,21 @@ SearchBar.showUserSettingsForm =
 SearchBar.showDeleteReviewForm = 
 	function(){
 		SearchBar.adminResultBox.style.display = "block";
+		var queryString = "?reviewsReceiver=" + SearchBar.choosenUser.id;
+		var url = SearchBar.REVIEW_REQUEST + queryString;
+		console.log(url);
+		var responseFunction = SearchBar.getAjaxReviewResponse;
+	
+		AjaxManager.performAjaxRequest(SearchBar.DEFAUL_METHOD, 
+										url, SearchBar.ASYNC_TYPE, 
+										null, responseFunction);
+	}
+SearchBar.getAjaxReviewResponse = 
+	function(response){
+		console.log("ricevuto forse "+response.message);
+		if(response.data != null){
+			console.log("Recensioni arrivate");
+			console.log(response.data);
+			//SearchBar.refresh(response.data);
+		}
 	}

@@ -36,5 +36,20 @@
 			$this->admin = $admin;
 		}
 	}
-	
+	class Review{
+		public $idRecensione;
+		public $nome_recensore;
+		public $cognome_recensore;
+		public $punteggio;
+		public $testo_recensione;
+		public $dataOra;
+		function Review($idRecensione,$nome_recensore, $cognome_recensore, $punteggio, $testo_recensione, $dataOra){
+			$this->idRecensione = $idRecensione;
+			$this->nome_recensore=$nome_recensore;
+			$this->cognome_recensore = $cognome_recensore;
+			$this->punteggio = $punteggio;
+			$this->testo_recensione = $testo_recensione;
+			$this->dataOra = $dataOra;
+		}
+	}	
 ?>
