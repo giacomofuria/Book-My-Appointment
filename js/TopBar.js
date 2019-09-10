@@ -186,6 +186,47 @@ SearchBar.getAjaxReviewResponse =
 		if(response.data != null){
 			console.log("Recensioni arrivate");
 			console.log(response.data);
-			//SearchBar.refresh(response.data);
+			SearchBar.refreshReviewList(response.data);
 		}
+	}
+SearchBar.refreshReviewList = 
+	function(data){
+		var container = SearchBar.adminResultBox;
+		for(var i=0; i<data.length; i++){
+			var div = document.createElement("div");
+			div.className="review-container";
+
+			var div1 = document.createElement("div");
+			div1.className="review-elem";
+			var txt = document.createTextNode(data[i].nome_recensore+" "+data[i].cognome_recensore);
+			div1.appendChild(txt);
+
+			var div2 = document.createElement("div");
+			div2.className="review-elem";
+			txt = document.createTextNode(data[i].testo_recensione);
+			div2.appendChild(txt);
+
+			var div3 = document.createElement("div");
+			div3.className="review-elem";
+
+			var a = document.createElement("a");
+			a.setAttribute("href","./admin.php?delReview="+data[i].idRecensione);
+			var img = document.createElement("img");
+			img.className='button-icon remove-icon';
+			img.setAttribute("src","./../img/icon/set1/garbage.png");
+			a.appendChild(img);
+			div3.appendChild(a);
+
+
+
+			div.appendChild(div1);
+			div.appendChild(div2);
+			div.appendChild(div3);
+
+			var endDiv = document.createElement("div");
+			endDiv.className="end-div";
+			div.appendChild(endDiv);
+			container.appendChild(div);
+		}
+		
 	}

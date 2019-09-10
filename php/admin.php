@@ -48,6 +48,10 @@
 		$esitoSalvataggioImpostazioniUtente = saveUserSettings($utente,$dimMax, $userPicPath, $firstName, $lastName,$newEmail, $profession, $address, $newPassword,$admin);
 		//echo "Esito: ".$esitoSalvataggioImpostazioniUtente."<br>";//DEBUG
 	}
+	if(isset($_GET['delReview'])){
+		$id = $_GET['delReview'];
+		deleteUserReview($id);
+	}
 
 ?>
 <!DOCTYPE html>

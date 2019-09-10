@@ -62,9 +62,8 @@
 		global $bookMyAppointmentDb;
 		$queryText = "SELECT R.idRecensione AS idRecensione,
 							 U2.first_name AS nome_recensore,
-							 U2.last_name AS cognome_recensore, 
-							 
-							 R.punteggio AS punteggio, 
+							 U2.last_name AS cognome_recensore,
+							 R.punteggio AS punteggio,
 							 R.testoRecensione AS testo_recensione,
 							 R.dataOra AS dataOra
 						FROM user U INNER JOIN recensione R INNER JOIN  user U2 ON U.userId=R.idRicevente AND R.idRecensore=U2.userId
