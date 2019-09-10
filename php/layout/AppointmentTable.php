@@ -162,7 +162,7 @@
 								}else{
 									// appuntamento prenotato
 									if($this->applyingUser == $this->receiverUser){
-										// l'utente loggato sta guardando la sua tabelle
+										// l'utente loggato sta guardando la sua tabella
 										$button="<button class='appointment-button booked owner' title='$dataOraAppuntamento prenotato' onclick='console.log(\"tua\")'>$imgBooked</button>";
 									}else{
 										// Un utente sta guardando la tabella di un altro utente

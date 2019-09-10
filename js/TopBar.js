@@ -232,8 +232,6 @@ SearchBar.refreshReviewList =
 			a.appendChild(img);
 			div3.appendChild(a);
 
-
-
 			div.appendChild(div1);
 			div.appendChild(div2);
 			div.appendChild(div3);
