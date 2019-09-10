@@ -157,18 +157,24 @@
 								$oraAppuntamento = date('H:i',$timestampAppuntamento);
 								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);
 								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/calendar.png'>";
+								$disabled='';
+								if($timestampAppuntamento<time()){
+									$disabled='disabled';
+									$tdClassname='old';
+								}
 								if(!$prenotato){
-									$button="<button class='appointment-button free' title='$dataOraAppuntamento disponibile' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")'></button>";
+									$button="<button class='appointment-button free' title='$dataOraAppuntamento disponibile' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")' $disabled></button>";
 								}else{
 									// appuntamento prenotato
 									if($this->applyingUser == $this->receiverUser){
 										// l'utente loggato sta guardando la sua tabella
-										$button="<button class='appointment-button booked owner' title='$dataOraAppuntamento prenotato' onclick='console.log(\"tua\")'>$imgBooked</button>";
+										$button="<button class='appointment-button booked owner' title='$dataOraAppuntamento prenotato' onclick='console.log(\"tua\")' $disabled>$imgBooked</button>";
 									}else{
 										// Un utente sta guardando la tabella di un altro utente
-										$button="<button class='appointment-button booked viewer' title='$dataOraAppuntamento prenotato' onclick='console.log(\"non tua\")'>$imgBooked</button>";
+										$button="<button class='appointment-button booked viewer' title='$dataOraAppuntamento prenotato' onclick='console.log(\"non tua\")' $disabled>$imgBooked</button>";
 									}
 								}
+
 							}else{
 								$tdClassname='not-selected';
 							}

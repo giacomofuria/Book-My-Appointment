@@ -30,6 +30,9 @@ td.not-selected{
 	background-color: #c5c8c9;
 	opacity: 0.1;
 }
+td.old{
+	opacity: 0.5;
+}
 td.selected{
 	background-color: #FFFFFF;
 	opacity: 1;
