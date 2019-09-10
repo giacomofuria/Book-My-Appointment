@@ -158,12 +158,16 @@
 								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);
 								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/calendar.png'>";
 								$disabled='';
+								$indicazione = 'disponibile';
+								$libero = 'free';
 								if($timestampAppuntamento<time()){
 									$disabled='disabled';
 									$tdClassname='old';
+									$indicazione = 'passato';
+									$libero = 'old';
 								}
 								if(!$prenotato){
-									$button="<button class='appointment-button free' title='$dataOraAppuntamento disponibile' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")' $disabled></button>";
+									$button="<button class='appointment-button $libero' title='$dataOraAppuntamento $indicazione' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")' $disabled></button>";
 								}else{
 									// appuntamento prenotato
 									if($this->applyingUser == $this->receiverUser){

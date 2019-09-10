@@ -30,8 +30,13 @@ td.not-selected{
 	background-color: #c5c8c9;
 	opacity: 0.1;
 }
-td.old{
+.old{
 	opacity: 0.5;
+	background-color: #c5c8c9;
+}
+.old:hover{
+	opacity: 0.5;
+	background-color: #c5c8c9;
 }
 td.selected{
 	background-color: #FFFFFF;
