@@ -90,7 +90,7 @@
 					<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
 					<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
 				-->
-			</div>
+			
 			<div id='new_user_form' class='container tool-form-container'>
 				<h2>Inserisci un nuovo utente</h2>
 				<form enctype='multipart/form-data' method='POST' action='./admin.php'>
@@ -149,6 +149,9 @@
 			<div id='new_appointment_form' class='container tool-form-container'>
 				Nuovo appuntamento
 			</div>
+			<div style="clear:both;"></div>
+			</div>
+			
 		</div> <!-- fine workspace -->
 		<?php
 			include "./layout/footer.php";

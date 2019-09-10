@@ -28,6 +28,7 @@
 	padding-left: 2%;
 	padding-right: 2%;
 	margin-bottom: 10px;
+
 }
 #new_user_form{
 	margin-left: 30%;
@@ -38,6 +39,7 @@
 	margin-right: 2%;
 	width: 96%;
 	padding: 10px;
+	height:800px;
 }
 .button-icon{
 	width: 15px;
@@ -68,6 +70,7 @@
 }
 .tool-form-container{
 	display: none;
+	margin-top: 10px;
 }
 
 .input-text{

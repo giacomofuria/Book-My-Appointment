@@ -247,7 +247,11 @@
 			<div id="preview_container">
 				<h2>Anteprima</h2>
 			</div>
+			<div style="clear:both;"></div>
 		</div> <!-- fine workspace -->
+		<?php
+			include "./layout/footer.php";
+		?>
 	</div>
 	<script type="text/javascript">
 		begin();
