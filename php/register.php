@@ -26,7 +26,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Register - Book My Appointment</title>
+	<title>Registrazione - Book My Appointment</title>
 	<meta name = "author" content = "Giacomo Furia">
 	<link rel="stylesheet" href="./../css/login.css" type="text/css" media="screen">
     <link rel="stylesheet" href="./../css/register.css" type="text/css" media="screen">
@@ -36,9 +36,9 @@
 		<div id="register-box-container" class="sign">
 			<div id="register-box-header" class="sign_header">
 				<?php
-				$errorMessage = 'there is a problem with your registration';
+				$errorMessage = "c'è un problema nella tua registrazione";
 				if(!isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['email']) || !isset($_POST['sign_up_password'])){
-					$errorMessage.=', please insert all fileds';
+					$errorMessage.=', per favore inserisci tutti i campi del form';
 					$result = false;
 				}else{
 					$firstName = $_POST['first_name'];
@@ -46,24 +46,24 @@
 					$email = $_POST['email'];
 					$signUpPassword = $_POST['sign_up_password'];
 					if($firstName == null || $lastName == null || $email == null || $signUpPassword == null){
-						$errorMessage.=', please insert all fileds';
+						$errorMessage.=', per favore inserisci tutti i campi del form';
 						$result = false;
 					}else{
 						$result = register($email, $firstName, $lastName, $signUpPassword);
-						$errorMessage = 'there is alredy an account with this email: '.$_POST['email']; // nel caso in cui $result sia false (query non eseguita) questo sarà il msg di errore
+						$errorMessage = "c'è già un account con questa email: ".$_POST['email']; // nel caso in cui $result sia false (query non eseguita) questo sarà il msg di errore
 					}
 				}
 				if($result){
-					 echo "<h2>Welcome $firstName, registration completed successfully</h2>";
+					 echo "<h2>Benvenuto $firstName, registrazione completata con successo</h2>";
 				}else{
-					echo "<h3>Sorry, $errorMessage</h3>";
+					echo "<h3>Scusa, $errorMessage</h3>";
 				}
 				?>
 			</div>
 			<div class="register_box">
-				<p>Where are redirecting you to the login page ...</p>
+				<p>Ti stiamo indirizzando verso la pagina di login ...</p>
 				<?php header("refresh:15; url=./../index.php");?>
-				<p>If it doesn't work <a href="./../index.php">click here</a></p>
+				<p>Se non vuoi attendere <a href="./../index.php">clicca qui</a></p>
 			</div>
 		</div>
 	</section>

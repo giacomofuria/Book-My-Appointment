@@ -13,9 +13,10 @@
 		<meta charset="utf-8">
 		<meta name = "author" content = "Giacomo Furia">
 		<link rel="stylesheet" href="./css/login.css" type="text/css" media="screen">
-		<script src="./js/bma.js"></script>
+		<link rel="stylesheet" href="./css/manual.css" type="text/css" media="screen">
+		<script src="./js/login.js"></script>
 		<script src="./js/effects.js"></script>
-		<title>Book My Appointment</title>
+		<title>Prenotazione appuntamenti online</title>
 	</head>
 <body onload="begin()">
 <div id="container">
@@ -33,15 +34,10 @@
 		</div>
 	</div>
 	<div id="right-side">
-		<div id="doc">
-			<div id="doc_header">
-				<h1 id="right-side-header">Book My Appointment</h1>
-			</div>
-			<div id="doc_container">
-				<p>Prenota il tuo appuntamento online oppure, se sei un'azienda o un piccolo professionista, puoi gestire <br>
-					qui le prenotazioni dei tuoi clienti.</p>
-			</div>
-		</div>
+		<?php
+			include "./php/layout/manual.php";
+		?>
+		
 	</div>
 </div>
 </body>

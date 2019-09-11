@@ -143,7 +143,8 @@
 	/* Funzione che restituisce le recensioni di un utente in ordine cronologico (dalla più recente) */
 	function getReviews($utente){
 		global $bookMyAppointmentDb;
-		$queryText = "SELECT U2.first_name AS nome_recensore,
+		$queryText = "SELECT R.idRecensore AS idRecensore,
+						     U2.first_name AS nome_recensore,
 							 U2.last_name AS cognome_recensore, 
 							 U2.profile_image AS img_recensore,
 							 R.punteggio AS punteggio, 
@@ -352,8 +353,8 @@
 							$src = "data:image/jpeg;base64,$img";
 						}
 						echo "<div class='review-header'>";
-							echo "<div class='review-header-element'><img class='reviewer_profile_img' src=\"$src\"></div>";
-							echo "<div class='review-header-element'><h3 >".$recensione['nome_recensore']." ".$recensione['cognome_recensore']."</h3></div>";
+							echo "<div class='review-header-element'><a href='./profile.php?user=".$recensione['idRecensore']."'><img class='reviewer_profile_img' src=\"$src\"></a></div>";
+							echo "<div class='review-header-element'><a href='./profile.php?user=".$recensione['idRecensore']."'><h3 >".$recensione['nome_recensore']." ".$recensione['cognome_recensore']."</h3></a></div>";
 							echo "<p class='review-time'>il ".$recensione['dataOra']."</p>";
 							echo "<div style='clear:both;'></div>";
 						echo "</div>";

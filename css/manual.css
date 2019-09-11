@@ -1,0 +1,52 @@
+.doc{
+	margin-top: 2em;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding: 5%;
+	font-family: "Share Grotesk","Open sans",sans-serif;
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.claim{
+	font-size: 20px;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+.clear{
+	clear:both;
+}
+#pic_registrazione{
+	width: 15%;
+}
+#pic_menu{
+	width: 10%;
+	margin-right: 15px;
+}
+#pic_barra_ricerca{
+	width: 50%;
+	display: block;
+	margin-left: 25%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#pic_profilo{
+	width: 30%;
+	margin-left: 30px;
+}
+#pic_prenotazione{
+	width: 65%;
+	margin-left: 30px;
+}
+#pic_home{
+	width: 60%;
+	margin-left: 20%;
+}
+#pic_recensione{
+	width: 40%;
+	margin-left: 10px;
+}
