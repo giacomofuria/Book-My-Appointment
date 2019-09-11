@@ -108,7 +108,7 @@
 
 	z-index: 3; /* livello superiore al sito */
 	position: absolute;
-	top:20;
+	top:2%;
 	left:33%;
 	width: 30%;
 	display:none;
@@ -120,7 +120,7 @@
 #add_review_form{
 	z-index: 3; /* livello superiore al sito */
 	position: absolute;
-	top:40;
+	top:10%;
 	left:30%;
 	width: 30%;
 	display:none;
@@ -133,7 +133,7 @@
 	left: 35%; /* distanza dal margine sinistro */
 
 	width: 30%; /* larghezza elemento */
-	height: 18%; /* altezza elemento */
+	height: 10%; /* altezza elemento */
 	background-color: #FFFFFF;
 	border-radius: 8px;
 	box-shadow: 0 2px 8px rgba(0,0,0,.08);
@@ -233,7 +233,7 @@
 	margin-left: 0;
 	margin-right: 0;
 	margin-bottom: 4%;
-	width: 100%;
+	width: 94%;
 	padding-left: 4%;
 	padding-top: 0.7em;
 	padding-bottom: 0.7em;
@@ -286,7 +286,7 @@
 }
 .review{
 	resize: none;
-	width: 100%;
+	width: 94%;
 	height: 100px;
 	padding: 10px;
 	border-radius: 4px;

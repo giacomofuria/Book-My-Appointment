@@ -186,8 +186,8 @@
 	/* Verifico se sono arrivati dei dati da una conferma di prenotazione tramite POST 
 		   e in caso positivo memorizzo la prenotazione nel db chiamando la funzione saveAppointment
 		*/
-	echo "<script src='./../js/effects.js'></script>
-	         <script src='./../js/profile.js'></script>";
+	echo "";
+	$esitoSalvataggio=false;
 	if(parametriAppuntamentoRicevuti()){
 		$note = null;
 		if(isset($_POST['appointment_notes'])){
@@ -250,11 +250,13 @@
 	
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 	<meta charset="utf-8">
 	<title>Profile - Book My Appointment</title>
 	<meta name = "author" content = "Giacomo Furia">
+	<script src='./../js/profile.js'></script>
+	<script src='./../js/effects.js'></script>
 	<script src="./../js/appointmentTable.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
@@ -286,7 +288,7 @@
 									$professione = $userInfo['profession'];
 									$indirizzo = $userInfo['address'];
 									echo "<button class='profile-setting-button' onclick=\"openProfileSettings('$nome','$cognome','$email','$professione','$indirizzo');\">";
-									echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png'>";
+									echo "<img class='profile-setting-icon' src='./../img/icon/set1/settings-1.png' alt='img profilo'>";
 									echo "</button>";
 								}
 							echo "</p>";
@@ -295,7 +297,7 @@
 						$utente = $userInfo['userId'];
 						$src = getProfileImage($utente);
 						echo "<div class='profile-img-container'>";
-							echo "<img class='profile_image' src=$src alt='Profile image'>";
+							echo "<img class='profile_image' src='$src' alt='Profile image'>";
 						echo "</div>";
 					?>
 					<div id='profile-info-container' class='profile-info-container'>
@@ -310,7 +312,7 @@
 						<div id='profile-info-fields' class='profile-info'>
 							<p><?php echo $userInfo['first_name']; ?></p>
 							<p><?php echo $userInfo['last_name']; ?></p>
-							<p><a href="mailto:<?php echo $userInfo['email']; ?>"><img style="width:20px;" src="./../img/icon/set1/envelope.png"></a></p>
+							<p><a href="mailto:<?php echo $userInfo['email']; ?>"><img style="width:20px;" src="./../img/icon/set1/envelope.png" alt='email'></a></p>
 							<p>
 								<?php 
 									if($userInfo['profession'] == null){
@@ -353,7 +355,7 @@
 							$src = "data:image/jpeg;base64,$img";
 						}
 						echo "<div class='review-header'>";
-							echo "<div class='review-header-element'><a href='./profile.php?user=".$recensione['idRecensore']."'><img class='reviewer_profile_img' src=\"$src\"></a></div>";
+							echo "<div class='review-header-element'><a href='./profile.php?user=".$recensione['idRecensore']."'><img class='reviewer_profile_img' src=\"$src\" alt='img profilo'></a></div>";
 							echo "<div class='review-header-element'><a href='./profile.php?user=".$recensione['idRecensore']."'><h3 >".$recensione['nome_recensore']." ".$recensione['cognome_recensore']."</h3></a></div>";
 							echo "<p class='review-time'>il ".$recensione['dataOra']."</p>";
 							echo "<div style='clear:both;'></div>";
@@ -392,6 +394,14 @@
 						$appointmentTable = new AppointmentTable($giorni, $inizio, $fine, $durata, $pause,$applyingUser,$receiverUser);
 						$appointmentTable->show();
 					}
+					if($esitoSalvataggio){
+						// Faccio apparire qualcosa sulla pagina che fonfermi il savataggio
+						echo "<div id='confirm-box' class='confirm-message-box'> 
+							<p>Prenotazione avvenuta con successo</p><img class='img-confirm-box' src='./../img/icon/set1/correct.png' alt='correct'></div>"; // DA SPOSTARE QUI ^
+							echo "<script type='text/javascript'> showConfirmBox(); </script>";
+					}else{
+						//echo "ERRORE<br>";//DEBUG
+					}
 				?>
 			</div>
 			<div style='clear:both;'></div>
@@ -414,6 +424,7 @@
 			<p>Voto</p>
 			<p class="sub-header">da 1 (min) a 5 (max)</p>
 			<select class="selector" name="punteggio" required>
+				<option value="">Punteggio</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -427,31 +438,25 @@
 		</form>
 		<form id="confirm-appointment-form" method="POST" action="./profile.php?user=<?php echo $userInfo['userId'].$parametro;?>">
 				<p class='confirm-appointment-header'>Conferma prenotazione appuntamento</p>
-				<input id="receveir_user" type="hidden" name="appointment_receiver_user" readonly>
-				<input id="applying_user" type="hidden" name="appointment_applying_user" readonly>
-				<label>Utente ricevente:<br><input class="input-text" value="<?php echo $userInfo['first_name'].' '.$userInfo['last_name'];?>" readonly></label><br>
-				<label>Utente richiedente:<br><input class="input-text" value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>" readonly></label><br>
+				<input id="receveir_user" type="hidden" name="appointment_receiver_user" >
+				<input id="applying_user" type="hidden" name="appointment_applying_user" >
+				<label>Utente ricevente:<br><input class="input-text" value="<?php echo $userInfo['first_name'].' '.$userInfo['last_name'];?>" ></label><br>
+				<label>Utente richiedente:<br><input class="input-text" value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>" ></label><br>
 
-				<label>Data:<br><input id="confirm_data_appointment" name="appointment_data" readonly></label><br>
-				<label>Ora:<br><input id="confirm_hour_appointment" name="appointment_hour" readonly></label><br>
-				<label>Durata (in minuti):<br><input id="confirm_duration_appointment" name="appointment_duration" readonly></label><br>
+				<label>Data:<br><input id="confirm_data_appointment" name="appointment_data" ></label><br>
+				<label>Ora:<br><input id="confirm_hour_appointment" name="appointment_hour" ></label><br>
+				<label>Durata (in minuti):<br><input id="confirm_duration_appointment" name="appointment_duration" ></label><br>
 				<!-- <label>Note: <input id="confirm_notes_appointment" type="text" placeholder="Aggiungi una nota:" name="appointment_notes"><br></label> -->
 				<label>Note: <textarea id="confirm_notes_appointment" placeholder="Aggiungi una nota:" name="appointment_notes"></textarea><br></label>
 				<button id="confirm_appointment_button" class="save-button" type="submit">Conferma prenotazione</button><br>
 				<button class="save-button exit-button" onclick="closeConfirmAppointmentBox()" type="button">Esci</button>
 			</form>
+
 	</div>
 	<?php
-		if($esitoSalvataggio){
-			// Faccio apparire qualcosa sulla pagina che fonferma il savataggio
-			echo "<div id='confirm-box' class='confirm-message-box'> 
-				<p>Prenotazione avvenuta con successo</p><img class='img-confirm-box' src='./../img/icon/set1/correct.png'></div>"; // DA SPOSTARE QUI ^
-				echo "<script type='text/javascript'> showConfirmBox(); </script>";
-		}else{
-			//echo "ERRORE<br>";//DEBUG
-		}
+		
 	?>
-	<script type="text/javascript">
+	<script>
 		// evidenzio il pulsante della pagina
 		var btn = document.getElementById("profile_button");
 		btn.style.backgroundColor="#91DFAA";

@@ -67,11 +67,14 @@ prenotare un appuntamento disponibile nel giorno e nell'orario che preferiscono.
 			Sì aprirà una schermata in cui l'utente può dare un punteggio (da 1 a 5) e scrivere una sua opinione. Tutte le recensioni che un utente ha ricevuto ed il suo punteggio medio vengono mostrati 
 			nella sua pagina "Profilo".</p>
 		<h3>Amministrazione</h3>
-		<p>Alcuni utenti del sito possono essere anche amministratori. Solo gli utenti amministratori possono accedere alla pagina "Admin" del sito in cui è possibile effettuare le seguenti operazioni di amministrazione:
+		<p> Alcuni utenti del sito possono essere anche amministratori. Solo gli utenti amministratori possono accedere alla pagina "Admin" del sito in cui è 
+			possibile effettuare le seguenti operazioni di amministrazione: </p>
 
-	<ul>
-		<li> Creare nuovi utenti
-	    <li> Modificare le informazioni di utenti già esistenti
-	    <li> Rimuovere delle recensioni offensive o non gradite</ul></p>
+
+	   	   <ul>
+				<li> Creare nuovi utenti
+			    <li> Modificare le informazioni di utenti già esistenti
+			    <li> Rimuovere delle recensioni offensive o non gradite
+			</ul>
 	</div>
 </div>

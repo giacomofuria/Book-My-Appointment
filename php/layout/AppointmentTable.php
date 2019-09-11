@@ -93,9 +93,9 @@
 					$tableTitle = $this->mesiAnno[$numeroMeseInizio-1];
 				}
 				echo "<div class='appointment-table-header'>";
-					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=window.location.href=\"?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaPrecedente\"><img width='100%' src='./../img/icon/set1/left-arrow-1.png'></button></div>";
+					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=\"window.location.href='?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaPrecedente'\"><img style='width: 100%' src='./../img/icon/set1/left-arrow-1.png' alt='prev'></button></div>";
 					echo "<div id='table-header-title' class='table-header-components'> <p >$tableTitle</p> </div>";
-					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=window.location.href=\"?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaSuccessiva\"><img width='100%' src='./../img/icon/set1/right-arrow-1.png'></button> </div>";
+					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=\"window.location.href='?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaSuccessiva'\"><img style='width: 100%' src='./../img/icon/set1/right-arrow-1.png' alt='next'></button> </div>";
 				echo "<div style='clear:both;'></div></div>";
 				// fine table header
 
@@ -109,13 +109,13 @@
 				echo "<th></th>";
 				// Creo le colonne
 				for($i=1; $i<8; $i++){
-					$class = 'not-selected';
+					$class = "not-selected";
 					$timestampGiorno = ($timestampPrimoAppuntamentoSettimana + (($i-1)*86400));
 					$numeroGiornoDelMese = date('j',$timestampGiorno);
 					if($this->findValue($this->giorni, $i)){
-						$class='selected';
+						$class="selected";
 					}
-					echo "<th class='".$class."''>".$this->giorniSettimana[$i-1]."<br>".$numeroGiornoDelMese."</th>";
+					echo "<th class='".$class."'>".$this->giorniSettimana[$i-1]."<br>".$numeroGiornoDelMese."</th>";
 				}
 				echo "</tr>";
 
@@ -156,7 +156,7 @@
 								$dataAppuntamento = date('j-m-Y',$timestampAppuntamento);
 								$oraAppuntamento = date('H:i',$timestampAppuntamento);
 								$dataOraAppuntamento = date('j-m-Y H:i',$timestampAppuntamento);
-								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/calendar.png'>";
+								$imgBooked="<img class='booked-icon' src='./../img/icon/set1/calendar.png' alt='prenotato'>";
 								$disabled='';
 								$indicazione = 'disponibile';
 								$libero = 'free';

@@ -116,7 +116,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 	<meta charset="utf-8">
 	<title>Tuoi appuntamenti - Book My Appointment</title>

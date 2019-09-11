@@ -115,7 +115,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 	<meta charset="utf-8">
 	<title>New appointment table creator - Book My Appointment</title>
