@@ -38,4 +38,3 @@ function closeConfirmAppointmentBox(){
 	confirmAppointmentForm.style.display = 'none';
 	formContainer.style.display = 'none';
 }
-

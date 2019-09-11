@@ -66,7 +66,7 @@ function showSignFields(type, getParameters){
 	var sign_header = document.getElementById("sign_header");
 	removeAllChildren(sign_header);
 	var signButton = createButton(signHeaderButtonID, "sign_header_buttons", signHeaderButtonFunction,signHeaderButtonText);
-	var userGuideButton = createButton("user_manual_button","sign_header_buttons","","Manuale utente");
+	var userGuideButton = createButton("user_manual_button","sign_header_buttons","location.href='./php/userManual.php'","Manuale utente");
 	sign_header.appendChild(signButton);
 	sign_header.appendChild(userGuideButton);
 	showSecondHeader(type);

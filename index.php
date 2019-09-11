@@ -13,7 +13,7 @@
 		<meta charset="utf-8">
 		<meta name = "author" content = "Giacomo Furia">
 		<link rel="stylesheet" href="./css/login.css" type="text/css" media="screen">
-		<link rel="stylesheet" href="./css/manual.css" type="text/css" media="screen">
+		
 		<script src="./js/login.js"></script>
 		<script src="./js/effects.js"></script>
 		<title>Prenotazione appuntamenti online</title>
@@ -35,6 +35,7 @@
 	</div>
 	<div id="right-side">
 		<?php
+			$path = "";
 			include "./php/layout/manual.php";
 		?>
 		

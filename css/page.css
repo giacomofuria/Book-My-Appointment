@@ -189,3 +189,9 @@ div{
 	color: #FFFFFF;
 	text-decoration: underline;
 }
+.user-manual-link{
+	text-decoration: none;
+	color: #000000;
+	margin-left: 30px;
+	font-size: 20px;
+}
