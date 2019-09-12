@@ -144,8 +144,8 @@
 	text-align: center;
 	font-size: 18px;
 }
-.confirm-message-box:p{
-	color: 'red';
+.confirm-message-box p{
+	color: rgb(255,0,0);
 }
 .img-confirm-box{
 	width: 10%;
@@ -267,7 +267,7 @@
 	padding-right: 2%;
 	border-style: solid;
 	border-width: 1.5px;
-	border-color: red;
+	border-color: rgb(255,0,0);
 }
 .selector{
 	width: 100%;

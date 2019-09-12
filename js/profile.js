@@ -11,7 +11,7 @@ function showConfirmBox(){
 	
 }
 function openProfileSettings(nome,cognome,email,professione,indirizzo){
-	console.log("nome: "+nome+", cognome: "+cognome+",email: "+email+", professione: "+professione+", indirizzo: "+indirizzo);
+	//console.log("nome: "+nome+", cognome: "+cognome+",email: "+email+", professione: "+professione+", indirizzo: "+indirizzo); //DEBUG
 	var profileInfoContainer = document.getElementById("profile-info-container");
 	
 	var profileInfoLabels = document.getElementById("profile-info-labels");
