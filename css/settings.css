@@ -69,3 +69,17 @@ h2{
 	padding: 0;
 	margin-top: -12px;
 }
+.time-selector-container{
+	width: 100%;
+}
+.time-selector-components{
+	float:left;
+	width: 48%;
+}
+.clear{
+	clear: both;
+}
+select{
+	width: 100%;
+	text-align: center;
+}

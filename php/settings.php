@@ -197,7 +197,7 @@
 
 				?>
 				<h2>Configura la tua tabella degli appuntamenti</h2><hr>
-				<form method="post" action="./settings.php">
+				<form id="config_form" method="post" action="./settings.php">
 					<div id="work_days" class="appointment_setting_container">
 						<h2>Seleziona i giorni di lavoro</h2>
 						<label><input type="checkbox" name="work_days[]" value="1" <?php if(findValue($giorni,'1')) echo 'checked';?>>Lun</label>
@@ -210,9 +210,26 @@
 					</div>
 					<div id="open_close_times" class="appointment_setting_container">
 						<h2>Orario di apertura </h2>
-							<input class="selector" type="time" name="opening_time" value="<?php if($inizio!=null) echo $inizio; else echo '00:00'; ?>" required>
+							<input id="open_time_input" class="selector" type="text" name="opening_time" value="<?php if($inizio!=null) echo $inizio; else echo '00:00'; ?>" required>
+							<div id="open_time_selector_container" class="time-selector-container">
+								<!--
+								<div class="time-selector-components">
+									<select multiple>
+										<option>00</option>
+										<option>01</option>
+										<option>02</option>
+									</select>
+								</div>
+								<div class="time-selector-components">
+								</div>
+								<div style="clear:both;"></div>
+								-->
+							</div>
 						<h2>Orario di chiusura </h2>
-							<input class="selector" type="time" name="closing_time" value="<?php if($fine!=null) echo $fine; else echo '00:00'; ?>" required>
+							<input id="close_time_input" class="selector" type="text" name="closing_time" value="<?php if($fine!=null) echo $fine; else echo '00:00'; ?>" required>
+							<div id="close_time_selector_container" class="time-selector-container">
+								
+							</div>
 					</div>
 					<div id="appointment_duration" class="appointment_setting_container">
 						<h2>Durata media di ogni appuntamento</h2>
