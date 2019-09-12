@@ -172,10 +172,10 @@
 									// appuntamento prenotato
 									if($this->applyingUser == $this->receiverUser){
 										// l'utente loggato sta guardando la sua tabella
-										$button="<button class='appointment-button booked owner' title='$dataOraAppuntamento prenotato' onclick='console.log(\"tua\")' $disabled>$imgBooked</button>";
+										$button="<button class='appointment-button booked owner' title='$dataOraAppuntamento prenotato' $disabled>$imgBooked</button>";
 									}else{
 										// Un utente sta guardando la tabella di un altro utente
-										$button="<button class='appointment-button booked viewer' title='$dataOraAppuntamento prenotato' onclick='console.log(\"non tua\")' $disabled>$imgBooked</button>";
+										$button="<button class='appointment-button booked viewer' title='$dataOraAppuntamento prenotato' $disabled>$imgBooked</button>";
 									}
 								}
 
