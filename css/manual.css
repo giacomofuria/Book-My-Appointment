@@ -7,9 +7,14 @@
 	background-color: #FFFFFF;
 	border-radius: 8px;
 	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+	text-align: justify;
+}
+.doc-header{
+	margin-bottom: 15%;
 }
 .claim{
 	font-size: 20px;
+
 }
 .left{
 	float: left;
@@ -22,6 +27,7 @@
 }
 #pic_registrazione{
 	width: 15%;
+	margin-left: 15px;
 }
 #pic_menu{
 	width: 10%;

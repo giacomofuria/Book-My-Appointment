@@ -1,13 +1,14 @@
 <link rel="stylesheet" href="./<?php echo $path;?>css/manual.css" type="text/css" media="screen">
 <div class="doc">
-	<div id="doc_header">
+	<div class="doc-header">
 		<h1 id="right-side-header">Book my appointments</h1>
-	</div>
-	<div id="doc_container">
 		<p class='claim'>Questo sito è rivolto a tutti gli utenti (clienti o liberi professionisti) che vogliono gestire
-online il calendario dei propri appuntamenti. I normali clienti, dopo essersi registrati possono ricercare 
+online il calendario dei propri appuntamenti. I clienti, dopo essersi registrati possono ricercare 
 un altro cliente o un libero professionista, guardare sul suo calendario degli appuntamenti e 
 prenotare un appuntamento disponibile nel giorno e nell'orario che preferiscono.</p>
+	</div>
+	<div id="doc_container">
+		
 	<div>
 		<img id="pic_registrazione" class="right" src="./<?php echo $path;?>img/screenshot/registrazione.png" alt="screenshot registrazione">
 		<h3>Registrazione</h3>
