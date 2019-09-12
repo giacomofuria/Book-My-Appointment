@@ -167,7 +167,7 @@
 									$libero = 'old';
 								}
 								if(!$prenotato){
-									$button="<button class='appointment-button $libero' title='$dataOraAppuntamento $indicazione' onclick='confirmAppointment(\"$dataAppuntamento\",\"$oraAppuntamento\",\"$this->applyingUser\",\"$this->receiverUser\",\"$this->durata\")' $disabled></button>";
+									$button="<button class='appointment-button $libero' title='$dataOraAppuntamento $indicazione' onclick=\"confirmAppointment('$dataAppuntamento','$oraAppuntamento','$this->applyingUser','$this->receiverUser','$this->durata');\" $disabled></button>";
 								}else{
 									// appuntamento prenotato
 									if($this->applyingUser == $this->receiverUser){
