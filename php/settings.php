@@ -118,7 +118,7 @@
 <html lang="it">
 <head>
 	<meta charset="utf-8">
-	<title>New appointment table creator - Book My Appointment</title>
+	<title>Impostazioni - Book My Appointment</title>
 	<meta name = "author" content = "Giacomo Furia">
 	<script src="./../js/PreviewTable.js"></script>
 	<script src="./../js/settings.js"></script>
@@ -232,9 +232,9 @@
 							<?php
 								for($i = 0; $i < $numeroAppuntamenti; $i++){
 									if(findValue($pause,$i)){
-										echo "<option value='$i' selected></option>";
+										echo "<option value='$i' selected>&nbsp;</option>";
 									}else{
-										echo "<option value='$i'></option>";
+										echo "<option value='$i'>&nbsp;</option>";
 									}
 									
 								}
@@ -253,7 +253,7 @@
 			include "./layout/footer.php";
 		?>
 	</div>
-	<script type="text/javascript">
+	<script>
 		begin();
 		// evidenzio il pulsante della pagina
 		var btn = document.getElementById("settings_button");
