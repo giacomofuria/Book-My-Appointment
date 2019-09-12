@@ -6,7 +6,6 @@
 		header('Location: ./../index.php');
 		exit;
 	}
-	
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -107,7 +106,7 @@
 			$admin = $row['admin'];
 
 			echo "<div class='row-container'>";
-			echo "<img src='$profileImage' class='search-result-img'>";
+			echo "<img src='$profileImage' class='search-result-img' alt='icona profilo'>";
 			echo "<p><a href='./profile.php?user=$id'>$nome $cognome $email</a></p>";
 			echo "<p class='profession-paragraph'>$professione</p>";
 			echo "</div>";

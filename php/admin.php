@@ -83,9 +83,9 @@
 				<p>Da questa pagina puoi modificare i dati degli utenti e visualizzare delle statistiche del sito.</p>
 			</div>
 			<div id='tool_button_container' class='button-container'>
-				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon'>Aggiungi nuovo utente</button>
-				<button id='change_password_button' value='search_user_form' class='tool-button'><img src='./../img/icon/set1/profile.png' class='button-icon'>Modificare dati utente</button>
-				<button id='remove_review_button' value='search_user_form_review' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon'>Rimuovi recensione</button>
+				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon' alt='nuovo utente'>Aggiungi nuovo utente</button>
+				<button id='change_password_button' value='search_user_form' class='tool-button'><img src='./../img/icon/set1/profile.png' class='button-icon' alt='modifica dati utente'>Modificare dati utente</button>
+				<button id='remove_review_button' value='search_user_form_review' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon' alt='rimuovi recensione'>Rimuovi recensione</button>
 				<!--
 					<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
 					<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
@@ -157,7 +157,7 @@
 			include "./layout/footer.php";
 		?>
 	</div>
-	<script type="text/javascript">
+	<script>
 		// evidenzio il pulsante della pagina
 		beginAdmin();
 		var btn = document.getElementById("admin_button");
