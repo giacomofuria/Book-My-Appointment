@@ -56,6 +56,7 @@ function cambia(elem){
 			//aggiornaGiorniLavoroTabellaPreview(elem);
 			tabellaDiPreview.updateTableColumn(parseInt(elem.value), elem.checked);
 			break;
+		/*
 		case "opening_time":
 			//aggiornaOrarioApertura(elem.value);
 			//tabellaDiPreview.updateStartTime(elem.value,false);	
@@ -64,6 +65,7 @@ function cambia(elem){
 			//aggiornaOrararioChiusura(elem.value);
 			//tabellaDiPreview.updateCloseTime(elem.value,false);
 			break;
+		*/
 		case "select_duration":
 			tabellaDiPreview.updateAppointmentDuration(elem.value);
 			//console.log(elem.value);
