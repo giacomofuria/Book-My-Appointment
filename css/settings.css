@@ -77,6 +77,7 @@ h2{
 .time-selector-components{
 	float:left;
 	width: 49%;
+	text-align: center;
 }
 .clear{
 	clear: both;

@@ -127,9 +127,11 @@ TimePicker.prototype.createPicker = function(){
 	this.container.appendChild(div3);
 }
 TimePicker.prototype.createHourList =function (elem){
+	var title = document.createTextNode("Ora");
+	elem.appendChild(title);
 	this.selectHour = document.createElement("select");
 	this.selectHour.id="hour_selector";
-	this.selectHour.setAttribute("multiple","true");
+	this.selectHour.setAttribute("multiple","");
 	for(var i=0;i<24;i++){
 		var opt = document.createElement("option");
 		opt.value = i;
@@ -147,8 +149,10 @@ TimePicker.prototype.createHourList =function (elem){
 	elem.appendChild(this.selectHour);
 }
 TimePicker.prototype.createMinuteList = function(elem){
+	var title = document.createTextNode("Minuti");
+	elem.appendChild(title);
 	this.selectMinutes = document.createElement("select");
-	this.selectMinutes.setAttribute("multiple","true");
+	this.selectMinutes.setAttribute("multiple","");
 	this.selectMinutes.id = "minutes_selector";
 	for(var i=0;i<60;i++){
 		var opt = document.createElement("option");
