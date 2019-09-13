@@ -7,13 +7,10 @@ var flagPrimoAvvio = true;
 var tabellaDiPreview = new PreviewTable();
 
 function begin(){
-
 	var previewContainer = document.getElementById("preview_container");
-	tabellaDiPreview.buildTable(previewContainer);
-	
+	tabellaDiPreview.buildTable(previewContainer);	
 	var inputs = document.getElementsByTagName("input");
 	var gestore = new Function("cambia(this)");
-
 	for(var i=0; i<inputs.length; i++){
 		var elem = inputs[i];
 		//switch(elem.type){
@@ -30,14 +27,11 @@ function begin(){
 	selectDuration.onchange = gestore;
 	var pausesSelector = document.getElementById("pauses_selector");
 	pausesSelector.onchange = gestore;
-
 	var gestoreTimePicker = new Function("createTimePicker(this)");
-
 	var openTimeInput = document.getElementById("open_time_input");
 	var closeTimeInput = document.getElementById("close_time_input");
 	openTimeInput.onclick = gestoreTimePicker;
 	closeTimeInput.onclick = gestoreTimePicker;
-
 	if(flagPrimoAvvio){
 		flagPrimoAvvio=false;
 		var workDaysDiv = document.getElementById("work_days");
@@ -48,7 +42,6 @@ function begin(){
 		var pausesSelectorElement = document.getElementById("pauses_selector");
 		tabellaDiPreview.updateTable(workDays,openCloseTimes,selectDurationElement,pausesSelectorElement);
 	}
-
 }
 function cambia(elem){
 	switch(elem.name){
@@ -81,7 +74,6 @@ function cambia(elem){
 function createTimePicker(elem){
 	var timePicker = new TimePicker(elem);
 }
-
 function TimePicker(elem){
 	this.container = null;
 	this.valore = elem.value;
@@ -100,20 +92,15 @@ function TimePicker(elem){
 		default:
 			break;
 	}
-	
-	
-
 	var splitted = elem.value.split(":");
 	this.ora = splitted[0];
 	this.minuti = splitted[1];
 	this.createPicker();
 }
 TimePicker.prototype.createPicker = function(){
-
 	while(this.container.lastChild){
 		this.container.lastChild.remove();
 	}
-
 	var div1 = document.createElement("div");
 	div1.className="time-selector-components";
 	this.createHourList(div1);
@@ -191,7 +178,6 @@ function update(elem,type,selector,idContainer){
 	}else{
 		tabellaDiPreview.updateCloseTime(elem.value,false);
 	}
-	
 }
 function takeSelected(selector){
 	var opts = selector.getElementsByTagName("option");
