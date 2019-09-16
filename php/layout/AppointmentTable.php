@@ -32,9 +32,6 @@
 			$this->applyingUser = $applyingUser;
 			$this->receiverUser = $receiverUser;
 
-			//echo "Numero appuntamenti: ".$this->numeroAppuntamenti.'<br>'; // DEBUG
-			//echo "Inizio in secondi: ".$this->inizioInSecondi.'<br>'; // DEBUG
-
 			if(isset($_GET['week'])){
 				$this->dataCorrente = $_GET['week'];
 			}else{
@@ -65,18 +62,7 @@
 
 			$timestampPrimoGiornoSettimanaPrecedente = ($this->timestampPrimoGiornoSettimana - (7*86400));
 			$this->dataPrimoGiornoSettimanaPrecedente = date('Y-m-j',$timestampPrimoGiornoSettimanaPrecedente);
-			/*
-			echo "Data primo giorno settimana: $dataPrimoGiornoSettimana <br><br>";
-			echo "Data primo giorno settimana successiva: $this->dataPrimoGiornoSettimanaSuccessiva <br><br>";
-			echo "Data primo giorno settimana precedente: $this->dataPrimoGiornoSettimanaPrecedente <br><br>";
-			
-			// stampo per dubug tutte le date della settimana
-			for($i=0; $i<7; $i++){
-				$timestampGiorno = ($this->timestampPrimoGiornoSettimana + ($i*86400)); // 86400 = numero di secondi in un giorno
-				$data = date('Y-m-j H:i:s',$timestampGiorno);
-				echo "$data<br>";
-			}
-			*/
+
 		}
 
 		public function show(){	
@@ -214,7 +200,7 @@
 				echo $pausa.'<br>';
 			}
 		}
-
+        
 		/* Funzione che dato un certo timestamp cerca se l'utente receiver ha un appuntamento prenotato con quel timestamp */
 		private function cercaAppuntamenti($timestamp){
 

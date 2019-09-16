@@ -38,7 +38,6 @@
 			$path = "";
 			include "./php/layout/manual.php";
 		?>
-		
 	</div>
 </div>
 </body>
