@@ -49,8 +49,9 @@
 			$professione = $row['profession'];
 			$address = $row['address'];
 			$admin = $row['admin'];
+			$password = $row['password'];
 			//$user = new User($id, $email, $nome, $cognome, $profileImage, $professione, $address, $admin);
-			$user = new User($id, $email, $nome, $cognome, $profileImage, $professione,$address,$admin);
+			$user = new User($id, $email, $nome, $cognome, $password,$profileImage, $professione,$address,$admin);
 			$response->data[$index] = $user;
 			$index++;
 		}

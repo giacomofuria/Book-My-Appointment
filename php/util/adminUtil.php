@@ -42,8 +42,6 @@
 			$admin=1;
 		}
 
-		
-		
 		$queryText = "INSERT INTO 
 					  USER ($values,admin) 
 					  VALUES ('$email','$nome','$cognome','$password' $elements,$admin)";
@@ -78,12 +76,10 @@
 		$queryText = "UPDATE USER 
 						SET $sets
 						WHERE userId=$utente;";
-		//echo "QUERY: $queryText<br>"; //DEBUG
 		
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
-		
 	}
 	function deleteUserReview($id){
 		global $bookMyAppointmentDb;
