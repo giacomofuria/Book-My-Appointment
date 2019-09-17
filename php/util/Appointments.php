@@ -78,8 +78,29 @@
 			}
 			return $appuntamenti;
 		}
+
 		/* Funzione che rimuove un appuntamento tra quelli prenotati */
+		
 		public function deleteAppointment($id){
+			/* Verifico che l'appuntamento che si vuole eliminare coinvolga l'utente loggato */
+			$flag=false;
+			foreach($this->datiAppuntamentiRicevuti as $app){
+				if($app['idAppuntamento']==$id){
+					$flag = true;
+					break;
+				}
+			}
+			if(!$flag){
+				foreach($this->datiAppuntamentiPrenotati as $app){
+					if($app['idAppuntamento']==$id){
+						$flag = true;
+						break;
+					}
+				}
+			}
+			if(!$flag){
+				return false;
+			}
 			global $bookMyAppointmentDb;
 			$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
 			$result = $bookMyAppointmentDb->performQuery($queryText);

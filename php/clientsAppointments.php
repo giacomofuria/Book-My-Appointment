@@ -8,6 +8,7 @@
 		exit;
 	}
 	$appuntamenti = new Appointments($_SESSION['userId']);
+	$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(0,false,"DESC");
 	if(isset($_GET['delAppointment'])){
 		$id = $_GET['delAppointment'];
 		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
@@ -41,7 +42,7 @@
 						<h3>Gli appuntamenti dei tuoi clienti</h3>
 					</div>
 					<?php					
-						$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(0,false,"DESC");
+						
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
