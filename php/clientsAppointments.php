@@ -12,36 +12,6 @@
 		$id = $_GET['delAppointment'];
 		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
 	}
-	function stampaAppuntamenti($appuntamenti){
-		foreach($appuntamenti as $appuntamento){
-			echo "<div class='appointment-container'>";
-			$src = "./../img/icon/set1/man.png";
-			if($appuntamento['profileImage'] != null){
-				$img = base64_encode($appuntamento['profileImage']);
-				$src = "data:image/jpeg;base64,$img";
-			}
-			$time = strtotime($appuntamento['dataOra']);
-			$data = date('d-m-Y',$time);
-			$ora = date('H:i',$time);
-			$dataOraAttuale = date('Y-m-d H:i:s',time());
-			$idAppuntamento = $appuntamento['idAppuntamento'];
-			echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente' alt='img profilo'></div>";
-			echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
-			echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['id']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
-			echo "<p>".$appuntamento['professione']."</p>";
-			echo "<p><a href='mailto:".$appuntamento['email']."'><img src='./../img/icon/set1/envelope.png' class='icon-email' alt='email'></a></p></div>";
-			echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
-			echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
-			if($appuntamento['dataOra']<$dataOraAttuale){
-				echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon' alt='passato'></div>";
-			}else{
-				echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./clientsAppointments.php?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi'></button></div>";
-			}
-			echo "<div style='clear:both;'></div>";
-			//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
-			echo "</div>";
-		}
-	}
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -75,7 +45,7 @@
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
-							stampaAppuntamenti($listaPrenotazioniRicevute);
+							$appuntamenti->stampaAppuntamenti("from","clientsAppointments.php");
 						}
 					?>
 				</div>

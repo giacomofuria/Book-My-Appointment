@@ -86,7 +86,6 @@
 		global $bookMyAppointmentDb;
 		$sets="first_name='".$firstName."',last_name='".$lastName."',email='".$newEmail."',address='".$address."'";
 		if($userPicPath){
-			//$data = $bookMyAppointmentDb->sqlInjectionFilter(file_get_contents($userPicPath));
 			$data = addslashes(file_get_contents($userPicPath));
 			$sets.=",profile_image='".$data."'";
 		}

@@ -24,7 +24,10 @@
 			$this->datiAppuntamentiRicevuti = $this->getAppointments("from",$limit, $new, $order,$dataInizio,$dataFine);
 			return $this->datiAppuntamentiRicevuti;
 		}
-
+		/*
+		 userType = "to" => Prenotazioni effettuate dall'utente
+		 userType = "from" => Prenotazioni ricevute dall'utente
+		*/
 		private function getAppointments($userType,$limit, $new, $order,$dataInizio=null,$dataFine=null){
 			$selectedUser="";
 			$joinUser="";
@@ -35,7 +38,6 @@
 				$selectedUser="A.idRicevente";
 				$joinUser = "A.idRichiedente";
 			}
-
 			global $bookMyAppointmentDb;
 			$limiter="";
 			if($limit>0){
@@ -90,6 +92,47 @@
 			$time = strtotime($dataOra);
 			$dataOraMysql = date('Y-m-d H:i:s',$time);
 			return isset($this->datiAppuntamentiRicevuti["$dataOraMysql"]);
+		}
+
+		/* Fuzione che costruisce graficamente la lista degli appuntamenti */
+		public function stampaAppuntamenti($type,$page){
+			if($type=="to"){
+				$appuntamenti = $this->datiAppuntamentiPrenotati;
+			}else{
+				if($type=="from"){
+					$appuntamenti = $this->datiAppuntamentiRicevuti;
+				}else{
+					return;
+				}
+			}
+			foreach($appuntamenti as $appuntamento){
+				echo "<div class='appointment-container'>";
+				$src = "./../img/icon/set1/man.png";
+				if($appuntamento['profileImage'] != null){
+					$img = base64_encode($appuntamento['profileImage']);
+					$src = "data:image/jpeg;base64,$img";
+				}
+				$time = strtotime($appuntamento['dataOra']);
+				$data = date('d-m-Y',$time);
+				$ora = date('H:i',$time);
+				$dataOraAttuale = date('Y-m-d H:i:s',time());
+				$idAppuntamento = $appuntamento['idAppuntamento'];
+				echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente' alt='img profilo'></div>";
+				echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
+				echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['id']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
+				echo "<p>".$appuntamento['professione']."</p>";
+				echo "<p><a href='mailto:".$appuntamento['email']."'><img src='./../img/icon/set1/envelope.png' class='icon-email' alt='email'></a></p></div>";
+				echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
+				echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
+				if($appuntamento['dataOra']<$dataOraAttuale){
+					echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon' alt='passato'></div>";
+				}else{
+					echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./$page?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi appuntamento'></button></div>";
+				}
+				echo "<div style='clear:both;'></div>";
+				//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
+				echo "</div>";
+			}
 		}
 
 		/* Funzione di debug che stampa chiave->valore tutti gli appuntamenti memorizzati nell'oggetto */
