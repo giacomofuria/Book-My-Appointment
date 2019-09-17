@@ -24,7 +24,6 @@
 		<p>Password: <input name="password"></p>
 		<p><button>Invia</button></p>
 	</form>
-
 	<form method="post" action="./register.php">
 		<p>Nome: <input name="first_name"></p>
 		<p>Cognome: <input name="last_name"></p>

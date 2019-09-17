@@ -2,6 +2,7 @@
 	session_start();
 	include "./util/sessionUtil.php";
 	require_once "./util/BMADbManager.php";
+	include "./util/Appointments.php";
 	if(!isLogged()){
 		header('Location: ./../index.php');
 		exit;
@@ -64,7 +65,6 @@
 					  FROM appuntamento A INNER JOIN USER U ON A.idRichiedente=U.userId
 					  WHERE A.idRicevente  = $user AND A.dataOra >= \"$dataOraAttuale\"
 					  ORDER BY A.dataOra ASC $limiter;";
-		//echo $queryText."<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$numRow = mysqli_num_rows($result);
 		$bookMyAppointmentDb->closeConnection();

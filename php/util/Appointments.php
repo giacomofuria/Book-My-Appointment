@@ -21,8 +21,6 @@
 				$timestampAppuntamento = $row['dataOra'];
 				$this->datiAppuntamenti["$timestampAppuntamento"] = $row;
 			}
-
-			
 		}
 		/* verifica se alla dataOra passata come parametro è stato memorizzato un appuntamento */
 		public function booked($dataOra){
@@ -42,11 +40,16 @@
 			*/
 			return false;
 		}
+		/* Funzione di debug che stampa chiave->valore tutti gli appuntamenti memorizzati nell'oggetto */
 		public function stampa(){
 			if($this->numeroAppuntamenti == 0)
 				return;
 			foreach ($this->datiAppuntamenti as $key => $val) {
-				echo "$key = ".$val['dataOra']."<br>";}
+				echo "$key = ".$val['dataOra']."<br>";
 			}
+		}
+		public function prova(){
+			echo "Prova funzionamento classe Appointments $this->utente<br>";
+		}
 	}
 ?>
