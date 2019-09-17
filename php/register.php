@@ -1,5 +1,4 @@
 <?php
-	//require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
 	require_once "./util/User.php";
 ?>
 <!DOCTYPE html>

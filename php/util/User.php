@@ -133,6 +133,92 @@
 				return "Siamo spiacenti c'è stato un errore durante la fase di registrazione";
 			}
 		}
+		public function getUserInfo($userId){
+			global $bookMyAppointmentDb;
+			$queryText = "SELECT * FROM USER WHERE userId='".$userId."';";
+
+			$result = $bookMyAppointmentDb->performQuery($queryText);
+			if($result === FALSE){
+				return FALSE;
+			}
+			$numRow = mysqli_num_rows($result);
+			$bookMyAppointmentDb->closeConnection();
+			$userRow = $result->fetch_assoc();
+			$this->userId = $userRow['userId'];
+			$this->email = $userRow['email'];
+			$this->firstName = $userRow['first_name'];
+			$this->lastName = $userRow['last_name'];
+			$this->password = $userRow['password'];
+			$this->profileImage = $userRow['profile_image'];
+			$this->profession = $userRow['profession'];
+			$this->address = $userRow['address'];
+			$this->admin = $userRow['admin'];
+		}
+		public function updateUserSettings(){
+			global $bookMyAppointmentDb;
+			$sets="first_name='".$this->firstName."',last_name='".$this->lastName."',email='".$this->email."',address='".$this->address."'";
+			if($this->profileImage){
+				$sets.=",profile_image='".addslashes($this->profileImage)."'";
+			}
+			if($this->profession){
+				$sets.=",profession='".$this->profession."'";
+			}
+			if($this->admin){
+				$sets.=",admin='".$this->admin."'";
+			}
+			if($this->password){
+				$hash = password_hash($this->password, PASSWORD_BCRYPT);
+				$sets.=",password='".$hash."'";
+			}
+			$utente = $_SESSION['userId'];
+			$queryText = "UPDATE USER 
+							SET $sets
+							WHERE userId=$this->userId;";
+			//echo "QUERY: $queryText<br>"; //DEBUG
+			
+			$result = $bookMyAppointmentDb->performQuery($queryText);
+			$bookMyAppointmentDb->closeConnection();
+			return $result;
+		}
+		public function receiveProfileParameters(){
+			$ret = false;
+			if(isset($_FILES['user_pic']) && is_uploaded_file($_FILES['user_pic']['tmp_name'])){
+				//echo "Nome file: ".$_FILES['user_pic']['tmp_name']."<br>";
+				$userPicPath = $_FILES['user_pic']['tmp_name'];
+				$this->profileImage = addslashes(file_get_contents($userPicPath));
+			}
+			if(isset($_POST['email'])){
+				$this->email = $_POST['email'];
+				$ret = true;
+			}
+			if(isset($_POST['first_name'])){
+				$this->firstName = $_POST['first_name'];
+			}
+			if(isset($_POST['last_name'])){
+				$this->lastName = $_POST['last_name'];
+			}
+			if(isset($_POST['profession'])){
+				$this->profession = $_POST['profession'];
+			}
+			if(isset($_POST['address'])){
+				$this->address = $_POST['address'];
+			}
+			if(isset($_POST['admin']) && $_POST['admin']=='on'){
+				$this->admin=1;
+			}else{
+				$this->admin=0;
+			}
+			if(isset($_POST['newPassword']) && isset($_POST['reNewPassword'])){
+				$newPassword = $_POST['newPassword'];
+				$reNewPassword = $_POST['reNewPassword'];
+				// controllo se le due password inviate coincidono
+				if($newPassword != $reNewPassword){
+					// ERRORE !!
+				}
+				$this->password = $_POST['newPassword'];
+			}
+			return $ret;
+		}
 	}
 	function validateName($name){
 		if (preg_match("/^[a-zA-Z0-9._-]/", $name)){
