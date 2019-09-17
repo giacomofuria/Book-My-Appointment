@@ -1,7 +1,8 @@
 <?php
 	session_start();
-	include "./util/sessionUtil.php";
-	include "./util/adminUtil.php";
+	include_once "./util/sessionUtil.php";
+	include_once "./util/adminUtil.php";
+	include "./util/User.php";
 
 	require_once "./util/BMADbManager.php";
 	if(!isLogged() || !$_SESSION['admin']){
@@ -9,7 +10,7 @@
 		exit;
 	}
 	addNewUser();
-	
+	/*
 	if(parametriProfiloRicevuti()){
 		$dimMax = $_POST['MAX_FILE_SIZE'];
 		$userPicPath = false;
@@ -47,6 +48,11 @@
 		}
 		$esitoSalvataggioImpostazioniUtente = saveUserSettings($utente,$dimMax, $userPicPath, $firstName, $lastName,$newEmail, $profession, $address, $newPassword,$admin);
 		//echo "Esito: ".$esitoSalvataggioImpostazioniUtente."<br>";//DEBUG
+	}
+	*/
+	$userInfo = new User();
+	if($userInfo->receiveProfileParameters()){
+		$userInfo->updateUserSettings();
 	}
 	if(isset($_GET['delReview'])){
 		$id = $_GET['delReview'];

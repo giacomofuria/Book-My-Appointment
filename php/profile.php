@@ -168,7 +168,7 @@
 	}
 	
 	if($userInfo->receiveProfileParameters()){
-		echo "Result: ".$userInfo->updateUserSettings();
+		$userInfo->updateUserSettings();
 	}
 	if(parametriRecensioneRicevuti()){
 		$punteggio = $_POST['punteggio'];

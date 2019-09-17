@@ -187,6 +187,9 @@
 				$userPicPath = $_FILES['user_pic']['tmp_name'];
 				$this->profileImage = addslashes(file_get_contents($userPicPath));
 			}
+			if(isset($_POST['userId'])){
+				$this->userId = $_POST['userId'];
+			}
 			if(isset($_POST['email'])){
 				$this->email = $_POST['email'];
 				$ret = true;
