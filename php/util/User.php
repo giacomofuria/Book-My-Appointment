@@ -1,4 +1,7 @@
 <?php
+	include_once __DIR__."/../config.php";
+	include_once DIR_UTIL."BMADbManager.php";
+	include_once DIR_UTIL."sessionUtil.php";
 	class User{
 		public $userId=null;
 		public $email=null;
@@ -27,6 +30,12 @@
 		}
 		public function setPassword($password){
 			$this->password=$password;
+		}
+		public function setFirstName($firstName){
+			$this->firstName =$firstName;
+		}
+		public function setLastName($lastName){
+			$this->lastName = $lastName;
 		}
 
 		public function login(){
@@ -89,6 +98,54 @@
 				return $userRow;
 			else
 				return -2; // Errore: l'utente è registrato nel sito ma la pwd è errata
+		}
+
+		/* Funzione che registra l'utente */
+		public function register(){
+			global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
+			$this->email = $bookMyAppointmentDb->sqlInjectionFilter($this->email);
+			$this->firstName = $bookMyAppointmentDb->sqlInjectionFilter($this->firstName);
+			$this->lastName = $bookMyAppointmentDb->sqlInjectionFilter($this->lastName);
+			$this->password = $bookMyAppointmentDb->sqlInjectionFilter($this->password);
+
+			// Qui posso validare i campi e restituire un messaggio di errore personalizzato
+			if(!validateName($this->firstName)){
+				return "Siamo spiacenti, inserisci un nome valido";
+			}
+			if(!validateName($this->lastName)){
+				return "Siamo spiacenti, inserisci un cognome valido";
+			}
+			if(!validateEmail($this->email)){
+				return "Siamo spiacenti, inserisci un indirizzo email valido";
+			}
+
+			// cripto la password
+			$hash = password_hash($this->password, PASSWORD_BCRYPT);
+			$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$this->email."','".$this->firstName."','".$this->lastName."','".$hash."')"; // vecchio senza hash
+
+			//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
+			$result = $bookMyAppointmentDb->performQuery($queryText);
+			$bookMyAppointmentDb->closeConnection();
+			
+			if($result === TRUE){
+				return "Benvenuto $this->firstName, registrazione completata con successo";
+			}else{
+				return "Siamo spiacenti c'è stato un errore durante la fase di registrazione";
+			}
+		}
+	}
+	function validateName($name){
+		if (preg_match("/^[a-zA-Z0-9._-]/", $name)){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+	function validateEmail($email){
+		if (preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/", $email)){
+			return TRUE;
+		}else{
+			return FALSE;
 		}
 	}
 ?>

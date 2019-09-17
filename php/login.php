@@ -1,6 +1,4 @@
 <?php
-	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
-	require_once "./util/sessionUtil.php"; // includo funzioni per la gestione della sessione 
 	require_once "./util/User.php";
 
 	// Verifico lato server la presenza dei parametri passati con metodo post (email e password)

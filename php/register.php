@@ -1,26 +1,6 @@
 <?php
-	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
-
-
-	function register($email, $firstName, $lastName, $password){
-		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
-		$email = $bookMyAppointmentDb->sqlInjectionFilter($email);
-		$firstName = $bookMyAppointmentDb->sqlInjectionFilter($firstName);
-		$lastName = $bookMyAppointmentDb->sqlInjectionFilter($lastName);
-		$password = $bookMyAppointmentDb->sqlInjectionFilter($password);
-
-		// cripto la password
-		$hash = password_hash($password, PASSWORD_BCRYPT);
-
-		//$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$password."')"; // vecchio senza hash
-		$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$email."','".$firstName."','".$lastName."','".$hash."')"; // vecchio senza hash
-
-		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$bookMyAppointmentDb->closeConnection();
-		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
-		
-	}
+	//require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
+	require_once "./util/User.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,24 +25,21 @@
 					$lastName = $_POST['last_name'];
 					$email = $_POST['email'];
 					$signUpPassword = $_POST['sign_up_password'];
-					if($firstName == null || $lastName == null || $email == null || $signUpPassword == null){
-						$errorMessage.=', per favore inserisci tutti i campi del form';
-						$result = false;
-					}else{
-						$result = register($email, $firstName, $lastName, $signUpPassword);
-						$errorMessage = "c'è già un account con questa email: ".$_POST['email']; // nel caso in cui $result sia false (query non eseguita) questo sarà il msg di errore
-					}
+
+					$utente = new User();
+					$utente->setEmail($email);
+					$utente->setFirstName($firstName);
+					$utente->setLastName($lastName);
+					$utente->setPassword($signUpPassword);
+
+					$result=$utente->register();
 				}
-				if($result){
-					 echo "<h2>Benvenuto $firstName, registrazione completata con successo</h2>";
-				}else{
-					echo "<h3>Scusa, $errorMessage</h3>";
-				}
+				echo "<h2>$result</h2>";
 				?>
 			</div>
 			<div class="register_box">
 				<p>Ti stiamo indirizzando verso la pagina di login ...</p>
-				<?php header("refresh:15; url=./../index.php");?>
+				<?php header("refresh:10; url=./../index.php");?>
 				<p>Se non vuoi attendere <a href="./../index.php">clicca qui</a></p>
 			</div>
 		</div>
