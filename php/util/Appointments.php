@@ -5,6 +5,8 @@
 		private $utente;
 		private $datiAppuntamenti; /* Array in cui ogni riga rappresenta un appuntamento */
 
+		// Modifiche per l'integrazione delle funzioni
+
 		public function Appointments($utente, $dataInizio, $dataFine){
 			$this->utente = $utente;
 			global $bookMyAppointmentDb;
