@@ -51,6 +51,7 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
 	}
+	/*
 	function parametriProfiloRicevuti(){
 		if(!isset($_POST['email']) || !isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['address'])){
 			return false;
@@ -81,6 +82,7 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
 	}
+	*/
 	function deleteUserReview($id){
 		global $bookMyAppointmentDb;
 		$queryText = "DELETE FROM recensione WHERE idRecensione=$id";
