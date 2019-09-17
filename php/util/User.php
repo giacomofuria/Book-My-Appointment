@@ -158,7 +158,7 @@
 			global $bookMyAppointmentDb;
 			$sets="first_name='".$this->firstName."',last_name='".$this->lastName."',email='".$this->email."',address='".$this->address."'";
 			if($this->profileImage){
-				$sets.=",profile_image='".addslashes($this->profileImage)."'";
+				$sets.=",profile_image='".$this->profileImage."'";
 			}
 			if($this->profession){
 				$sets.=",profession='".$this->profession."'";
@@ -182,6 +182,7 @@
 		}
 		public function receiveProfileParameters(){
 			$ret = false;
+			$this->profileImage  =false;
 			if(isset($_FILES['user_pic']) && is_uploaded_file($_FILES['user_pic']['tmp_name'])){
 				//echo "Nome file: ".$_FILES['user_pic']['tmp_name']."<br>";
 				$userPicPath = $_FILES['user_pic']['tmp_name'];
