@@ -76,25 +76,22 @@
 			}
 			return $appuntamenti;
 		}
-
+		/* Funzione che rimuove un appuntamento tra quelli prenotati */
+		public function deleteAppointment($id){
+			global $bookMyAppointmentDb;
+			$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
+			$result = $bookMyAppointmentDb->performQuery($queryText);
+			$bookMyAppointmentDb->closeConnection();
+			return $result;
+		}
 		/* verifica se alla dataOra passata come parametro è stato memorizzato un appuntamento */
 		public function booked($dataOra){
 			
 			$time = strtotime($dataOra);
 			$dataOraMysql = date('Y-m-d H:i:s',$time);
 			return isset($this->datiAppuntamentiRicevuti["$dataOraMysql"]);
-			/*
-			$time = strtotime($dataOra);
-			$dataOraMysql = date('Y-m-d H:i:s',$time);
-			foreach($this->datiAppuntamentiRicevuti as $row){
-				echo "riga: ".$row['dataOra'].", dataOraMysql: ".$dataOraMysql."<br>";
-				if($row['dataOra'] == $dataOraMysql){
-					return true;
-				}
-			}
-			*/
-			return false;
 		}
+
 		/* Funzione di debug che stampa chiave->valore tutti gli appuntamenti memorizzati nell'oggetto */
 		public function stampa(){
 			if($this->numeroAppuntamenti == 0)

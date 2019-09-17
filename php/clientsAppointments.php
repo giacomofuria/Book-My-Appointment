@@ -7,51 +7,10 @@
 		header('Location: ./../index.php');
 		exit;
 	}
+	$appuntamenti = new Appointments($_SESSION['userId']);
 	if(isset($_GET['delAppointment'])){
 		$id = $_GET['delAppointment'];
-		$esitoCancellazione = deleteAppointment($id);
-	}
-	/*
-	function getMyClientAppointments($user, $limit){
-		global $bookMyAppointmentDb;
-		$limiter="";
-		if($limit>0){
-			$limiter="LIMIT ".$limit;
-		}
-		
-		$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
-							 A.dataOra AS dataOra, 
-		                     A.idRichiedente AS id, 
-		                     U.first_name AS nome, 
-		                     U.last_name AS cognome, 
-		                     U.email AS email, 
-		                     U.profile_image AS profileImage, 
-		                     A.note AS note, 
-		                     U.profession AS professione, 
-		                     U.address AS indirizzo
-					  FROM appuntamento A INNER JOIN USER U ON A.idRichiedente=U.userId
-					  WHERE A.idRicevente  = $user 
-					  ORDER BY A.dataOra DESC $limiter;";
-		//echo $queryText."<br>"; // DEBUG
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$numRow = mysqli_num_rows($result);
-		$bookMyAppointmentDb->closeConnection();
-		if($numRow == 0){
-			return false;
-		}
-		$appuntamenti = array();
-		while($row = $result->fetch_assoc()){
-			$appuntamenti[] = $row;
-		}
-		return $appuntamenti;
-	}
-	*/
-	function deleteAppointment($id){
-		global $bookMyAppointmentDb;
-		$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$bookMyAppointmentDb->closeConnection();
-		return $result;
+		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
 	}
 	function stampaAppuntamenti($appuntamenti){
 		foreach($appuntamenti as $appuntamento){
@@ -76,7 +35,7 @@
 			if($appuntamento['dataOra']<$dataOraAttuale){
 				echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon' alt='passato'></div>";
 			}else{
-				echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./home.php?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi'></button></div>";
+				echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./clientsAppointments.php?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi'></button></div>";
 			}
 			echo "<div style='clear:both;'></div>";
 			//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
@@ -111,9 +70,7 @@
 					<div class="appointment-header">
 						<h3>Gli appuntamenti dei tuoi clienti</h3>
 					</div>
-					<?php
-						//$appuntamenti = getMyClientAppointments($_SESSION['userId'],0);
-						$appuntamenti = new Appointments($_SESSION['userId']);
+					<?php					
 						$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(0,false,"DESC");
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";

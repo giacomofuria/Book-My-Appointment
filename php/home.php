@@ -7,17 +7,10 @@
 		header('Location: ./../index.php');
 		exit;
 	}
+	$appuntamenti = new Appointments($_SESSION['userId']);
 	if(isset($_GET['delAppointment'])){
 		$id = $_GET['delAppointment'];
-		$esitoCancellazione = deleteAppointment($id);
-	}
-
-	function deleteAppointment($id){
-		global $bookMyAppointmentDb;
-		$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$bookMyAppointmentDb->closeConnection();
-		return $result;
+		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
 	}
 	function stampaAppuntamenti($appuntamenti){
 		foreach($appuntamenti as $appuntamento){
@@ -75,7 +68,7 @@
 					<?php
 
 						//$appuntamenti = getMyAppointments($_SESSION['userId'],3);
-						$appuntamenti = new Appointments($_SESSION['userId']);
+						
 						$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(3,true,"ASC");
 						if(!$listaAppuntamentiPrenotati){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";

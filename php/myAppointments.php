@@ -7,17 +7,10 @@
 		header('Location: ./../index.php');
 		exit;
 	}
+	$appuntamenti = new Appointments($_SESSION['userId']);
 	if(isset($_GET['delAppointment'])){
 		$id = $_GET['delAppointment'];
-		$esitoCancellazione = deleteAppointment($id);
-	}
-
-	function deleteAppointment($id){
-		global $bookMyAppointmentDb;
-		$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$bookMyAppointmentDb->closeConnection();
-		return $result;
+		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
 	}
 	function stampaAppuntamenti($appuntamenti){
 		foreach($appuntamenti as $appuntamento){
@@ -42,7 +35,7 @@
 			if($appuntamento['dataOra']<$dataOraAttuale){
 				echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon' alt='passato'></div>";
 			}else{
-				echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./home.php?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi appuntamento'></button></div>";
+				echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./myAppointments.php?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi appuntamento'></button></div>";
 			}
 			echo "<div style='clear:both;'></div>";
 			//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
@@ -78,8 +71,7 @@
 						<h3>I tuoi appuntamenti</h3>
 					</div>
 					<?php
-						//$appuntamenti = getMyAppointments($_SESSION['userId'],0);
-						$appuntamenti = new Appointments($_SESSION['userId']);
+						
 						$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(0,false,"DESC");
 						if(!$listaAppuntamentiPrenotati){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
