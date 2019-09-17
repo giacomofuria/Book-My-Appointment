@@ -1,6 +1,9 @@
 <?php
 	session_start();
-	include "./util/sessionUtil.php";
+	include_once __DIR__."/config.php";
+	include_once DIR_UTIL."sessionUtil.php";
+
+	//include "./util/sessionUtil.php";
 	include "./layout/AppointmentTable.php";
 	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
 	if(!isLogged()){

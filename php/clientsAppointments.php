@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include "./util/sessionUtil.php";
+	include_once "./util/Appointments.php";
 	require_once "./util/BMADbManager.php";
 	if(!isLogged()){
 		header('Location: ./../index.php');
@@ -10,40 +11,7 @@
 		$id = $_GET['delAppointment'];
 		$esitoCancellazione = deleteAppointment($id);
 	}
-	/* Restitusce i $limit appuntamenti prenotati da $user (se limit=0 restituisce tutti gli appuntamenti) */
-	function getMyAppointments($user, $limit){
-		global $bookMyAppointmentDb;
-		$limiter="";
-		if($limit>0){
-			$limiter="LIMIT ".$limit;
-		}
-		//$dataOraAttuale = date('Y-m-d H:i:s',time());
-		$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
-							 A.dataOra AS dataOra, 
-		                     A.idRicevente AS id, 
-		                     U.first_name AS nome, 
-		                     U.last_name AS cognome, 
-		                     U.email AS email, 
-		                     U.profile_image AS profileImage, 
-		                     A.note AS note, 
-		                     U.profession AS professione, 
-		                     U.address AS indirizzo
-					  FROM appuntamento A INNER JOIN USER U ON A.idRicevente=U.userId
-					  WHERE A.idRichiedente  = $user
-					  ORDER BY A.dataOra DESC $limiter;";
-		//echo $queryText."<br>"; // DEBUG
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$numRow = mysqli_num_rows($result);
-		$bookMyAppointmentDb->closeConnection();
-		if($numRow == 0){
-			return false;
-		}
-		$appuntamenti = array();
-		while($row = $result->fetch_assoc()){
-			$appuntamenti[] = $row;
-		}
-		return $appuntamenti;
-	}
+	/*
 	function getMyClientAppointments($user, $limit){
 		global $bookMyAppointmentDb;
 		$limiter="";
@@ -77,6 +45,7 @@
 		}
 		return $appuntamenti;
 	}
+	*/
 	function deleteAppointment($id){
 		global $bookMyAppointmentDb;
 		$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
@@ -143,12 +112,13 @@
 						<h3>Gli appuntamenti dei tuoi clienti</h3>
 					</div>
 					<?php
-						$appuntamenti = getMyClientAppointments($_SESSION['userId'],0);
-						if(!$appuntamenti){
+						//$appuntamenti = getMyClientAppointments($_SESSION['userId'],0);
+						$appuntamenti = new Appointments($_SESSION['userId']);
+						$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(0,false,"DESC");
+						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
-							stampaAppuntamenti($appuntamenti);
-							
+							stampaAppuntamenti($listaPrenotazioniRicevute);
 						}
 					?>
 				</div>

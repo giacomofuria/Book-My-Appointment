@@ -1,5 +1,7 @@
-<?php 
-	include "./util/Appointments.php";
+<?php
+	include_once __DIR__."/../config.php";
+
+	require_once "./util/Appointments.php";
 	class AppointmentTable{
 		private $giorniSettimana =  array('Lun','Mar','Mer','Gio','Ven','Sab','Dom');
 		private $mesiAnno = array('Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre');
@@ -52,9 +54,7 @@
 			$dataPrimoGiornoSettimana = date('Y-m-j', $this->timestampPrimoGiornoSettimana);
 
 			$this->timestampPrimoGiornoSettimana = strtotime($dataPrimoGiornoSettimana.' '.$this->inizio); // timestamp completo del primo giorno della settimana comprende anche l'ra di inizio degli appuntamenti
-
-
-			
+	
 			$dataPrimoGiornoSettimana = date('Y-m-j',$this->timestampPrimoGiornoSettimana);
 
 			$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
@@ -88,8 +88,10 @@
 				$dataPrimoGiornoSettimana = date('Y-m-d G:i:s',$timestampPrimoAppuntamentoSettimana);
 				$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
 				$dataPrimoGiornoSettimanaSuccessiva = date('Y-m-d G:i:s',$timestampPrimoGiornoSettimanaSuccessiva);
-				$appointmentList = new Appointments($this->receiverUser, $dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
-				//$appointmentList->stampa(); // DEBUG
+				//$appointmentList = new Appointments($this->receiverUser, $dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
+				$appuntamenti = new Appointments($this->receiverUser);
+				$appointmentList = $appuntamenti->getReceivedAppointments(0,false,"ASC",$dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
+
 				echo "<table class='appointment-table'>";
 				echo "<tr>";
 				echo "<th></th>";
@@ -133,7 +135,7 @@
 						$dataOraAppuntamento = date('Y-m-j H:i',$timestampAppuntamento);
 
 						// verifico se l'appuntamento è già stato prenotato
-						$prenotato = $appointmentList->booked($dataOraAppuntamento);
+						$prenotato = $appuntamenti->booked($dataOraAppuntamento);
 						if($this->findValue($this->pause,$i)){
 							$tdClassname='not-selected';
 						}else{

@@ -11,72 +11,7 @@
 		$id = $_GET['delAppointment'];
 		$esitoCancellazione = deleteAppointment($id);
 	}
-	/* Restitusce i $limit appuntamenti prenotati da $user (se limit=0 restituisce tutti gli appuntamenti) */
-	function getMyAppointments($user, $limit){
-		global $bookMyAppointmentDb;
-		$limiter="";
-		if($limit>0){
-			$limiter="LIMIT ".$limit;
-		}
-		$dataOraAttuale = date('Y-m-d H:i:s',time());
-		$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
-							 A.dataOra AS dataOra, 
-		                     A.idRicevente AS id, 
-		                     U.first_name AS nome, 
-		                     U.last_name AS cognome, 
-		                     U.email AS email, 
-		                     U.profile_image AS profileImage, 
-		                     A.note AS note, 
-		                     U.profession AS professione, 
-		                     U.address AS indirizzo
-					  FROM appuntamento A INNER JOIN USER U ON A.idRicevente=U.userId
-					  WHERE A.idRichiedente  = $user AND A.dataOra >= \"$dataOraAttuale\"
-					  ORDER BY A.dataOra ASC $limiter;";
-		//echo $queryText."<br>"; // DEBUG
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$numRow = mysqli_num_rows($result);
-		$bookMyAppointmentDb->closeConnection();
-		if($numRow == 0){
-			return false;
-		}
-		$appuntamenti = array();
-		while($row = $result->fetch_assoc()){
-			$appuntamenti[] = $row;
-		}
-		return $appuntamenti;
-	}
-	function getMyClientAppointments($user, $limit){
-		global $bookMyAppointmentDb;
-		$limiter="";
-		if($limit>0){
-			$limiter="LIMIT ".$limit;
-		}
-		$dataOraAttuale = date('Y-m-d H:i:s',time());
-		$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
-							 A.dataOra AS dataOra, 
-		                     A.idRichiedente AS id, 
-		                     U.first_name AS nome, 
-		                     U.last_name AS cognome, 
-		                     U.email AS email, 
-		                     U.profile_image AS profileImage, 
-		                     A.note AS note, 
-		                     U.profession AS professione, 
-		                     U.address AS indirizzo
-					  FROM appuntamento A INNER JOIN USER U ON A.idRichiedente=U.userId
-					  WHERE A.idRicevente  = $user AND A.dataOra >= \"$dataOraAttuale\"
-					  ORDER BY A.dataOra ASC $limiter;";
-		$result = $bookMyAppointmentDb->performQuery($queryText);
-		$numRow = mysqli_num_rows($result);
-		$bookMyAppointmentDb->closeConnection();
-		if($numRow == 0){
-			return false;
-		}
-		$appuntamenti = array();
-		while($row = $result->fetch_assoc()){
-			$appuntamenti[] = $row;
-		}
-		return $appuntamenti;
-	}
+
 	function deleteAppointment($id){
 		global $bookMyAppointmentDb;
 		$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
@@ -138,11 +73,14 @@
 						<h3>I tuoi prossimi appuntamenti</h3>
 					</div>
 					<?php
-						$appuntamenti = getMyAppointments($_SESSION['userId'],3);
-						if(!$appuntamenti){
+
+						//$appuntamenti = getMyAppointments($_SESSION['userId'],3);
+						$appuntamenti = new Appointments($_SESSION['userId']);
+						$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(3,true,"ASC");
+						if(!$listaAppuntamentiPrenotati){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{
-							stampaAppuntamenti($appuntamenti);
+							stampaAppuntamenti($listaAppuntamentiPrenotati);
 							echo "<div class='link-container'><p><a href='./myAppointments.php'>tutti i tuoi appuntamenti</a></p></div>";
 						}
 					?>
@@ -153,11 +91,12 @@
 						<h3>I prossimi appuntamenti con i tuoi clienti</h3>
 					</div>
 					<?php
-						$appuntamenti = getMyClientAppointments($_SESSION['userId'], 3);
-						if(!$appuntamenti){
+						//$appuntamenti = getMyClientAppointments($_SESSION['userId'], 3);
+						$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(3,true,"ASC");
+						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{
-							stampaAppuntamenti($appuntamenti);
+							stampaAppuntamenti($listaPrenotazioniRicevute);
 							echo "<div class='link-container'><p><a href='./clientsAppointments.php'>tutti gli appuntamenti dei clienti</a></p></div>";
 						}
 					?>	

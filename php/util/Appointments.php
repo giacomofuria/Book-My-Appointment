@@ -1,39 +1,92 @@
 <?php
 	/* Class che permette di leggere e modificare gli appuntamenti di un utente */
 	class Appointments{
-		private $numeroAppuntamenti;
 		private $utente;
-		private $datiAppuntamenti; /* Array in cui ogni riga rappresenta un appuntamento */
+		private $datiAppuntamentiRicevuti; /* Array in cui ogni riga rappresenta un appuntamento */
+		private $datiAppuntamentiPrenotati; /* Array in cui ogni elemento rappresenta un appuntamento prenotato dall'utente verso un altro utente */
 
-		// Modifiche per l'integrazione delle funzioni
-
-		public function Appointments($utente, $dataInizio, $dataFine){
+		/* Costruttore della classe (specifica solo l'utente)*/
+		public function Appointments($utente){
 			$this->utente = $utente;
+		}
+
+		/* Preleva dal DB i $limit appuntamenti prenotati da $this->user 
+		- se limit=0 restituisce tutti gli appuntamenti
+        - new = true preleva solo gli appuntamenti non ancora effettuati, altrimenti li preleva tutti
+        - order può essere ASC o DESC a seconda di come si vogliono ordinare i risultati (ASC preleva prima i più imminenti)
+		 */
+		public function getBookedAppointments($limit, $new, $order,$dataInizio=null,$dataFine=null){
+			$this->datiAppuntamentiPrenotati = $this->getAppointments("to",$limit, $new, $order,$dataInizio,$dataFine);
+			return $this->datiAppuntamentiPrenotati;
+		}
+
+		public function getReceivedAppointments($limit, $new, $order,$dataInizio=null,$dataFine=null){
+			$this->datiAppuntamentiRicevuti = $this->getAppointments("from",$limit, $new, $order,$dataInizio,$dataFine);
+			return $this->datiAppuntamentiRicevuti;
+		}
+
+		private function getAppointments($userType,$limit, $new, $order,$dataInizio=null,$dataFine=null){
+			$selectedUser="";
+			$joinUser="";
+			if($userType == "to"){ // prelevo le prenotazioni effettuate dall'utente
+				$selectedUser="A.idRichiedente";
+				$joinUser = "A.idRicevente";
+			}else{ // prelevo le prenotazioni ricevute dall'utente
+				$selectedUser="A.idRicevente";
+				$joinUser = "A.idRichiedente";
+			}
+
 			global $bookMyAppointmentDb;
-			//echo "dataInizio: $dataInizio, dataFine: $dataFine<br>"; // DEBUG
-			$queryText = "SELECT * FROM appuntamento WHERE idRicevente='".$this->utente."' AND dataOra>='".$dataInizio."' AND dataOra<'".$dataFine."';";
-			//echo "Query: $queryText<br>"; // DEBUG
+			$limiter="";
+			if($limit>0){
+				$limiter="LIMIT ".$limit;
+			}
+			$period="";
+			if($new){
+				$dataOraAttuale = date('Y-m-d H:i:s',time());
+				$period = "AND A.dataOra >= \"$dataOraAttuale\"";
+			}
+			$intervallo="";
+			if($dataInizio != null && $dataFine != null){
+				$intervallo = "AND A.dataOra>='".$dataInizio."' AND A.dataOra<'".$dataFine."' ";
+			}
+			$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
+								 A.dataOra AS dataOra, 
+			                     A.idRichiedente AS id, 
+			                     U.first_name AS nome, 
+			                     U.last_name AS cognome, 
+			                     U.email AS email, 
+			                     U.profile_image AS profileImage, 
+			                     A.note AS note, 
+			                     U.profession AS professione, 
+			                     U.address AS indirizzo
+						  FROM appuntamento A INNER JOIN USER U ON $joinUser=U.userId
+						  WHERE $selectedUser = $this->utente $period
+						  ORDER BY A.dataOra $order $limiter;";
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$numRow = mysqli_num_rows($result);
-			$this->numeroAppuntamenti = $numRow;
 			$bookMyAppointmentDb->closeConnection();
-
-			while($row = $result->fetch_assoc()){
-				//echo $row['idAppuntamento']." ".$row['dataOra']."<br>";
-				$timestampAppuntamento = $row['dataOra'];
-				$this->datiAppuntamenti["$timestampAppuntamento"] = $row;
+			if($numRow == 0){
+				return false;
 			}
+			$appuntamenti = array();
+			while($row = $result->fetch_assoc()){
+				$timestampAppuntamento = $row['dataOra'];
+				$appuntamenti["$timestampAppuntamento"] = $row;
+			}
+			return $appuntamenti;
 		}
+
 		/* verifica se alla dataOra passata come parametro è stato memorizzato un appuntamento */
 		public function booked($dataOra){
 			
 			$time = strtotime($dataOra);
 			$dataOraMysql = date('Y-m-d H:i:s',$time);
-			return isset($this->datiAppuntamenti["$dataOraMysql"]);
+			return isset($this->datiAppuntamentiRicevuti["$dataOraMysql"]);
 			/*
 			$time = strtotime($dataOra);
 			$dataOraMysql = date('Y-m-d H:i:s',$time);
-			foreach($this->datiAppuntamenti as $row){
+			foreach($this->datiAppuntamentiRicevuti as $row){
 				echo "riga: ".$row['dataOra'].", dataOraMysql: ".$dataOraMysql."<br>";
 				if($row['dataOra'] == $dataOraMysql){
 					return true;
@@ -46,12 +99,9 @@
 		public function stampa(){
 			if($this->numeroAppuntamenti == 0)
 				return;
-			foreach ($this->datiAppuntamenti as $key => $val) {
+			foreach ($this->datiAppuntamentiRicevuti as $key => $val) {
 				echo "$key = ".$val['dataOra']."<br>";
 			}
-		}
-		public function prova(){
-			echo "Prova funzionamento classe Appointments $this->utente<br>";
 		}
 	}
 ?>
