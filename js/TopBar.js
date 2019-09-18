@@ -1,3 +1,19 @@
+function showCalendar(){
+	var elem = document.getElementById('calendar-container');
+	if(!elem || elem == null){
+		return;
+	}
+	elem.style.display="block";
+	slideDown(elem,-30,10);
+	var calendarButton = document.getElementById("calendar-button");
+	calendarButton.onclick=closeCalendar;
+}
+function closeCalendar(){
+	var elem = document.getElementById('calendar-container');
+	slideUp(elem,8,-60);
+	var calendarButton = document.getElementById("calendar-button");
+	calendarButton.onclick = showCalendar;
+}
 function openNotification(){
 	var button = document.getElementById("notification-button");
 	button.onclick = closeNotification;

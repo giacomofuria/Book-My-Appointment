@@ -3,6 +3,7 @@
 <script src="./../js/TopBar.js"></script>
 <script src="./../js/user.js"></script>
 <script src="./../js/Notify.js"></script>
+<script src="./../js/effects.js"></script>
 <div id="top-bar-container">
 	<div class="top-bar-box">
 		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
@@ -15,7 +16,7 @@
 		<div id='search_results_container'>Risultati:<br></div>
 	</div>
 	<div class="top-bar-box">
-		<button id="calendar-button" class="command-buttons" title="Calendar">
+		<button id="calendar-button" class="command-buttons" title="Calendar" onclick="showCalendar()">
 			<img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;" alt="Calendario">
 		</button>
 	</div>

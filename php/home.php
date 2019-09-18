@@ -90,6 +90,7 @@
 	</div>
 	<script>
 		// evidenzio il pulsante della pagina
+		showCalendar();
 		var btn = document.getElementById("home_button");
 		btn.style.backgroundColor="#91DFAA";
 		btn.style.color="#383838";

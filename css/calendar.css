@@ -51,6 +51,15 @@ th:nth-of-type(7){
 	border-width: 0.7px;
 	border-color: #91DFAA;
 }
+#calendar-container{
+	/*float:left;*/
+	position: fixed;
+	top: 60px;
+	right:8px;
+	padding: 0.3em;
+	width: 24%;
+	display: none;
+}
 #calendar{
 	padding-left: 1em;
 	padding-right: 1em;

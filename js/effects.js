@@ -18,7 +18,7 @@ function slideDown(element, startPosition, endPosition){
 			startPosition = endPosition;
 		}
 		element.style.top = startPosition+'%';
-		startPosition += (Math.abs(startPosition))*0.1;
+		startPosition++;
 		//element.style.display='block';
 	}, 20);
 }
@@ -31,5 +31,16 @@ function slideUp(element, startPosition, endPosition){
 		}
 		element.style.top = startPosition+'%';
 		startPosition--;
+	}, 20);
+}
+function slideLeft(element, startPosition, endPosition){
+	var timer = setInterval(function(){
+		if(startPosition >= endPosition-0.1){
+			clearInterval(timer);
+			startPosition = endPosition;
+		}
+		element.style.right = startPosition+'%';
+		startPosition += (Math.abs(startPosition))*0.1;
+		//element.style.display='block';
 	}, 20);
 }
