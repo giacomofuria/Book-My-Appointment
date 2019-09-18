@@ -4,6 +4,7 @@ SearchBar.DEFAUL_METHOD = "GET";
 //SearchBar.URL_REQUEST = "./ajax/movieLoader.php";
 SearchBar.EXPLORE_REQUEST = "./ajax/userFinder.php";
 SearchBar.REVIEW_REQUEST = "./ajax/reviewFinder.php";
+SearchBar.REMOVE_REQUEST = "./admin.php";
 SearchBar.ASYNC_TYPE = true;
 SearchBar.resultBox = null;
 SearchBar.MODE = "USER_SEARCH";
@@ -41,10 +42,18 @@ SearchBar.search =
 				SearchBar.adminResultBox = document.getElementById("change_user_password_form");
 				SearchBar.MODE = "ADMIN_SEARCH";
 				break;
-			default:
+			case "search_user_review":
 				resultBox = document.getElementById("user_admin_search_review");
 				SearchBar.adminResultBox = document.getElementById("remove_review_form");
 				SearchBar.MODE = "ADMIN_SEARCH_REVIEW";
+				break;
+			case "search_user_remove":
+				resultBox = document.getElementById("user_admin_search_remove");
+				SearchBar.adminResultBox = document.getElementById("remove_user_form");
+				SearchBar.MODE = "ADMIN_SEARCH_REMOVE";
+				break;
+			default:
+				
 				break;
 		}
 		var queryString = "?search=" + pattern;
@@ -121,18 +130,18 @@ SearchBar.addRow =
 				    SearchBar.showDeleteReviewForm(utente);
 				}, false);
 				break;
+			case "ADMIN_SEARCH_REMOVE":
+				var utente = new User(row.userId,row.email,row.firstName,row.lastName,row.profileImage,row.profession,row.address,row.admin);
+				SearchBar.choosenUser = utente;
+				//href="javascript:SearchBar.showDeleteReviewForm()";
+				a.style.cursor="pointer";
+				a.addEventListener('click', function() {
+				    SearchBar.showRemoveUserForm(utente);
+				}, false);
+				break;
 			default:
 				break;
 		}
-		/*
-		if(SearchBar.MODE=="USER_SEARCH"){
-			href="./profile.php?user="+row.userId;
-		}else{
-			
-		}
-		*/
-		
-		
 
 		var txt = document.createTextNode(row.firstName+" "+row.lastName);
 		a.appendChild(txt);
@@ -202,11 +211,9 @@ SearchBar.getAjaxReviewResponse =
 SearchBar.refreshReviewList = 
 	function(data){
 		var container = SearchBar.adminResultBox;
-
 		while(container.lastChild){
 			container.lastChild.remove();
 		}
-
 		for(var i=0; i<data.length; i++){
 			var div = document.createElement("div");
 			div.className="review-container";
@@ -240,6 +247,31 @@ SearchBar.refreshReviewList =
 			endDiv.className="end-div";
 			div.appendChild(endDiv);
 			container.appendChild(div);
+		}	
+	}
+SearchBar.showRemoveUserForm = 
+	function(utente){
+		SearchBar.adminResultBox.style.display = "block";
+		var queryString = "?removeUser=" + utente.id;
+		var url = SearchBar.REMOVE_REQUEST + queryString;
+		console.log(url);
+		var container = SearchBar.adminResultBox;
+		while(container.lastChild){
+			container.lastChild.remove();
 		}
+		
+		var p = document.createElement("p");
+		var txt = document.createTextNode("Clicca per rimuovere: "+utente.nome+" "+utente.cognome+", Email: "+utente.email+", tutte le sue recensioni e i suoi appuntamenti verranno rimossi");
+		p.appendChild(txt);
+		var a = document.createElement("a");
+		a.setAttribute("href","./admin.php?removeUser="+utente.id);
+		var img = document.createElement("img");
+		img.className='button-icon remove-icon';
+		img.setAttribute("src","./../img/icon/set1/garbage.png");
+		a.appendChild(img);
+		p.appendChild(a);
+		container.appendChild(p);
+		
+		
 		
 	}

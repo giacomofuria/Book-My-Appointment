@@ -154,7 +154,15 @@
 	width: 30%;
 	float:left;
 }
+#search_user_form_remove{
+	width: 30%;
+	float:left;
+}
 #remove_review_form{
+	width: 50%;
+	float: left;
+}
+#remove_user_form{
 	width: 50%;
 	float: left;
 }

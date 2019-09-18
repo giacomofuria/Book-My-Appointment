@@ -40,4 +40,7 @@ function close(elem){
 	rrf.style.display='none';
 	var cupg = document.getElementById("change_user_password_form");
 	cupg.style.display = 'none';
+	var ruf = document.getElementById("remove_user_form");
+	ruf.style.display = 'none';
+
 }

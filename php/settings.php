@@ -157,21 +157,6 @@
 						}else{
 							$pause = null;
 						}
-						
-
-						// stampa dati per debug (inizio)
-						/*
-						foreach($giorni as $giorno){
-							echo $giorno.'<br>';
-						}
-						echo "Orario di apertura: ".$inizio.'<br>';
-						echo 'Orario di chiusura: '.$fine.'<br>';
-						echo 'Durata degli appuntamenti: '.$durata.'<br>';
-						foreach($pause as $pausa){
-							echo $pausa.'<br>';
-						}
-						*/
-						// stampa dei dati per debug (fine)
 
 						// qui salvo i dati ricevuti, nel db
 						$result = saveConfig($_SESSION['userId'], $giorni, $inizio, $fine, $durata, $pause);
@@ -188,13 +173,8 @@
 
 						}
 					}
-
 					// calcolo il numero degli appuntamenti
-
 					$numeroAppuntamenti = getNumeroAppuntamenti($inizio, $fine,$durata); // inizialmente, quando il form è vuoto
-
-					
-
 				?>
 				<h2>Configura la tua tabella degli appuntamenti</h2><hr>
 				<form id="config_form" method="post" action="./settings.php">
@@ -212,18 +192,7 @@
 						<h2>Orario di apertura </h2>
 							<input id="open_time_input" class="selector" type="text" name="opening_time" value="<?php if($inizio!=null) echo $inizio; else echo '00:00'; ?>" required>
 							<div id="open_time_selector_container" class="time-selector-container">
-								<!--
-								<div class="time-selector-components">
-									<select multiple>
-										<option>00</option>
-										<option>01</option>
-										<option>02</option>
-									</select>
-								</div>
-								<div class="time-selector-components">
-								</div>
-								<div style="clear:both;"></div>
-								-->
+
 							</div>
 						<h2>Orario di chiusura </h2>
 							<input id="close_time_input" class="selector" type="text" name="closing_time" value="<?php if($fine!=null) echo $fine; else echo '00:00'; ?>" required>

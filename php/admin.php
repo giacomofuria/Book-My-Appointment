@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	include_once "./util/sessionUtil.php";
-	include_once "./util/adminUtil.php";
 	include "./util/User.php";
 
 	require_once "./util/BMADbManager.php";
@@ -20,7 +19,17 @@
 		$id = $_GET['delReview'];
 		deleteUserReview($id);
 	}
-
+	if(isset($_GET['removeUser'])){
+		$userInfo->userId=$_GET['removeUser'];
+		echo "Result: ".$userInfo->removeUser();
+	}
+	function deleteUserReview($id){
+		global $bookMyAppointmentDb;
+		$queryText = "DELETE FROM recensione WHERE idRecensione=$id";
+		$result = $bookMyAppointmentDb->performQuery($queryText);
+		$bookMyAppointmentDb->closeConnection();
+		return $result;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -54,11 +63,7 @@
 				<button id='new_user_button' value='new_user_form' class='tool-button'><img src='./../img/icon/set1/add.png' class='button-icon' alt='nuovo utente'>Aggiungi nuovo utente</button>
 				<button id='change_password_button' value='search_user_form' class='tool-button'><img src='./../img/icon/set1/profile.png' class='button-icon' alt='modifica dati utente'>Modificare dati utente</button>
 				<button id='remove_review_button' value='search_user_form_review' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon' alt='rimuovi recensione'>Rimuovi recensione</button>
-				<!--
-					<button id='new_appointment_button' value='new_appointment_form' class='tool-button'>Aggiungi appuntamento</button>
-					<button id='reset_password_button' value='reset_user_password_form' class='tool-button'>Resettare la password di un utente</button>
-				-->
-			
+				<button id='remove_user_button' value='search_user_form_remove' class='tool-button'><img src='./../img/icon/set1/garbage.png' class='button-icon' alt='rimuovi utente'>Rimuovi utente</button>
 			<div id='new_user_form' class='container tool-form-container'>
 				<h2>Inserisci un nuovo utente</h2>
 				<form enctype='multipart/form-data' method='POST' action='./admin.php'>
@@ -106,7 +111,7 @@
 			</div>
 			<div id='search_user_form_review' class='container tool-form-container '>
 				<h3>Cerca e seleziona l'utente che ha ricevuto la recensione che vuoi eliminare</h3>
-					<input type="text" placeholder="Nome utente" class="input-text" onkeyup="SearchBar.search(this,this.value)">
+					<input id='search_user_review' type="text" placeholder="Nome utente" class="input-text" onkeyup="SearchBar.search(this,this.value)">
 					<div id="user_admin_search_review">
 						<!-- Risultati: -->
 					</div>
@@ -114,8 +119,15 @@
 			<div id='remove_review_form' class='container tool-form-container'>
 				<p>Clicca sull'icona per rimuovere la recensione</p>
 			</div>
-			<div id='new_appointment_form' class='container tool-form-container'>
-				Nuovo appuntamento
+			<div id='search_user_form_remove' class='container tool-form-container '>
+				<h3>Cerca e seleziona l'utente che vuoi eliminare</h3>
+					<input id="search_user_remove" type="text" placeholder="Nome utente" class="input-text" onkeyup="SearchBar.search(this,this.value)">
+					<div id="user_admin_search_remove">
+						<!-- Risultati: -->
+					</div>
+			</div>
+			<div id='remove_user_form' class='container tool-form-container'>
+				<p>Clicca sull'icona per confermare la rimozione dell'utente</p>
 			</div>
 			<div style="clear:both;"></div>
 			</div>

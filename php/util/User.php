@@ -304,6 +304,16 @@
 			$bookMyAppointmentDb->closeConnection();
 			return $result;
 		}
+		public function removeUser(){
+			if(!$this->userId || $this->userId==null){
+				return false;
+			}
+			global $bookMyAppointmentDb;
+			$queryText = "DELETE FROM USER WHERE userId=$this->userId;";
+			$result = $bookMyAppointmentDb->performQuery($queryText);
+			$bookMyAppointmentDb->closeConnection();
+			return $result;
+		}
 	}
 	function validateName($name){
 		if (preg_match("/^[a-zA-Z0-9._-]/", $name)){
