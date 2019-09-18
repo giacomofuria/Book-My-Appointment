@@ -54,7 +54,7 @@
 	/* funzione che preleva le recensioni */
 	function getNotifications($utente){
 		global $bookMyAppointmentDb;
-		$queryText = "SELECT * FROM notifica WHERE idDestinatario=$utente;";
+		$queryText = "SELECT * FROM notifica WHERE idDestinatario=$utente ORDER BY idNotifica DESC LIMIT 10;";
 		//echo $queryText."<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$numRow = mysqli_num_rows($result);
