@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__."/../config.php";
+include_once DIR_UTIL."Appointments.php";
 class Calendar{
 
 	private $year_month = null;
@@ -66,13 +68,7 @@ class Calendar{
 		echo '<table>';
 
 		echo '<tr>
-		<th>Mon</th>
-		<th>Tue</th>
-		<th>wed</th>
-		<th>Thu</th>
-		<th>Fri</th>
-		<th>Sat</th>
-		<th>Sun</th>
+		<th>Lun</th> <th>Mar</th> <th>Mer</th> <th>Gio</th> <th>Ven</th> <th>Sab</th> <th>Dom</th>
 		</tr>';
 
 		if($this->numeroPrimoGiornoDelMese == 0) // se il giorno è domenica, il suo numero è 0
@@ -82,11 +78,31 @@ class Calendar{
 		$index = $this->numeroPrimoGiornoDelMese;
 		for($day = 1; $day <= $this->daysInMonth; $day++, $index++){
 			$date = $this->year_month.'-'.$day; // creo la data
+			$timestampGiornoPresente = strtotime($date);
+			$timestampGiornoSuccessivo = $timestampGiornoPresente + 86400;
+			$dataInizio = date('Y-m-d H:i:s',$timestampGiornoPresente);
+			$dataFine = date('Y-m-d H:i:s',$timestampGiornoSuccessivo);
+			//echo $dataInizio." - ".$dataFine."<br>"; // DEBUG
+			$appuntamentiGiorno = new Appointments($_SESSION['userId']);
+			$appuntamentiGiorno->getBookedAppointments(0,false,"ASC",$dataInizio,$dataFine);
+			$appuntamentiGiorno->getReceivedAppointments(0,false,"ASC",$dataInizio,$dataFine);
+			$numeroAppuntamentiPrenotati = $appuntamentiGiorno->getNumberOfBookedAppointments();	
+			$numeroAppuntamentiRicevuti = $appuntamentiGiorno->getNumberOfReceivedAppointments();
+			$numeroTotaleAppuntamenti = $numeroAppuntamentiPrenotati+ $numeroAppuntamentiRicevuti;
+			/*
+			echo "prenotati: ".$numeroAppuntamentiPrenotati.'<br>';
+			echo "ricevuti: ".$numeroAppuntamentiRicevuti.'<br>';
+			*/
+			$todayClass = '';
 			if($this->today == $date){
-				$week.= '<td><button class=\'day-button today-button\'>'.$day.'</button></td>';
-			}else{
-				$week.= '<td><button class=\'day-button\'>'.$day.'</button></td>';
+				$todayClass = 'today-button';
 			}
+			$badgeRicevuti='';
+			if($numeroTotaleAppuntamenti > 0){
+				$todayClass = "occupied";
+				$badgeRicevuti="<span class='badge'>$numeroTotaleAppuntamenti</span>";
+			}
+			$week.= "<td><button class='day-button $todayClass'>$day $badgeRicevuti </button></td>";
 
 			// Fine della settimana o fine del mese
 			if(($index % 7) == 0 || $day == $this->daysInMonth){

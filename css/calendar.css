@@ -41,6 +41,7 @@ th:nth-of-type(7){
 	padding-bottom: 0.3em;
 	font-size: 15px;
 	border-radius: 4px;
+	position:relative;
 }
 .day-button:hover{
 	background-color: #F3F7FD;
@@ -98,3 +99,20 @@ th:nth-of-type(7){
 .calendar-header-buttons:hover{
 	background-color: #ECEEF0;
 }
+.badge{
+	position: absolute;
+	top: -10px;
+	right: -10px;
+  	border-radius: 50%;
+  	background-color: rgb(255,0,0);
+  	color: #FFFFFF;
+  	width: 18px;
+  	display: inline-block;
+  	font-size: 14px;
+}
+.occupied{
+	border-style: solid;
+	border-width: 1.5px;
+	border-color: rgb(255,0,0);
+}
+	

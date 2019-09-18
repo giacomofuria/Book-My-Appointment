@@ -68,7 +68,7 @@
 			                     U.profession AS professione, 
 			                     U.address AS indirizzo
 						  FROM appuntamento A INNER JOIN USER U ON $joinUser=U.userId
-						  WHERE $selectedUser = $this->utente $period
+						  WHERE $selectedUser = $this->utente $period $intervallo
 						  ORDER BY A.dataOra $order $limiter;";
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$numRow = mysqli_num_rows($result);
@@ -85,7 +85,6 @@
 		}
 
 		/* Funzione che rimuove un appuntamento tra quelli prenotati */
-
 		public function deleteAppointment($id){
 			/* Verifico che l'appuntamento che si vuole eliminare coinvolga l'utente loggato */
 			$flag=false;
@@ -179,14 +178,33 @@
 					echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./$page?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi appuntamento'></button></div>";
 				}
 				echo "<div style='clear:both;'></div>";
-				//echo ." ".$appuntamento['emailRicevente']." ".$appuntamento['nomeRicevente']."<br>";
 				echo "</div>";
 			}
 		}
-
+		public function getNumberOfBookedAppointments(){
+			return $this->getNumberOfAppointments("booked");
+		}
+		public function getNumberOfReceivedAppointments(){
+			return $this->getNumberOfAppointments("received");
+		}
+		/* Funzione che mi restituisce il numero di appuntamenti presenti */
+		private function getNumberOfAppointments($type){
+			$numeroAppuntamenti = 0;
+			if($type=="booked"){
+				if($this->datiAppuntamentiPrenotati && $this->datiAppuntamentiPrenotati!= null){
+					$numeroAppuntamenti = count($this->datiAppuntamentiPrenotati);	
+				}
+			}else if($type == "received"){
+				if($this->datiAppuntamentiRicevuti && $this->datiAppuntamentiRicevuti != null){
+					$numeroAppuntamenti = count($this->datiAppuntamentiRicevuti);	
+				}
+			}
+			return $numeroAppuntamenti;
+		}
+		
 		/* Funzione di debug che stampa chiave->valore tutti gli appuntamenti memorizzati nell'oggetto */
 		public function stampa(){
-			if($this->numeroAppuntamenti == 0)
+			if($this->datiAppuntamentiRicevuti  == null)
 				return;
 			foreach ($this->datiAppuntamentiRicevuti as $key => $val) {
 				echo "$key = ".$val['dataOra']."<br>";

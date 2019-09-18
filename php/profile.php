@@ -72,7 +72,9 @@
 		
 		$utenteRichiedente = new User();
 		$utenteRichiedente->getUserInfo($applier);
-		$testoNotifica = "$utenteRichiedente->firstName $utenteRichiedente->lastName ($utenteRichiedente->email) ha prenotato un appuntamento per il giorno $dataPerMysql";
+		$data = date('d-m-Y',$time);
+		$ora = date('H:i',$time);
+		$testoNotifica = "$utenteRichiedente->firstName $utenteRichiedente->lastName ($utenteRichiedente->email) ha prenotato un appuntamento per il giorno $data alle ore $ora";
 		$notifica = new Notify($receiver, $testoNotifica);
 		$notifica->send();
 
