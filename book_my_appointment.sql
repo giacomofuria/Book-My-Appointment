@@ -45,11 +45,11 @@ CREATE TABLE appuntamento(
     CONSTRAINT vincolo_utente_ricevente FOREIGN KEY (idRicevente)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION,
+    ON DELETE CASCADE,
     CONSTRAINT vincolo_utente_richiedente FOREIGN KEY (idRichiedente)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS recensione;
@@ -64,9 +64,22 @@ CREATE TABLE recensione(
     CONSTRAINT vincolo_utente_ricevente_recensione FOREIGN KEY (idRicevente)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION,
+    ON DELETE CASCADE,
     CONSTRAINT vincolo_utente_recensore FOREIGN KEY (idRecensore)
     REFERENCES user(userId)
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS notifica;
+CREATE TABLE notifica(
+   idNotifica INT(11) NOT NULL AUTO_INCREMENT,
+   idDestinatario INT(11) NOT NULL,
+   testo MEDIUMTEXT DEFAULT NULL,
+   letta BOOLEAN DEFAULT FALSE,
+   PRIMARY KEY (idNotifica),
+   CONSTRAINT vincolo_utente_destinatario FOREIGN KEY (idDestinatario)
+    REFERENCES user(userId)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
