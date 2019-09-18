@@ -354,6 +354,7 @@
 					}
 				?>
 			</div>
+			
 			<div style='clear:both;'></div>
 			<?php
 				include "./layout/footer.php";
