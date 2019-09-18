@@ -7,6 +7,6 @@ function User(id,email,nome,cognome,profileImage,professione,indirizzo,admin){
 	this.professione = professione;
 	this.indirizzo = indirizzo;
 	this.admin = admin;
-	console.log("ok");
+	//console.log("ok");
 }
 

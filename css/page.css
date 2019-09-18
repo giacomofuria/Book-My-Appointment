@@ -112,14 +112,33 @@ div{
 	display: none;
 	padding: 2%;
 }
+#notify_container{
+	width: 430px;
+	margin-top: 5px;
+	margin-left:0;
+
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.08);
+	display: none;
+	padding: 2%;
+}
+.notify-text{
+	font-size: 12px;
+}
 .row-container{
 	border-radius: 5px;
 	height: 50px;
 	padding-bottom: 10px;
 	padding-top: 8px;
+	margin-bottom: 4px;
 }
 .row-container:hover{
-	background-color: #F3F7FD;
+	/*background-color: #F3F7FD;*/
+	/*cursor: pointer;*/
+}
+.not-read{
+	background-color: rgb(0,255,0);
 }
 .row-container a{
 	text-decoration: none;

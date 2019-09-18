@@ -1,3 +1,59 @@
+function openNotification(){
+	var button = document.getElementById("notification-button");
+	button.onclick = closeNotification;
+	var notifyContainer = document.getElementById("notify_container");
+	notifyContainer.style.display = "block";
+
+	var url = "./ajax/notificationFinder.php?newNotificationsOf=" + button.value;
+	var responseFunction = riceviNotifiche;
+	
+	AjaxManager.performAjaxRequest(SearchBar.DEFAUL_METHOD, 
+										url, SearchBar.ASYNC_TYPE, 
+										null, responseFunction);
+}
+
+function closeNotification(){
+	var notifyContainer = document.getElementById("notify_container");
+	notifyContainer.style.display = "none";
+	var button = document.getElementById("notification-button");
+	button.onclick = openNotification;
+	button.style.backgroundColor = "#FFFFFF";
+}
+
+function riceviNotifiche(response){
+	if(response.data != null){
+		console.log(response.data);
+		refreshNotifiche(response.data);
+	}
+}
+
+function refreshNotifiche(data){
+	var notifyContainer = document.getElementById("notify_container");
+	while(notifyContainer.lastChild){
+		notifyContainer.lastChild.remove();
+	}
+	for(var i=0; i<data.length; i++){
+		var div = document.createElement("div");
+		div.className="row-container";
+		var p = document.createElement("p");
+		p.className = "notify-text";
+		if(data[i].letta == "0"){
+			div.className+=" not-read";
+		}
+		var img = document.createElement("img");
+		img.className='search-result-img';
+		imgSource = "./../img/icon/set1/man.png"; // metto sempre l'icona perché trasmettere l'immagine mi genera un problema di lunghezza
+		img.setAttribute("src",imgSource);
+		div.appendChild(img);
+		var txt = document.createTextNode(data[i].testo);
+
+		p.appendChild(txt);
+		div.appendChild(p);
+
+		notifyContainer.appendChild(div);
+	}
+}
+
 function SearchBar(){}
 
 SearchBar.DEFAUL_METHOD = "GET";
@@ -22,16 +78,7 @@ SearchBar.search =
 		}
 		//console.log(elem.id);
 		SearchBar.bar = elem;
-		/*
-		if(elem.id=="search-bar"){
-			resultBox = document.getElementById("search_results_container");
-			SearchBar.MODE = "USER_SEARCH";
-		}else{
-			resultBox = document.getElementById("user_admin_search");
-			SearchBar.adminResultBox = document.getElementById("change_user_password_form");
-			SearchBar.MODE = "ADMIN_SEARCH";
-		}
-		*/
+
 		switch(elem.id){
 			case "search-bar":
 				resultBox = document.getElementById("search_results_container");
@@ -271,7 +318,5 @@ SearchBar.showRemoveUserForm =
 		a.appendChild(img);
 		p.appendChild(a);
 		container.appendChild(p);
-		
-		
 		
 	}

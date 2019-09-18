@@ -1,6 +1,7 @@
 <?php
 	include_once __DIR__."/../config.php";
 	include_once DIR_UTIL."User.php";
+	include_once DIR_UTIL."Notify.php";
 	class AjaxResponse{
 		public $responseCode; // 0 all ok - 1 some errors - -1 some warning
 		public $message;
@@ -31,5 +32,5 @@
 			$this->testo_recensione = $testo_recensione;
 			$this->dataOra = $dataOra;
 		}
-	}	
+	}
 ?>

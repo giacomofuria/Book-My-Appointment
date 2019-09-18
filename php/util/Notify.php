@@ -6,9 +6,10 @@
 		public $testo="";
 		public $letta = 0;
 
-		public function Notify($idDestinatario=null, $testo=""){
+		public function Notify($idDestinatario=null, $testo="",$letta=0){
 			$this->idDestinatario = $idDestinatario;
 			$this->testo = $testo;
+			$this->letta = $letta;
 		}
 
 		public function send(){
@@ -16,7 +17,7 @@
 			$queryText = "INSERT INTO 
 						  notifica (idDestinatario, testo, letta) 
 						  VALUES ($this->idDestinatario,'$this->testo',$this->letta)";
-			echo $queryText.'<br>';
+			//echo $queryText.'<br>';
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$bookMyAppointmentDb->closeConnection();
 			return $result;

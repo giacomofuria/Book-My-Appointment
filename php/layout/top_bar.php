@@ -2,6 +2,7 @@
 <script src="./../js/ajaxManager.js"></script>
 <script src="./../js/TopBar.js"></script>
 <script src="./../js/user.js"></script>
+<script src="./../js/Notify.js"></script>
 <div id="top-bar-container">
 	<div class="top-bar-box">
 		<div class='top-bar-header'><?php echo $_SESSION['first_name'].' '.$_SESSION['last_name']; ?></div>
@@ -19,9 +20,10 @@
 		</button>
 	</div>
 	<div class="top-bar-box">
-		<button id="notification-button" class="command-buttons" title="Notifications">
+		<button id="notification-button" class="command-buttons" value="<?php echo $_SESSION['userId'] ?>" title="Notifications" onclick="openNotification()">
 			<img src="./../img/icon/set1/notification.png" style="width:100%; height:62%;" alt="Notifiche">
 		</button>
+		<div id='notify_container'>Notifiche:<br></div>
 	</div>
 </div>
 <!-- Fine sezione barra superiore -->
