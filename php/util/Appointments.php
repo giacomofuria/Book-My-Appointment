@@ -144,11 +144,14 @@
 
 		/* Fuzione che costruisce graficamente la lista degli appuntamenti */
 		public function stampaAppuntamenti($type,$page){
+			$userType="";
 			if($type=="to"){
 				$appuntamenti = $this->datiAppuntamentiPrenotati;
+				$userType = "idRicevente";
 			}else{
 				if($type=="from"){
 					$appuntamenti = $this->datiAppuntamentiRicevuti;
+					$userType = "idRichiedente";
 				}else{
 					return;
 				}
@@ -167,7 +170,7 @@
 				$idAppuntamento = $appuntamento['idAppuntamento'];
 				echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente' alt='img profilo'></div>";
 				echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
-				echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['idRichiedente']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
+				echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento[$userType]."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
 				echo "<p>".$appuntamento['professione']."</p>";
 				echo "<p><a href='mailto:".$appuntamento['email']."'><img src='./../img/icon/set1/envelope.png' class='icon-email' alt='email'></a></p></div>";
 				echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
