@@ -9,50 +9,12 @@
 		header('Location: ./../index.php');
 		exit;
 	}
-	addNewUser();
-	/*
-	if(parametriProfiloRicevuti()){
-		$dimMax = $_POST['MAX_FILE_SIZE'];
-		$userPicPath = false;
-		$utente = $_POST['userId'];
-		$firstName = $_POST['first_name'];
-		$lastName = $_POST['last_name'];
-		$newEmail = $_POST['email'];
-		$profession = false;
-		$address = $_POST['address'];
-		$admin = 0;
-		$newPassword=false;
-		$reNewPassword=false;
-		// verifico la presenza dei parametri non obbligatori (userPic, professione e le password)
-		if(isset($_FILES['user_pic']) && is_uploaded_file($_FILES['user_pic']['tmp_name'])){
-			//echo $_FILES['user_pic']['tmp_name']."<br>";
-			$userPicPath = $_FILES['user_pic']['tmp_name'];
-		}
-		if(!is_uploaded_file($_FILES['user_pic']['tmp_name'])){
-			//echo "Problemi di caricamento <br>";
-			//echo $_FILES['user_pic']['error']."<br>";
-		}
-		if(isset($_POST['profession'])){
-			$profession = $_POST['profession'];
-		}
-		if(isset($_POST['admin']) && $_POST['admin']=='on'){
-			$admin = 1;
-		}
-		if(isset($_POST['newPassword']) && isset($_POST['reNewPassword'])){
-			$newPassword = $_POST['newPassword'];
-			$reNewPassword = $_POST['reNewPassword'];
-			// controllo se le due password inviate coincidono
-			if($newPassword != $reNewPassword){
-				// ERRORE !!
-			}
-		}
-		$esitoSalvataggioImpostazioniUtente = saveUserSettings($utente,$dimMax, $userPicPath, $firstName, $lastName,$newEmail, $profession, $address, $newPassword,$admin);
-		//echo "Esito: ".$esitoSalvataggioImpostazioniUtente."<br>";//DEBUG
-	}
-	*/
 	$userInfo = new User();
 	if($userInfo->receiveProfileParameters()){
 		$userInfo->updateUserSettings();
+	}
+	if($userInfo->receiveNewUserParameters()){
+		$userInfo->addNewUser();
 	}
 	if(isset($_GET['delReview'])){
 		$id = $_GET['delReview'];
@@ -68,7 +30,7 @@
 	<meta name = "author" content = "Giacomo Furia">
 	<script src="./../js/admin.js"></script>
 	<script src="./../js/ajaxManager.js"></script>
-<script src="./../js/TopBar.js"></script>
+	<script src="./../js/TopBar.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/admin.css" type="text/css" media="screen">
@@ -100,17 +62,17 @@
 			<div id='new_user_form' class='container tool-form-container'>
 				<h2>Inserisci un nuovo utente</h2>
 				<form enctype='multipart/form-data' method='POST' action='./admin.php'>
-					<input name='email' class='input-text' placeholder='Email' type='email' required>
-					<input name='first_name' class='input-text' placeholder='Nome' required>
-					<input name='last_name' class='input-text' placeholder='Cognome' required>
-					<input name='profession' class='input-text' placeholder='Professione'>
-					<input name='address' class='input-text' placeholder='Inidirizzo'>
-					<input name='password' class='input-text' placeholder='Password' type='password' required>
-					<input name='re_password' class='input-text' placeholder='Ripeti password' type='password' required>
-					<p><input name='admin' type='checkbox' > Utente amministratore</p>
+					<input name='new_user_email' class='input-text' placeholder='Email' type='email' required>
+					<input name='new_user_first_name' class='input-text' placeholder='Nome' required>
+					<input name='new_user_last_name' class='input-text' placeholder='Cognome' required>
+					<input name='new_user_profession' class='input-text' placeholder='Professione'>
+					<input name='new_user_address' class='input-text' placeholder='Inidirizzo'>
+					<input name='new_user_password' class='input-text' placeholder='Password' type='password' required>
+					<input name='new_user_re_password' class='input-text' placeholder='Ripeti password' type='password' required>
+					<p><input name='new_user_admin' type='checkbox' > Utente amministratore</p>
 					<p><b>Immagine del profilo</b>
 					<input type='hidden' name='MAX_FILE_SIZE' value='16777215'>
-					<input type='file' name='img_profile'>
+					<input type='file' name='new_user_pic'>
 					</p>
 					<button type='submit' class='save-button'>Crea utente</button>
 				</form>

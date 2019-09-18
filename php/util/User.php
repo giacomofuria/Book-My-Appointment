@@ -223,6 +223,87 @@
 			}
 			return $ret;
 		}
+		public function receiveNewUserParameters(){
+			$this->userId = null;
+			$this->email = null;
+			$this->firstName = null;
+			$this->lastName = null;
+			$this->password = null;
+			$this->profileImage = false;
+			$this->profession = null;
+			$this->address = null;
+			$this->admin = null;
+			$ret = false;
+			if(isset($_FILES['new_user_pic']) && is_uploaded_file($_FILES['new_user_pic']['tmp_name'])){
+				//echo "Nome file: ".$_FILES['user_pic']['tmp_name']."<br>";
+				$userPicPath = $_FILES['new_user_pic']['tmp_name'];
+				$this->profileImage = addslashes(file_get_contents($userPicPath));
+			}
+			if(isset($_POST['new_user_email'])){
+				$this->email = $_POST['new_user_email'];
+				$ret = true;
+			}
+			if(isset($_POST['new_user_first_name'])){
+				$this->firstName = $_POST['new_user_first_name'];
+			}
+			if(isset($_POST['new_user_last_name'])){
+				$this->lastName = $_POST['new_user_last_name'];
+			}
+			if(isset($_POST['new_user_profession'])){
+				$this->profession = $_POST['new_user_profession'];
+			}
+			if(isset($_POST['new_user_address'])){
+				$this->address = $_POST['new_user_address'];
+			}
+			if(isset($_POST['new_user_admin']) && $_POST['new_user_admin']=='on'){
+				$this->admin=1;
+			}else{
+				$this->admin=0;
+			}
+			if(isset($_POST['new_user_password']) && isset($_POST['new_user_re_password'])){
+				$newPassword = $_POST['new_user_password'];
+				$reNewPassword = $_POST['new_user_re_password'];
+				// controllo se le due password inviate coincidono
+				if($newPassword != $reNewPassword){
+					// ERRORE !!
+				}else{
+					$this->password = $_POST['new_user_password'];
+				}
+			}
+			return $ret;
+		}
+		public function addNewUser(){
+			global $bookMyAppointmentDb;
+			$values='email, first_name, last_name, password';
+			$elements=null;
+			$email=$this->email; $nome=$this->firstName; $cognome=$this->lastName; $password=password_hash($this->password, PASSWORD_BCRYPT);
+			// immagine del profilo
+			if($this->profileImage){	
+				$values.=',profile_image';
+				$elements.=",'".$this->profileImage."'";
+			}
+			if($this->profession){
+				$values.=',profession';
+				$elements.=",'".$this->profession."'";
+			}
+			if($this->address){
+				$values.=',address';
+				$elements.=",'".$this->address."'";
+			}
+			$admin=0;
+			if($this->admin){
+				$admin = $this->admin;
+			}
+
+			$queryText = "INSERT INTO 
+						  USER ($values,admin) 
+						  VALUES ('$email','$nome','$cognome','$password' $elements,$admin)";
+
+			//echo "$queryText<br>"; // DEBUG
+			$result = $bookMyAppointmentDb->performQuery($queryText);
+			$bookMyAppointmentDb->closeConnection();
+			return $result;
+		}
 	}
 	function validateName($name){
 		if (preg_match("/^[a-zA-Z0-9._-]/", $name)){
