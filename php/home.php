@@ -8,12 +8,13 @@
 		exit;
 	}
 	$appuntamenti = new Appointments($_SESSION['userId']);
-	$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(3,true,"ASC");
-	$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(3,true,"ASC");
+
 	if(isset($_GET['delAppointment'])){
 		$id = $_GET['delAppointment'];
 		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
 	}
+	$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(3,true,"ASC");
+	$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(3,true,"ASC");
 ?>
 <!DOCTYPE html>
 <html lang="it">

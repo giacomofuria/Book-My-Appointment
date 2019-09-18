@@ -3,6 +3,7 @@
 	include_once __DIR__."/config.php";
 	include_once DIR_UTIL."sessionUtil.php";
 	include_once DIR_UTIL."User.php";
+	include_once DIR_UTIL."Notify.php";
 	//include "./util/sessionUtil.php";
 	include "./layout/AppointmentTable.php";
 	require_once "./util/BMADbManager.php";// includo la classe per la gestione del database
@@ -69,6 +70,12 @@
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
 		
+		$utenteRichiedente = new User();
+		$utenteRichiedente->getUserInfo($applier);
+		$testoNotifica = "$utenteRichiedente->firstName $utenteRichiedente->lastName ($utenteRichiedente->email) ha prenotato un appuntamento per il giorno $dataPerMysql";
+		$notifica = new Notify($receiver, $testoNotifica);
+		$notifica->send();
+
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 	}
 
@@ -91,6 +98,13 @@
 		//echo "$queryText<br>"; // DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
+
+		$InfoUtenteRecensore = new User();
+		$InfoUtenteRecensore->getUserInfo($utenteRecensore);
+		$testoNotifica = "$InfoUtenteRecensore->firstName $InfoUtenteRecensore->lastName ha appena scritto una recensione su di te";
+		$notifica = new Notify($utenteRicevente, $testoNotifica);
+		$notifica->send();
+
 		return $result;
 	}
 	/* funzione che verifica se l'utente recensore ha già effettuato in passato appuntamenti con l'utente ricevente */

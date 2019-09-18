@@ -1,4 +1,8 @@
 <?php
+	include_once __DIR__."/../config.php";
+	include_once DIR_UTIL."BMADbManager.php";
+	include_once DIR_UTIL."User.php";
+	include_once DIR_UTIL."Notify.php";
 	/* Class che permette di leggere e modificare gli appuntamenti di un utente */
 	class Appointments{
 		private $utente;
@@ -54,7 +58,8 @@
 			}
 			$queryText = "SELECT A.idAppuntamento AS idAppuntamento,
 								 A.dataOra AS dataOra, 
-			                     A.idRichiedente AS id, 
+			                     A.idRichiedente AS idRichiedente, 
+			                     A.idRicevente AS idRicevente,
 			                     U.first_name AS nome, 
 			                     U.last_name AS cognome, 
 			                     U.email AS email, 
@@ -80,13 +85,19 @@
 		}
 
 		/* Funzione che rimuove un appuntamento tra quelli prenotati */
-		
+
 		public function deleteAppointment($id){
 			/* Verifico che l'appuntamento che si vuole eliminare coinvolga l'utente loggato */
 			$flag=false;
+			$idAltroUtente=null;
+			$dataOra = null;
+			$this->getBookedAppointments(0,false,"ASC");
+			$this->getReceivedAppointments(0,false,"ASC");
 			foreach($this->datiAppuntamentiRicevuti as $app){
 				if($app['idAppuntamento']==$id){
 					$flag = true;
+					$idAltroUtente = $app['idRichiedente'];
+					$dataOra = $app['dataOra'];
 					break;
 				}
 			}
@@ -94,6 +105,8 @@
 				foreach($this->datiAppuntamentiPrenotati as $app){
 					if($app['idAppuntamento']==$id){
 						$flag = true;
+						$idAltroUtente = $app['idRicevente'];
+						$dataOra = $app['dataOra'];
 						break;
 					}
 				}
@@ -105,6 +118,21 @@
 			$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$bookMyAppointmentDb->closeConnection();
+			/*
+			$destinatario = new User();
+			$destinatario->getUserInfo($idAltroUtente);
+			*/
+			$mittente = new User();
+			$mittente->getUserInfo($this->utente);
+
+			echo "Altro: $idAltroUtente<br>";
+
+
+			$testoNotifica = "$mittente->firstName $mittente->lastName ha cancellato l\'appuntamento del $dataOra";
+			echo "notifica: $testoNotifica<br>";
+			$notifica = new Notify($idAltroUtente, $testoNotifica);
+			$notifica->send();
+
 			return $result;
 		}
 		/* verifica se alla dataOra passata come parametro è stato memorizzato un appuntamento */
@@ -140,7 +168,7 @@
 				$idAppuntamento = $appuntamento['idAppuntamento'];
 				echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente' alt='img profilo'></div>";
 				echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
-				echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['id']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
+				echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento['idRichiedente']."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
 				echo "<p>".$appuntamento['professione']."</p>";
 				echo "<p><a href='mailto:".$appuntamento['email']."'><img src='./../img/icon/set1/envelope.png' class='icon-email' alt='email'></a></p></div>";
 				echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
