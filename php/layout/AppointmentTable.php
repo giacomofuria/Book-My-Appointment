@@ -27,76 +27,39 @@
 			$this->fine = $fine;
 			$this->durata = $durata;
 			$this->pause = $pause;
-
 			$this->numeroAppuntamenti = getNumeroAppuntamenti($inizio,$fine,$durata);
 			$this->inizioInSecondi =strtotime($inizio);
-
 			$this->applyingUser = $applyingUser;
 			$this->receiverUser = $receiverUser;
-
 			if(isset($_GET['week'])){
 				$this->dataCorrente = $_GET['week'];
 			}else{
 				$this->dataCorrente = date('Y-m-j',time()); // Data corrente
 			}
-
 			$this->timestampCorrente = strtotime($this->dataCorrente);
-
 			if($this->timestampCorrente === false){ // se i valori passati con GET non erano validi calcolo comunque la data corrente
 				$this->dataCorrente = date('Y-m-j',time()); // Data corrente
 				$this->timestampCorrente = strtotime($this->dataCorrente);
 			}
-
 			$this->giornoDellaSettimana = getNumeroGiornoSettimana(strtotime($this->dataCorrente));
-
 			$this->timestampPrimoGiornoSettimana = ($this->timestampCorrente - ($this->giornoDellaSettimana*86400)); // Sottraggo al timestamp corrente (in secondi) - i secondi passati dal lunedì della settimana corrente
-
 			$dataPrimoGiornoSettimana = date('Y-m-j', $this->timestampPrimoGiornoSettimana);
-
 			$this->timestampPrimoGiornoSettimana = strtotime($dataPrimoGiornoSettimana.' '.$this->inizio); // timestamp completo del primo giorno della settimana comprende anche l'ra di inizio degli appuntamenti
-	
 			$dataPrimoGiornoSettimana = date('Y-m-j',$this->timestampPrimoGiornoSettimana);
-
 			$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
 			$this->dataPrimoGiornoSettimanaSuccessiva = date('Y-m-j',$timestampPrimoGiornoSettimanaSuccessiva);
-
 			$timestampPrimoGiornoSettimanaPrecedente = ($this->timestampPrimoGiornoSettimana - (7*86400));
 			$this->dataPrimoGiornoSettimanaPrecedente = date('Y-m-j',$timestampPrimoGiornoSettimanaPrecedente);
-
 		}
-
-		public function show(){	
-			//inizio table header
-			echo "<div class='appointment-table-container'>";
-				$timestampPrimoAppuntamentoSettimana = $this->timestampPrimoGiornoSettimana;
-				$timestampUltimoGiornoSettimana = ($timestampPrimoAppuntamentoSettimana + (6*86400));
-				$numeroMeseInizio = date('n',$timestampPrimoAppuntamentoSettimana);
-				$numeroMeseFine = date('n',$timestampUltimoGiornoSettimana);
-				$tableTitle="Mese";
-				if($numeroMeseInizio != $numeroMeseFine){
-					$tableTitle = $this->mesiAnno[$numeroMeseInizio-1]." / ".$this->mesiAnno[$numeroMeseFine-1];
-				}else{
-					$tableTitle = $this->mesiAnno[$numeroMeseInizio-1];
-				}
-				echo "<div class='appointment-table-header'>";
-					echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=\"window.location.href='?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaPrecedente'\"><img style='width: 100%' src='./../img/icon/set1/left-arrow-1.png' alt='prev'></button></div>";
-					echo "<div id='table-header-title' class='table-header-components'> <p >$tableTitle</p> </div>";
-					echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=\"window.location.href='?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaSuccessiva'\"><img style='width: 100%' src='./../img/icon/set1/right-arrow-1.png' alt='next'></button> </div>";
-				echo "<div style='clear:both;'></div></div>";
-				// fine table header
-
-				$dataPrimoGiornoSettimana = date('Y-m-d G:i:s',$timestampPrimoAppuntamentoSettimana);
-				$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
-				$dataPrimoGiornoSettimanaSuccessiva = date('Y-m-d G:i:s',$timestampPrimoGiornoSettimanaSuccessiva);
-				//$appointmentList = new Appointments($this->receiverUser, $dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
-				$appuntamenti = new Appointments($this->receiverUser);
-				$appointmentList = $appuntamenti->getReceivedAppointments(0,false,"ASC",$dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
-
-				echo "<table class='appointment-table'>";
-				echo "<tr>";
-				echo "<th></th>";
-				// Creo le colonne
-				for($i=1; $i<8; $i++){
+		private function showHeader($tableTitle){
+			echo "<div class='appointment-table-header'>";
+				echo "<div id='left-arrow' class='table-header-components'><button class='table-header-buttons' onclick=\"window.location.href='?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaPrecedente'\"><img style='width: 100%' src='./../img/icon/set1/left-arrow-1.png' alt='prev'></button></div>";
+				echo "<div id='table-header-title' class='table-header-components'> <p >$tableTitle</p> </div>";
+				echo "<div id='right-arrow' class='table-header-components'> <button class='table-header-buttons' onclick=\"window.location.href='?user=$this->receiverUser&week=$this->dataPrimoGiornoSettimanaSuccessiva'\"><img style='width: 100%' src='./../img/icon/set1/right-arrow-1.png' alt='next'></button> </div>";
+			echo "<div style='clear:both;'></div></div>";
+		}
+		private function createColumn($timestampPrimoAppuntamentoSettimana){
+			for($i=1; $i<8; $i++){
 					$class = "not-selected";
 					$timestampGiorno = ($timestampPrimoAppuntamentoSettimana + (($i-1)*86400));
 					$numeroGiornoDelMese = date('j',$timestampGiorno);
@@ -105,22 +68,18 @@
 					}
 					echo "<th class='".$class."'>".$this->giorniSettimana[$i-1]."<br>".$numeroGiornoDelMese."</th>";
 				}
-				echo "</tr>";
-
-
-				// Creo tante righe quanti sono gli appuntamenti
+		}
+		private function createRows($appuntamenti){
+			// Creo tante righe quanti sono gli appuntamenti
 				$start = $this->inizioInSecondi;
-
 				$timestampPrimoAppuntamentoSettimana = $this->timestampPrimoGiornoSettimana;
 
 				for($i=0; $i<$this->numeroAppuntamenti; $i++){
 					$inizioIntervalloInSecondi = $start;
 					$fineIntervalloInSecondi = ($start+(intval($this->durata)*60));
 					$start+=(intval($this->durata)*60);
-
 					$inizioLeggibile = date('H:i',$inizioIntervalloInSecondi);
 					$fineLeggibile = date('H:i',$fineIntervalloInSecondi);
-
 					echo "<tr>";
 					// Primo elemento con gli orari
 					echo "<td><p class='start-time'>".$inizioLeggibile."</p><p class='end-time'>".$fineLeggibile."</p></td>";
@@ -129,7 +88,6 @@
 						$tdClassname=null;
 						$buttonClassname='';
 						$button='';
-
 						// Calcolo il timestamp del singolo appuntamento
 						$timestampAppuntamento = ($timestampPrimoAppuntamentoSettimana + (($j-1)*86400));
 						$dataOraAppuntamento = date('Y-m-j H:i',$timestampAppuntamento);
@@ -166,17 +124,44 @@
 										$button="<button class='appointment-button booked viewer' title='$dataOraAppuntamento prenotato' $disabled>$imgBooked</button>";
 									}
 								}
-
 							}else{
 								$tdClassname='not-selected';
 							}
 						}
-						echo "<td class=$tdClassname>$button</td>";
-						
+						echo "<td class=$tdClassname>$button</td>";	
 					}
 					$timestampPrimoAppuntamentoSettimana+=($this->durata*60);
 					echo "</tr>";
 				}
+		}
+		public function show(){	
+			//inizio table header
+			echo "<div class='appointment-table-container'>";
+				$timestampPrimoAppuntamentoSettimana = $this->timestampPrimoGiornoSettimana;
+				$timestampUltimoGiornoSettimana = ($timestampPrimoAppuntamentoSettimana + (6*86400));
+				$numeroMeseInizio = date('n',$timestampPrimoAppuntamentoSettimana);
+				$numeroMeseFine = date('n',$timestampUltimoGiornoSettimana);
+				$tableTitle="Mese";
+				if($numeroMeseInizio != $numeroMeseFine){
+					$tableTitle = $this->mesiAnno[$numeroMeseInizio-1]." / ".$this->mesiAnno[$numeroMeseFine-1];
+				}else{
+					$tableTitle = $this->mesiAnno[$numeroMeseInizio-1];
+				}
+				$this->showHeader($tableTitle);
+				// fine table header
+				$dataPrimoGiornoSettimana = date('Y-m-d G:i:s',$timestampPrimoAppuntamentoSettimana);
+				$timestampPrimoGiornoSettimanaSuccessiva = ($this->timestampPrimoGiornoSettimana + (7*86400));
+				$dataPrimoGiornoSettimanaSuccessiva = date('Y-m-d G:i:s',$timestampPrimoGiornoSettimanaSuccessiva);
+				//$appointmentList = new Appointments($this->receiverUser, $dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
+				$appuntamenti = new Appointments($this->receiverUser);
+				$appointmentList = $appuntamenti->getReceivedAppointments(0,false,"ASC",$dataPrimoGiornoSettimana, $dataPrimoGiornoSettimanaSuccessiva);
+				echo "<table class='appointment-table'>";
+				echo "<tr>";
+				echo "<th></th>";
+				// Creo le colonne
+				$this->createColumn($timestampPrimoAppuntamentoSettimana);
+				echo "</tr>";
+				$this->createRows($appuntamenti);
 			echo "</table></div>";
 		}
 
