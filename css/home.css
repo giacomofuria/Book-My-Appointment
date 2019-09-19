@@ -22,13 +22,7 @@
 	font-size: 12px;
 	margin-top: -15px;
 }
-.appointment-header a{
-	color: #000000;
-	text-decoration: none;
-}
-.appointment-header a:hover{
-	text-decoration: underline;
-}
+
 .appointment-container{
 	width: 100%;
 	margin-top: 10px;

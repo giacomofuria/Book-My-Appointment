@@ -134,14 +134,13 @@
 
 			return $result;
 		}
-		/* verifica se alla dataOra passata come parametro è stato memorizzato un appuntamento */
+		/* verifica se alla dataOra passata come parametro è stata ricevuta una prenotazione */
 		public function booked($dataOra){
 			
 			$time = strtotime($dataOra);
 			$dataOraMysql = date('Y-m-d H:i:s',$time);
 			return isset($this->datiAppuntamentiRicevuti["$dataOraMysql"]);
 		}
-
 		/* Fuzione che costruisce graficamente la lista degli appuntamenti */
 		public function stampaAppuntamenti($type,$page){
 			$userType="";

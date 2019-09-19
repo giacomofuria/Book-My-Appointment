@@ -10,6 +10,9 @@ function showCalendar(){
 }
 function closeCalendar(){
 	var elem = document.getElementById('calendar-container');
+	if(!elem || elem == null){
+		return;
+	}
 	slideUp(elem,8,-60);
 	var calendarButton = document.getElementById("calendar-button");
 	calendarButton.onclick = showCalendar;

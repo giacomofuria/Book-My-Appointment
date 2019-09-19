@@ -284,7 +284,7 @@
 							$utenteRecensore = $_SESSION['userId'];
 							$utenteRicevente = $userInfo->userId;
 							$appuntamentiInPassato = findOldAppointments($utenteRecensore, $utenteRicevente);
-							if($appuntamentiInPassato){
+							if($appuntamentiInPassato && $utenteRecensore != $utenteRicevente){
 								echo "<button class='save-button' onclick='openReviewBox()'>Scrivi una recensione</button>";
 							}
 						?>	

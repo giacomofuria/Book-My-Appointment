@@ -102,7 +102,7 @@ function showSecondHeader(type){
 	sign_second_header.appendChild(titleH3);
 
 	var subTitleH3 = document.createElement("p");
-	txt = document.createTextNode('or ');
+	txt = document.createTextNode('oppure ');
 	subTitleH3.appendChild(txt);
 	var link = document.createElement("a");
 	link.setAttribute('href','javascript:'+linkedFunction);
