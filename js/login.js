@@ -127,6 +127,7 @@ function showSignForm(type){
 	email.setAttribute('placeholder','Email:');
 	email.setAttribute('type','email');
 	email.setAttribute('name','email');
+	email.onblur=validateHandler;
 	email.required= true;
 	var loginPassword = document.createElement("input");
 	var loginButton = document.createElement("button");
@@ -162,6 +163,7 @@ function showSignForm(type){
 		firstName.setAttribute('placeholder','Nome: ');
 		firstName.setAttribute('name','first_name');
 		firstName.setAttribute('autofocus','');
+		firstName.onblur = validateHandler;
 		firstName.required= true;
 		form.appendChild(firstName);
 
@@ -169,6 +171,7 @@ function showSignForm(type){
 		lastName.setAttribute('class','input-text');
 		lastName.setAttribute('placeholder','Cognome: ');
 		lastName.setAttribute('name','last_name');
+		lastName.onblur = validateHandler;
 		lastName.required = true;
 		form.appendChild(lastName);
 		form.appendChild(email);

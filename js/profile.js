@@ -41,6 +41,9 @@ function openProfileSettings(nome,cognome,email,professione,indirizzo){
 	dim.setAttribute("value","16777215");
 	form.appendChild(dim);
 
+	var txt = document.createTextNode("Immagine del profilo");
+	form.appendChild(txt);
+
 	var inputFile = document.createElement("input");
 	inputFile.setAttribute("name","user_pic");
 	inputFile.setAttribute("type","file");
@@ -49,18 +52,22 @@ function openProfileSettings(nome,cognome,email,professione,indirizzo){
 	var inputFirstName = document.createElement("input");
 	inputFirstName.setAttribute("name","first_name");
 	inputFirstName.value = nome;
+	inputFirstName.onblur=validateHandler;
 	inputFirstName.className='input-text';
 	form.appendChild(inputFirstName);
 
 	var inputLastName = document.createElement("input");
 	inputLastName.setAttribute("name","last_name");
 	inputLastName.value = cognome;
+	inputLastName.onblur=validateHandler;
 	inputLastName.className='input-text';
 	form.appendChild(inputLastName);
 
 	var inputEmail = document.createElement("input");
 	inputEmail.setAttribute("name","email");
+	inputEmail.setAttribute("type","email");
 	inputEmail.value = email;
+	inputEmail.onblur=validateHandler;
 	inputEmail.className='input-text';
 	form.appendChild(inputEmail);
 

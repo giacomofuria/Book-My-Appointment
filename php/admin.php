@@ -40,6 +40,7 @@
 	<script src="./../js/admin.js"></script>
 	<script src="./../js/ajaxManager.js"></script>
 	<script src="./../js/TopBar.js"></script>
+	<script src="./../js/validators.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/admin.css" type="text/css" media="screen">
@@ -67,9 +68,9 @@
 			<div id='new_user_form' class='container tool-form-container'>
 				<h2>Inserisci un nuovo utente</h2>
 				<form enctype='multipart/form-data' method='POST' action='./admin.php'>
-					<input name='new_user_email' class='input-text' placeholder='Email' type='email' required>
-					<input name='new_user_first_name' class='input-text' placeholder='Nome' required>
-					<input name='new_user_last_name' class='input-text' placeholder='Cognome' required>
+					<input name='new_user_email' class='input-text' placeholder='Email' type='email' onblur="validate(this)" required>
+					<input name='new_user_first_name' class='input-text' placeholder='Nome' onblur="validate(this)" required>
+					<input name='new_user_last_name' class='input-text' placeholder='Cognome' onblur="validate(this)" required>
 					<input name='new_user_profession' class='input-text' placeholder='Professione'>
 					<input name='new_user_address' class='input-text' placeholder='Inidirizzo'>
 					<input name='new_user_password' class='input-text' placeholder='Password' type='password' required>
@@ -93,9 +94,9 @@
 				<b>Modifica le informazioni dell' utente</b><br><br>
 				<form enctype='multipart/form-data' method='POST' action='./admin.php'>
 					<input name='userId' type='hidden'>
-					<input name='email' class='input-text' placeholder='Email' type='email' required>
-					<input name='first_name' class='input-text' placeholder='Nome' required>
-					<input name='last_name' class='input-text' placeholder='Cognome' required>
+					<input name='email' class='input-text' placeholder='Email' type='email' onblur="validate(this)" required>
+					<input name='first_name' class='input-text' placeholder='Nome' onblur="validate(this)" required>
+					<input name='last_name' class='input-text' placeholder='Cognome' onblur="validate(this)" required>
 					<input name='profession' class='input-text' placeholder='Professione'>
 					<input name='address' class='input-text' placeholder='Inidirizzo'>
 					<input name='admin' type='checkbox' > Utente amministratore<br>

@@ -213,6 +213,7 @@
 	<meta name = "author" content = "Giacomo Furia">
 	<script src='./../js/profile.js'></script>
 	<script src='./../js/effects.js'></script>
+	<script src='./../js/validators.js'></script>
 	<script src="./../js/appointmentTable.js"></script>
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">

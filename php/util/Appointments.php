@@ -117,10 +117,7 @@
 			$queryText = "DELETE FROM appuntamento WHERE idAppuntamento=$id;";
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$bookMyAppointmentDb->closeConnection();
-			/*
-			$destinatario = new User();
-			$destinatario->getUserInfo($idAltroUtente);
-			*/
+
 			$mittente = new User();
 			$mittente->getUserInfo($this->utente);
 
