@@ -13,7 +13,7 @@
 		<meta charset="utf-8">
 		<meta name = "author" content = "Giacomo Furia">
 		<link rel="stylesheet" href="./css/login.css" type="text/css" media="screen">
-		
+		<script src="./js/validators.js"></script>
 		<script src="./js/login.js"></script>
 		<script src="./js/effects.js"></script>
 		<title>Prenotazione appuntamenti online</title>

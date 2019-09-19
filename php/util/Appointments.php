@@ -127,7 +127,7 @@
 			echo "Altro: $idAltroUtente<br>";
 
 
-			$testoNotifica = "$mittente->firstName $mittente->lastName ha cancellato l\'appuntamento del $dataOra";
+			$testoNotifica = "$mittente->firstName $mittente->lastName ha cancellato l'appuntamento del $dataOra";
 			echo "notifica: $testoNotifica<br>";
 			$notifica = new Notify($idAltroUtente, $testoNotifica);
 			$notifica->send();
