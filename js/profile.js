@@ -22,12 +22,6 @@ function openProfileSettings(nome,cognome,email,professione,indirizzo){
 		form.remove();
 	}
 
-	/*
-	// cancello gli elementi che ci sono
-	while(profileInfoContainer.lastChild){
-		profileInfoContainer.lastChild.remove();
-	}
-	*/
 	// Creo il form di modifica
 	var form = document.createElement("form");
 	form.setAttribute("id","setting_form");

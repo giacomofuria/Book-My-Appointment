@@ -1,3 +1,4 @@
+/* Mostra la schermata di conferma di una prenotazione */
 function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, receiverUser, duration){
 	var formContainer = document.getElementById("confirm_form_container");
 	var confirmAppointmentForm = document.getElementById("confirm-appointment-form");
@@ -32,6 +33,8 @@ function confirmAppointment(dataAppuntamento, oraAppuntamento, applyingUser, rec
 
 
 }
+/* Chiude la schermata di conferma di una prenotazione nel caso in cui venga premuto il tasto 
+   exit, venga premuto il tasto esc della tastiera o si clicchi al di fuori della schermata */
 function closeConfirmAppointmentBox(){
 	var formContainer = document.getElementById("confirm_form_container");
 	var confirmAppointmentForm = document.getElementById("confirm-appointment-form");

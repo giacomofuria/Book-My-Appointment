@@ -30,7 +30,6 @@ PreviewTable.prototype.buildTable = function(elem){
 	this.table.appendChild(headRow);
 
 	// creo la prima riga
-	
 	var firstRow = document.createElement("tr");
 	for(var i=0; i<8; i++){
 		var td = document.createElement("td");
@@ -95,9 +94,7 @@ PreviewTable.prototype.updateStartTime = function(value,firstCall){
 	
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
 	// console.log("Minuti: "+minuti); // DEBUG
-
 	var flag = this.calcolaNumeroAppuntamenti(!firstCall); // se il campio oraFine è già presente continua
-
 	if(flag)
 		return; // la funzione calcolaNumeroAppuntamenti() ha già aggioranto la tabella
 
@@ -120,6 +117,7 @@ PreviewTable.prototype.deleteRows = function(){
 		this.righe--;
 	}
 }
+/* Aggiunge le righe della tabella di preview */
 PreviewTable.prototype.addRows = function(value){
 	var num = value; // considera che la prima riga (quella con l'orario di apertura è sempre presente)
 	this.righe+=num;
@@ -159,13 +157,11 @@ PreviewTable.prototype.addRows = function(value){
 	}	
 }
 PreviewTable.prototype.updateCloseTime = function(value,firstCall){
-
 	var splittedTime = estraiOreMinuti(value);
 	this.oraFine = splittedTime;
 	if(splittedTime == null)
 		return;
 	var minuti = calcolaMinuti(splittedTime[0],splittedTime[1]);
-
 	this.calcolaNumeroAppuntamenti(!firstCall);
 	//aggiornaTabellaPreview();
 }
@@ -195,9 +191,7 @@ PreviewTable.prototype.calcolaNumeroAppuntamenti = function(durationModified){
 	this.calcolaOrariAppuntamenti();
 	// Creo o aggiorno la lista che permette di selezionare le pause
 	this.updatePauseSelection(durationModified);
-
 	this.addRows(this.numeroAppuntamenti);
-
 	return true;
 }
 PreviewTable.prototype.calcolaOrariAppuntamenti = function(){
@@ -221,8 +215,6 @@ PreviewTable.prototype.updatePauseSelection = function(durationModified){
 			pausesSelector.lastChild.remove();
 		}
 	}
-	
-	
 	// aggiorno le option
 	var opts = pausesSelector.getElementsByTagName("option");
 	for(var i=0; i<this.orari.length; i++){

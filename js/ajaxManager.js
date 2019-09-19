@@ -18,7 +18,7 @@ AjaxManager.getAjaxObject =
 		}
 		return xmlHttp;
 	}
-
+/* Funzione che esegue la richiesta ajax */
 AjaxManager.performAjaxRequest = 
 	function(method, url, isAsync, dataToSend, responseFunction){
 		//console.log("ajax request");

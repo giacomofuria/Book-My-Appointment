@@ -11,7 +11,8 @@
 
 	$dataInizio=false;
 	$dataFine=false;
-
+	$listaAppuntamentiPrenotati=null;
+	$listaPrenotazioniRicevute=null;
 	if(isset($_GET['from']) && isset($_GET['to'])){
 		$dataInizio = date('Y-m-d H:i:s',strtotime($_GET['from']));
 		$dataFine = date('Y-m-d H:i:s',strtotime($_GET['to']));

@@ -1,3 +1,6 @@
+/* Questo file contiene le funzioni che si occupano di validare i campi di input.
+   Vengono richiamate nelle pagine che contengono dei form.
+ */
 var validateHandler = new Function("validate(this)");
 
 function validate(elem){
@@ -16,7 +19,7 @@ function validate(elem){
 	}
 }
 function validateName(name){
-	var letters = /^([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/;
+	var letters = /^([a-zA-Z]+[,.]?[ ]?|[a-zA-Z]+['-]?)+$/;
 	if(name.match(letters)){
 		return true;
 	}else{

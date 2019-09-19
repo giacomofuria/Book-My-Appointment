@@ -13,14 +13,8 @@ function begin(){
 	var gestore = new Function("cambia(this)");
 	for(var i=0; i<inputs.length; i++){
 		var elem = inputs[i];
-		//switch(elem.type){
-			//case "text":
-				elem.onblur = gestore;
-				//break;
-			//default:
-				elem.onchange = gestore;
-			//	break;
-		//}
+		elem.onblur = gestore;
+		elem.onchange = gestore;
 	}
 
 	var selectDuration = document.getElementById("select_duration");
@@ -49,16 +43,6 @@ function cambia(elem){
 			//aggiornaGiorniLavoroTabellaPreview(elem);
 			tabellaDiPreview.updateTableColumn(parseInt(elem.value), elem.checked);
 			break;
-		/*
-		case "opening_time":
-			//aggiornaOrarioApertura(elem.value);
-			//tabellaDiPreview.updateStartTime(elem.value,false);	
-			break;
-		case "closing_time":
-			//aggiornaOrararioChiusura(elem.value);
-			//tabellaDiPreview.updateCloseTime(elem.value,false);
-			break;
-		*/
 		case "select_duration":
 			tabellaDiPreview.updateAppointmentDuration(elem.value);
 			//console.log(elem.value);
@@ -166,7 +150,6 @@ TimePicker.prototype.createMinuteList = function(elem){
 	elem.appendChild(this.selectMinutes);
 }
 function update(elem,type,selector,idContainer){
-	console.log(elem.id);
 	if(type=="hour"){
 		elem.value = updateHour(elem.value, takeSelected(selector));
 	}else{

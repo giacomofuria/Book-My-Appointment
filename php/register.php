@@ -15,10 +15,9 @@
 		<div id="register-box-container" class="sign">
 			<div id="register-box-header" class="sign_header">
 				<?php
-				$errorMessage = "c'è un problema nella tua registrazione";
+				$result = "C'è un problema nella tua registrazione";
 				if(!isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['email']) || !isset($_POST['sign_up_password'])){
-					$errorMessage.=', per favore inserisci tutti i campi del form';
-					$result = false;
+					$result.=', per favore inserisci tutti i campi del form';
 				}else{
 					$firstName = $_POST['first_name'];
 					$lastName = $_POST['last_name'];

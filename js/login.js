@@ -1,3 +1,5 @@
+/* Preleva eventuali parametri get contenenti gli errori e mostra il box di login
+con un effetto a scorrimento */
 function begin(){
 	var slideFlag;
 	var parameters = getParameters(); // recupero i parametri passati con il metodo GET

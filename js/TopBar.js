@@ -41,7 +41,7 @@ function closeNotification(){
 
 function riceviNotifiche(response){
 	if(response.data != null){
-		console.log(response.data);
+		// console.log(response.data); // stampo i dati ricevuti per debug
 		refreshNotifiche(response.data);
 	}
 }
@@ -135,7 +135,7 @@ SearchBar.search =
 SearchBar.getAjaxResponse = 
 	function(response){
 		if(response.data != null){
-			console.log(response.data);
+			//console.log(response.data); // stampo i dati ricevuti per debug
 			SearchBar.refresh(response.data);
 		}
 
@@ -235,7 +235,6 @@ SearchBar.close =
 	}
 SearchBar.showUserSettingsForm = 
 	function(utente){
-		console.log(utente);
 		SearchBar.adminResultBox.style.display = "block";
 		var inputs = SearchBar.adminResultBox.getElementsByTagName("input");
 
@@ -258,7 +257,7 @@ SearchBar.showDeleteReviewForm =
 		SearchBar.adminResultBox.style.display = "block";
 		var queryString = "?reviewsReceiver=" + utente.id;
 		var url = SearchBar.REVIEW_REQUEST + queryString;
-		console.log(url);
+		//console.log(url); // debug
 		var responseFunction = SearchBar.getAjaxReviewResponse;
 	
 		AjaxManager.performAjaxRequest(SearchBar.DEFAUL_METHOD, 
@@ -267,10 +266,8 @@ SearchBar.showDeleteReviewForm =
 	}
 SearchBar.getAjaxReviewResponse = 
 	function(response){
-		console.log("ricevuto forse "+response.message);
 		if(response.data != null){
-			console.log("Recensioni arrivate");
-			console.log(response.data);
+			//console.log(response.data); // stampo i dati ricevuti per debug
 			SearchBar.refreshReviewList(response.data);
 		}
 	}
@@ -320,7 +317,7 @@ SearchBar.showRemoveUserForm =
 		SearchBar.adminResultBox.style.display = "block";
 		var queryString = "?removeUser=" + utente.id;
 		var url = SearchBar.REMOVE_REQUEST + queryString;
-		console.log(url);
+		//console.log(url); // debug
 		var container = SearchBar.adminResultBox;
 		while(container.lastChild){
 			container.lastChild.remove();
