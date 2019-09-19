@@ -253,7 +253,7 @@
 					
 					<div id='profile-info-container' class='profile-info-container'>
 						
-						<table class="user-info">
+						<table id="profile-info-table" class="user-info">
 							<tr><td class="left">Nome</td><td class="right"><?php echo $userInfo->firstName; ?></td></tr>
 							<tr><td class="left">Cognome</td><td class="right"><?php echo $userInfo->lastName; ?></td></tr>
 							<tr><td class="left">Email</td><td class="right"><a class="email" href="mailto:<?php echo $userInfo->email; ?>"><?php echo $userInfo->email; ?></a></td></tr>

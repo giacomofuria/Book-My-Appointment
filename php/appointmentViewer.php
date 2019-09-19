@@ -9,18 +9,22 @@
 	}
 	$appuntamenti = new Appointments($_SESSION['userId']);
 
-	if(isset($_GET['delAppointment'])){
-		$id = $_GET['delAppointment'];
-		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
+	$dataInizio=false;
+	$dataFine=false;
+
+	if(isset($_GET['from']) && isset($_GET['to'])){
+		$dataInizio = date('Y-m-d H:i:s',strtotime($_GET['from']));
+		$dataFine = date('Y-m-d H:i:s',strtotime($_GET['to']));
+		$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(0,false,"DESC",$dataInizio,$dataFine);
+		$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(0,false,"DESC",$dataInizio,$dataFine);
 	}
-	$listaAppuntamentiPrenotati = $appuntamenti->getBookedAppointments(3,true,"ASC");
-	$listaPrenotazioniRicevute = $appuntamenti->getReceivedAppointments(3,true,"ASC");
+	
 ?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
 	<meta charset="utf-8">
-	<title>Home Page - Book My Appointment</title>
+	<title>Appointment Viewer - Book My Appointment</title>
 	<meta name = "author" content = "Giacomo Furia">
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
@@ -41,36 +45,42 @@
 			<div id="appointments-viewer">
 				<div id="my-appointments">
 					<div class="appointment-header">
-						<h3>I tuoi prossimi appuntamenti</h3>
+						<h3>I tuoi appuntamenti 
+							<?php
+								if($dataInizio){
+									echo " del giorno ".date('d-m-Y',strtotime($_GET['from']));;
+								}
+							?>
+						</h3>
 					</div>
 					<?php
 
-						//$appuntamenti = getMyAppointments($_SESSION['userId'],3);
-						
-						
 						if(!$listaAppuntamentiPrenotati){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{
 							//stampaAppuntamenti($listaAppuntamentiPrenotati);
-							$appuntamenti->stampaAppuntamenti("to","home.php");
-							echo "<div class='link-container'><p><a href='./myAppointments.php'>tutti i tuoi appuntamenti</a></p></div>";
+							$appuntamenti->stampaAppuntamenti("to","appointmentViewer.php");
+							
 						}
 					?>
 				</div>
 
 				<div id="clients-appointments">
 					<div class="appointment-header">
-						<h3>I prossimi appuntamenti con i tuoi clienti</h3>
+						<h3>Appuntamenti dei tuoi clienti
+							<?php
+								if($dataInizio){
+									echo " del giorno ".date('d-m-Y',strtotime($_GET['from']));;
+								}
+							?>
+						</h3>
 					</div>
 					<?php
-						//$appuntamenti = getMyClientAppointments($_SESSION['userId'], 3);
 						
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{
-							//stampaAppuntamenti($listaPrenotazioniRicevute);
-							$appuntamenti->stampaAppuntamenti("from","home.php");
-							echo "<div class='link-container'><p><a href='./clientsAppointments.php'>tutti gli appuntamenti dei clienti</a></p></div>";
+							$appuntamenti->stampaAppuntamenti("from","appointmentViewer.php");
 						}
 					?>	
 				</div>
@@ -88,13 +98,5 @@
 			include "./layout/footer.php";
 		?>
 	</div>
-	<script>
-		// evidenzio il pulsante della pagina
-		//showCalendar();
-		var btn = document.getElementById("home_button");
-		btn.style.backgroundColor="#91DFAA";
-		btn.style.color="#383838";
-
-	</script>
 </body>
 </html>

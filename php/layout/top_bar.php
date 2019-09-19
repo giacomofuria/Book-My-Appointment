@@ -16,7 +16,7 @@
 		<div id='search_results_container'>Risultati:<br></div>
 	</div>
 	<div class="top-bar-box">
-		<button id="calendar-button" class="command-buttons" title="Calendar" onclick="showCalendar()">
+		<button id="calendar-button" class="command-buttons" title="Calendar" onclick="closeCalendar()">
 			<img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;" alt="Calendario">
 		</button>
 	</div>

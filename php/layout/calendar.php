@@ -98,11 +98,15 @@ class Calendar{
 				$todayClass = 'today-button';
 			}
 			$badgeRicevuti='';
+			$onclick='';
 			if($numeroTotaleAppuntamenti > 0){
 				$todayClass = "occupied";
 				$badgeRicevuti="<span class='badge'>$numeroTotaleAppuntamenti</span>";
+				$dataInizio = date('Y-m-d',$timestampGiornoPresente);
+				$dataFine = date('Y-m-d',$timestampGiornoSuccessivo);
+				$onclick="onclick=\"window.location.href='./appointmentViewer.php?from=$dataInizio&to=$dataFine'\"";
 			}
-			$week.= "<td><button class='day-button $todayClass'>$day $badgeRicevuti </button></td>";
+			$week.= "<td><button class='day-button $todayClass' $onclick>$day $badgeRicevuti </button></td>";
 
 			// Fine della settimana o fine del mese
 			if(($index % 7) == 0 || $day == $this->daysInMonth){

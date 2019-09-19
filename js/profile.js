@@ -13,11 +13,9 @@ function showConfirmBox(){
 function openProfileSettings(nome,cognome,email,professione,indirizzo){
 	//console.log("nome: "+nome+", cognome: "+cognome+",email: "+email+", professione: "+professione+", indirizzo: "+indirizzo); //DEBUG
 	var profileInfoContainer = document.getElementById("profile-info-container");
-	
-	var profileInfoLabels = document.getElementById("profile-info-labels");
-	var profileInfoFields = document.getElementById("profile-info-fields");
-	profileInfoLabels.style.display = "none";
-	profileInfoFields.style.display = "none";
+	var profileInfoTable = document.getElementById("profile-info-table");
+
+	profileInfoTable.style.display = "none";
 
 	var form = document.getElementById("setting_form");
 	if(form != null){
@@ -132,10 +130,9 @@ function closeSettingsBox(){
 		form.remove();
 	}
 
-	var profileInfoLabels = document.getElementById("profile-info-labels");
-	var profileInfoFields = document.getElementById("profile-info-fields");
-	profileInfoLabels.style.display = "block";
-	profileInfoFields.style.display = "block";
+	var profileInfoTable = document.getElementById("profile-info-table");
+
+	profileInfoTable.style.display = "block";
 
 
 }

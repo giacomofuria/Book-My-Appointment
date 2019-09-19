@@ -58,7 +58,7 @@ th:nth-of-type(7){
 	right:8px;
 	padding: 0.3em;
 	width: 24%;
-	display: none;
+	display: block;
 }
 #calendar{
 	padding-left: 1em;
