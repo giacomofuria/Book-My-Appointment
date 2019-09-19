@@ -104,7 +104,7 @@ class Calendar{
 				$badgeRicevuti="<span class='badge'>$numeroTotaleAppuntamenti</span>";
 				$dataInizio = date('Y-m-d',$timestampGiornoPresente);
 				$dataFine = date('Y-m-d',$timestampGiornoSuccessivo);
-				$onclick="onclick=\"window.location.href='./appointmentViewer.php?from=$dataInizio&to=$dataFine'\"";
+				$onclick="onclick=\"window.location.href='./appointmentViewer.php?from=$dataInizio&to=$dataFine'\" title='Clicca per vedere gli appuntamenti del giorno'";
 			}
 			$week.= "<td><button class='day-button $todayClass' $onclick>$day $badgeRicevuti </button></td>";
 

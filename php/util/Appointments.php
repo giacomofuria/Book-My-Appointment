@@ -176,9 +176,9 @@
 				echo "<div class='appointment-element appointment-element-position'><p><b>Dove</b></p><p>".$appuntamento['indirizzo']."</p></div>";
 				echo "<div class='appointment-element appointment-element-notes'><p><b>Note</b></p><p>".$appuntamento['note']."</p></div>";
 				if($appuntamento['dataOra']<$dataOraAttuale){
-					echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon' alt='passato'></div>";
+					echo "<div class='appointment-element appointment-element-img'><img src='./../img/icon/set1/correct.png' class='delete-icon' alt='passato' title='Appuntamento effettuato'></div>";
 				}else{
-					echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./$page?delAppointment=$idAppuntamento'\"><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi appuntamento'></button></div>";
+					echo "<div class='appointment-element appointment-element-img'><button onclick=\"location.href='./$page?delAppointment=$idAppuntamento'\" title='Cancella appuntamento'><img src='./../img/icon/set1/garbage.png' class='delete-icon' alt='rimuovi appuntamento'></button></div>";
 				}
 				echo "<div style='clear:both;'></div>";
 				echo "</div>";
