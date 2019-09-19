@@ -250,35 +250,34 @@
 							echo "<img class='profile_image' src='$src' alt='Profile image'>";
 						echo "</div>";
 					?>
+					
 					<div id='profile-info-container' class='profile-info-container'>
-						<div id='profile-info-labels' class='profile-info'>
-							<p>Nome</p>
-							<p>Cognome</p>
-							<p>Email</p>
-							<p>Professione</p>
-							<p>Indirizzo</p>
-							<p>Punteggio medio</p>
-						</div>
-						<div id='profile-info-fields' class='profile-info'>
-							<p><?php echo $userInfo->firstName; ?></p>
-							<p><?php echo $userInfo->lastName; ?></p>
-							<p><a href="mailto:<?php echo $userInfo->email; ?>"><img style="width:20px;" src="./../img/icon/set1/envelope.png" alt='email'></a></p>
-							<p>
+						
+						<table class="user-info">
+							<tr><td class="left">Nome</td><td class="right"><?php echo $userInfo->firstName; ?></td></tr>
+							<tr><td class="left">Cognome</td><td class="right"><?php echo $userInfo->lastName; ?></td></tr>
+							<tr><td class="left">Email</td><td class="right"><a href="mailto:<?php echo $userInfo->email; ?>"><img style="width:20px;" src="./../img/icon/set1/envelope.png" alt='email'></a></td></tr>
+							<tr><td class="left">Professione</td>
+								<td class="right">
 								<?php 
 									if($userInfo->profession == null){
 										echo "&nbsp;"; 
 									}else
 										echo $userInfo->profession; 
 								?>
-							</p>
-							<p><?php echo $userInfo->address; ?></p>
-							<?php 
-								$utente = $userInfo->userId;
-								$media = round(getPunteggioMedio($utente),1); 
-								echo "<p>$media / 5</p>";
-							?>
-						</div>
-						<div style='clear:both;'></div>
+								</td>
+							</tr>
+							<tr><td class="left">Indirizzo</td><td class="right address"><?php echo $userInfo->address; ?></td></tr>
+							<tr><td class="left">Punteggio medio</td>
+								<td class="right">
+									<?php 
+										$utente = $userInfo->userId;
+										$media = round(getPunteggioMedio($utente),1); 
+										echo "$media / 5";
+									?>
+								</td>
+							</tr>
+						</table>
 						<?php
 							// controllo le l'utente visitatore ha già avuto appuntamenti in passato e in caso positivo gli do la
 						    // possivilità di lasciare una recensione cliccando sul bottone

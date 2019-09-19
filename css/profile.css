@@ -292,3 +292,13 @@
 	padding: 10px;
 	border-radius: 4px;
 }
+td.left{
+	font-size: 16px;
+}
+td.right{
+	font-size: 18px;
+	font-weight: bold;
+}
+td.address{
+	font-size: 14px;
+}
