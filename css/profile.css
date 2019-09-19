@@ -302,3 +302,8 @@ td.right{
 td.address{
 	font-size: 14px;
 }
+a.email{
+	font-size: 14px;
+	text-decoration: none;
+	color: #000000;
+}

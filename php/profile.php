@@ -256,7 +256,7 @@
 						<table class="user-info">
 							<tr><td class="left">Nome</td><td class="right"><?php echo $userInfo->firstName; ?></td></tr>
 							<tr><td class="left">Cognome</td><td class="right"><?php echo $userInfo->lastName; ?></td></tr>
-							<tr><td class="left">Email</td><td class="right"><a href="mailto:<?php echo $userInfo->email; ?>"><img style="width:20px;" src="./../img/icon/set1/envelope.png" alt='email'></a></td></tr>
+							<tr><td class="left">Email</td><td class="right"><a class="email" href="mailto:<?php echo $userInfo->email; ?>"><?php echo $userInfo->email; ?></a></td></tr>
 							<tr><td class="left">Professione</td>
 								<td class="right">
 								<?php 
