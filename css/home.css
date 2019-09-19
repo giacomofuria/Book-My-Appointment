@@ -18,6 +18,17 @@
 	/*box-shadow: 0 8px 6px -6px black;*/
 	box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
+.appointment-header p{
+	font-size: 12px;
+	margin-top: -15px;
+}
+.appointment-header a{
+	color: #000000;
+	text-decoration: none;
+}
+.appointment-header a:hover{
+	text-decoration: underline;
+}
 .appointment-container{
 	width: 100%;
 	margin-top: 10px;

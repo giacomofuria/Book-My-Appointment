@@ -40,6 +40,7 @@
 				<div id="my-appointments">
 					<div class="appointment-header">
 						<h3>Gli appuntamenti dei tuoi clienti</h3>
+						<p><a href="./myAppointments.php">oppure visualizza tutti i tuoi appuntamenti</a></p>
 					</div>
 					<?php					
 						
