@@ -156,14 +156,21 @@
 		}
 		public function updateUserSettings(){
 			global $bookMyAppointmentDb;
+			$this->firstName = $bookMyAppointmentDb->sqlInjectionFilter($this->firstName);
+			$this->lastName = $bookMyAppointmentDb->sqlInjectionFilter($this->lastName);
+			$this->email = $bookMyAppointmentDb->sqlInjectionFilter($this->email);
+			$this->address = $bookMyAppointmentDb->sqlInjectionFilter($this->address);
+
 			$sets="first_name='".$this->firstName."',last_name='".$this->lastName."',email='".$this->email."',address='".$this->address."'";
 			if($this->profileImage){
 				$sets.=",profile_image='".$this->profileImage."'";
 			}
 			if($this->profession){
+				$this->profession = $bookMyAppointmentDb->sqlInjectionFilter($this->profession);
 				$sets.=",profession='".$this->profession."'";
 			}
 			if($this->admin){
+				$this->admin = $bookMyAppointmentDb->sqlInjectionFilter($this->admin);
 				$sets.=",admin='".$this->admin."'";
 			}
 			if($this->password){
@@ -276,7 +283,10 @@
 			global $bookMyAppointmentDb;
 			$values='email, first_name, last_name, password';
 			$elements=null;
-			$email=$this->email; $nome=$this->firstName; $cognome=$this->lastName; $password=password_hash($this->password, PASSWORD_BCRYPT);
+			$email=$this->email; 
+			$nome=$this->firstName; 
+			$cognome=$this->lastName; 
+			$password=password_hash($this->password, PASSWORD_BCRYPT);
 			// immagine del profilo
 			if($this->profileImage){	
 				$values.=',profile_image';

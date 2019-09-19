@@ -90,7 +90,7 @@ function showSecondHeader(type){
 		linkedFunction = 'showSignFields(\'register\')';
 	}else if(type == 'register'){
 		title = 'Registrati';
-		subTitle = 'accedi nel tuo account';
+		subTitle = 'accedi al tuo account';
 		linkedFunction = 'showSignFields(\'login\')';
 	}else
 		return;

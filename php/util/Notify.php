@@ -14,6 +14,9 @@
 
 		public function send(){
 			global $bookMyAppointmentDb;
+			$this->idDestinatario = $bookMyAppointmentDb->sqlInjectionFilter($this->idDestinatario);
+			$this->testo = $bookMyAppointmentDb->sqlInjectionFilter($this->testo);
+			$this->letta = $bookMyAppointmentDb->sqlInjectionFilter($this->letta);
 			$queryText = "INSERT INTO 
 						  notifica (idDestinatario, testo, letta) 
 						  VALUES ($this->idDestinatario,'$this->testo',$this->letta)";

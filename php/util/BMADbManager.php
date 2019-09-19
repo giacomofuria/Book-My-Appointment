@@ -45,7 +45,7 @@
 
 		// Filtro sql injection
 		function sqlInjectionFilter($parameter){
-			if($this->isOpened())
+			if(!$this->isOpened())
 				$this->openConnection();
 
 			return $this->mysqli_conn->real_escape_string($parameter);

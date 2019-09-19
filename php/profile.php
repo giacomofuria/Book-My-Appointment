@@ -90,10 +90,15 @@
 	function saveNewReview($utenteRicevente, $utenteRecensore, $dataOra, $punteggio, $testoRecensione){
 		global $bookMyAppointmentDb;
 		$queryText = null;
+		$utenteRicevente = $bookMyAppointmentDb->sqlInjectionFilter($utenteRicevente);
+		$utenteRecensore = $bookMyAppointmentDb->sqlInjectionFilter($utenteRecensore);
+		$dataOra = $bookMyAppointmentDb->sqlInjectionFilter($dataOra);
+		$punteggio = $bookMyAppointmentDb->sqlInjectionFilter($punteggio);
 		if($testoRecensione == null){
 			$queryText = "INSERT INTO recensione (idRicevente, idRecensore, dataOra, punteggio) 
 					  VALUES ($utenteRicevente, $utenteRecensore, \"$dataOra\", $punteggio)";
 		}else{
+			$testoRecensione = $bookMyAppointmentDb->sqlInjectionFilter($testoRecensione);
 			$queryText = "INSERT INTO recensione (idRicevente, idRecensore, dataOra, punteggio, testoRecensione) 
 					  VALUES ($utenteRicevente, $utenteRecensore, \"$dataOra\", $punteggio, \"$testoRecensione\")";
 		}
