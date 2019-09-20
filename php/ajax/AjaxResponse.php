@@ -14,8 +14,6 @@
 			$this->message = $message;
 			$this->data = null;
 		}
-	
-
 	}
 	class Review{
 		public $idRecensione;

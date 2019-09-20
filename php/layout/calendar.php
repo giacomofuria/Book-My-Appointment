@@ -38,11 +38,6 @@ class Calendar{
 		$week = '';
 
 		echo '<div id=\'calendar\'>';
-		//echo 'Year-Month: '.$this->year_month.',<br>today: '.$this->today.',<br>in questo mese ci sono '.$this->daysInMonth.' giorni,<br>il primo giorno del mese e\': '.$this->numeroPrimoGiornoDelMese.'<br>';
-		/*
-		echo "<p><a href='?ym=$prev' >mese precedente</a></p>"; // DEBUG
-		echo '<p><a href=\'?ym='.$next.'\' >mese successivo</a></p>'; // DEBUG
-		*/
 		$monthName = $this->getMonthName();
 		$year = $this->getYear();
 
@@ -82,17 +77,13 @@ class Calendar{
 			$timestampGiornoSuccessivo = $timestampGiornoPresente + 86400;
 			$dataInizio = date('Y-m-d H:i:s',$timestampGiornoPresente);
 			$dataFine = date('Y-m-d H:i:s',$timestampGiornoSuccessivo);
-			//echo $dataInizio." - ".$dataFine."<br>"; // DEBUG
 			$appuntamentiGiorno = new Appointments($_SESSION['userId']);
 			$appuntamentiGiorno->getBookedAppointments(0,false,"ASC",$dataInizio,$dataFine);
 			$appuntamentiGiorno->getReceivedAppointments(0,false,"ASC",$dataInizio,$dataFine);
 			$numeroAppuntamentiPrenotati = $appuntamentiGiorno->getNumberOfBookedAppointments();	
 			$numeroAppuntamentiRicevuti = $appuntamentiGiorno->getNumberOfReceivedAppointments();
 			$numeroTotaleAppuntamenti = $numeroAppuntamentiPrenotati+ $numeroAppuntamentiRicevuti;
-			/*
-			echo "prenotati: ".$numeroAppuntamentiPrenotati.'<br>';
-			echo "ricevuti: ".$numeroAppuntamentiRicevuti.'<br>';
-			*/
+
 			$todayClass = '';
 			if($this->today == $date){
 				$todayClass = 'today-button';

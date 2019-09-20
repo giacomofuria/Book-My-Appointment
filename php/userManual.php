@@ -12,15 +12,13 @@
 	<meta name = "author" content = "Giacomo Furia">
 	<link rel="stylesheet" href="./../css/page.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="./../css/menu.css" type="text/css" media="screen">
-	
 	<link rel="stylesheet" href="./../css/calendar.css" type="text/css" media="screen">
 </head>
 <body>
 	
 	<?php
 		if(!isLogged()){
-			//header('Location: ./../index.php');
-			//exit;
+			/* Se l'utente non è loggato mostro solo il manuale e un link per tornare alla pagina di login */
 			echo "<p><a href='../index.php' class='user-manual-link'>Torna al login</a></p>";
 			$path = "../";
 			include "./layout/manual.php";

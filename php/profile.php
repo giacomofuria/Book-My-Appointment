@@ -11,20 +11,18 @@
 		header('Location: ./../index.php');
 		exit;
 	}
-
 	$userInfo = new User();
-
+	/* Verifico se c'è il parametro GET user perché in tal caso l'utente sta visitando la pagina profilo di un altro utente */
 	if(isset($_GET['user'])){
 		$userInfo->getUserInfo($_GET['user']);
 	}else{
 		$userInfo->getUserInfo($_SESSION['userId']);
 	}
-
 	$flagPaginaPersonale = false; // flag che indica se l'utente che sta visitando il profilo è il proprietario del profilo
 	if($_SESSION['userId'] == $userInfo->userId){
 		$flagPaginaPersonale = true;
 	}
-
+	/* Carico la configurazione della tabella degli appuntamenti */
 	function loadConfig($userId){
 		global $bookMyAppointmentDb;
 		$queryText = "SELECT * FROM struttura_tabella_appuntamenti WHERE userId='".$userId."';";
@@ -39,6 +37,7 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $userRow;
 	}
+	/* Verifico se sono stati ricevuti dei parametri di salvataggio di un nuovo appuntamento */
 	function parametriAppuntamentoRicevuti(){
 		if(!isset($_POST['appointment_receiver_user']) || !isset($_POST['appointment_applying_user']) || !isset($_POST['appointment_data']) || !isset($_POST['appointment_hour']) || !isset($_POST['appointment_duration'])){
 			return false;
@@ -46,6 +45,7 @@
 			return true;
 		}
 	}
+	/* Verifico se sono stati ricevuti dei dati di modifica delle info profilo */
 	function parametriProfiloRicevuti(){
 		if(!isset($_POST['MAX_FILE_SIZE']) || !isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['address'])){
 			return false;
@@ -53,6 +53,7 @@
 			return true;
 		}
 	}
+	/* Funzione che salva nel DB un nuovo appuntamento */
 	function saveAppointment($receiver, $applier, $date, $hour, $duration, $notes){
 		if($notes == null)
 			$notes = "";
@@ -80,13 +81,14 @@
 
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 	}
-
+	/* Funzione che verifica se sono stati ricevuti i paramentri di una nuova recensione */
 	function parametriRecensioneRicevuti(){
 		if(!isset($_POST['punteggio'])){
 			return false;
 		}
 		return true;
 	}
+	/* Funzione che salva nel DB una recensione */
 	function saveNewReview($utenteRicevente, $utenteRecensore, $dataOra, $punteggio, $testoRecensione){
 		global $bookMyAppointmentDb;
 		$queryText = null;
@@ -286,7 +288,7 @@
 						</table>
 						<?php
 							// controllo le l'utente visitatore ha già avuto appuntamenti in passato e in caso positivo gli do la
-						    // possivilità di lasciare una recensione cliccando sul bottone
+						    // possibilità di lasciare una recensione cliccando sul bottone
 							$utenteRecensore = $_SESSION['userId'];
 							$utenteRicevente = $userInfo->userId;
 							$appuntamentiInPassato = findOldAppointments($utenteRecensore, $utenteRicevente);
@@ -342,10 +344,8 @@
 						$fine = $tableConfiguration['oraFine'];
 						$durata = $tableConfiguration['durataIntervalli'];
 						$pause = explode(',',$tableConfiguration['intervalliPausa']);
-
 						$receiverUser = $userInfo->userId;
 						$applyingUser = $_SESSION['userId'];
-
 						$appointmentTable = new AppointmentTable($giorni, $inizio, $fine, $durata, $pause,$applyingUser,$receiverUser);
 						$appointmentTable->show();
 					}

@@ -41,19 +41,16 @@
 			<div id="appointments-viewer">
 				<div id="my-appointments">
 					<div class="appointment-header">
-						<h3>I tuoi prossimi appuntamenti</h3>
+						<h3>Le tue prossime prenotazioni</h3>
 					</div>
 					<?php
-
-						//$appuntamenti = getMyAppointments($_SESSION['userId'],3);
-						
-						
+						//$appuntamenti = getMyAppointments($_SESSION['userId'],3);					
 						if(!$listaAppuntamentiPrenotati){
-							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
+							echo "<div class='appointment-container'><p>Non hai prenotazioni</p></div>";
 						}else{
 							//stampaAppuntamenti($listaAppuntamentiPrenotati);
 							$appuntamenti->stampaAppuntamenti("to","home.php");
-							echo "<div class='link-container'><p><a href='./myAppointments.php'>tutti i tuoi appuntamenti</a></p></div>";
+							echo "<div class='link-container'><p><a href='./myAppointments.php'>tutte le tue prenotazioni</a></p></div>";
 						}
 					?>
 				</div>
@@ -63,12 +60,9 @@
 						<h3>I prossimi appuntamenti con i tuoi clienti</h3>
 					</div>
 					<?php
-						//$appuntamenti = getMyClientAppointments($_SESSION['userId'], 3);
-						
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{
-							//stampaAppuntamenti($listaPrenotazioniRicevute);
 							$appuntamenti->stampaAppuntamenti("from","home.php");
 							echo "<div class='link-container'><p><a href='./clientsAppointments.php'>tutti gli appuntamenti dei clienti</a></p></div>";
 						}
@@ -89,12 +83,9 @@
 		?>
 	</div>
 	<script>
-		// evidenzio il pulsante della pagina
-		//showCalendar();
 		var btn = document.getElementById("home_button");
 		btn.style.backgroundColor="#91DFAA";
 		btn.style.color="#383838";
-
 	</script>
 </body>
 </html>

@@ -62,14 +62,6 @@
 		    ?>
 		</div> <!-- fine workspace -->
 	</div>
-	<script>
-		// evidenzio il pulsante della pagina
-		/*
-		var btn = document.getElementById("home_button");
-		btn.style.backgroundColor="#91DFAA";
-		btn.style.color="#383838";
-		*/
-	</script>
 </body>
 </html>
 <?php

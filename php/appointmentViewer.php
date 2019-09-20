@@ -46,7 +46,7 @@
 			<div id="appointments-viewer">
 				<div id="my-appointments">
 					<div class="appointment-header">
-						<h3>I tuoi appuntamenti 
+						<h3>Le tue prenotazioni 
 							<?php
 								if($dataInizio){
 									echo " del giorno ".date('d-m-Y',strtotime($_GET['from']));;
@@ -55,13 +55,11 @@
 						</h3>
 					</div>
 					<?php
-
 						if(!$listaAppuntamentiPrenotati){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{
 							//stampaAppuntamenti($listaAppuntamentiPrenotati);
-							$appuntamenti->stampaAppuntamenti("to","appointmentViewer.php");
-							
+							$appuntamenti->stampaAppuntamenti("to","appointmentViewer.php");		
 						}
 					?>
 				</div>
@@ -77,7 +75,6 @@
 						</h3>
 					</div>
 					<?php
-						
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</p></div>";
 						}else{

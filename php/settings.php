@@ -6,6 +6,7 @@
 		header('Location: ./../index.php');
 		exit;
 	}
+	/* Funzione che verifica se i parametri di configurazione sono stati ricevuti con il metodo post */
 	function parametriRicevuti(){
 		if(isset($_POST['work_days']) && isset($_POST['opening_time']) && 
 			isset($_POST['closing_time']) && isset($_POST['select_duration']) 
@@ -14,6 +15,7 @@
 		}
 		return false;
 	}
+	/* Funzione che verifica se l'utente passato come parametro ha già salvato una configurazione della tabella */
 	function isSaved($userId){
 		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
 		$queryText = "SELECT * FROM struttura_tabella_appuntamenti WHERE userId='".$userId."';";
@@ -28,6 +30,7 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $returnFlag;
 	}
+	/* Funzione di utilità che verifica se il giorno passato come parametro è tra quelli selezionati */
 	function isDaySelected($days, $day){ // day = 1,2,3,4,5,6,7
 		foreach($days as $elem){
 			if($elem == $day){
@@ -36,6 +39,7 @@
 		}
 		return 'FALSE';
 	}
+	/* Funzione di utilità che restituisce una stringa contenente tutti gli intervalli di pause separati da uno spazio */
 	function getPausesString($vett){
 		$stringa = null;
 		foreach ($vett as $value) {
@@ -43,14 +47,9 @@
 		}
 		return $stringa;
 	}
+	/* Salva nel DB i dati di configurazione della tabella degli appuntamenti */
 	function saveConfig($userId, $giorni, $inizio, $fine, $durata, $pause){
 		global $bookMyAppointmentDb; // Recupero l'oggetto globale definito nel file php/util/BMADbManager.php
-
-		//$giorni = $bookMyAppointmentDb->sqlInjectionFilter($giorni);
-		//$inizio = $bookMyAppointmentDb->sqlInjectionFilter($inizio);
-		//$fine = $bookMyAppointmentDb->sqlInjectionFilter($fine);
-		//$durata = $bookMyAppointmentDb->sqlInjectionFilter($durata);
-		//$pause = $bookMyAppointmentDb->sqlInjectionFilter($pause);
 		$queryText = null;
 		$utente = $_SESSION['userId'];
 		$stringaConGiorni = implode(',',$giorni);
@@ -60,24 +59,20 @@
 		}
 		
 		if(!isSaved($utente)){
-			// faccio un insert
-			
 			$queryText = "INSERT 
 			              INTO struttura_tabella_appuntamenti 
 			              VALUES($utente, '".$stringaConGiorni."','".$inizio."','".$fine."',$durata,'".$stringaConPause."');";
 		}else{
-			//faccio un update
 			$queryText = "UPDATE struttura_tabella_appuntamenti
 						  SET giorni='".$stringaConGiorni."',oraInizio='".$inizio."',
 						  oraFine='".$fine."',durataIntervalli=$durata,intervalliPausa='".$stringaConPause."'
 						  WHERE userId=$utente;";
 		}
-		//echo isDaySelected($giorni,'1').'<br>'.isDaySelected($giorni,'3'); //DEBUG
-		//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
 		$result = $bookMyAppointmentDb->performQuery($queryText);
 		$bookMyAppointmentDb->closeConnection();
 		return $result; // $result contiene true se la query è andata a buon fine, false in caso contrario
 	}
+	/* Carica dal DB i dati della tabella degli appuntamenti */
 	function loadConfig($userId){
 		global $bookMyAppointmentDb;
 		$queryText = "SELECT * FROM struttura_tabella_appuntamenti WHERE userId='".$userId."';";
@@ -89,6 +84,8 @@
 		$bookMyAppointmentDb->closeConnection();
 		return $userRow;
 	}
+
+	/* Funzione di utilità che cerca un valore all'interno di un array */
 	function findValue($vett, $value){
 		if($vett == null || !isset($vett))
 			return false;
@@ -98,6 +95,8 @@
 		}
 		return false;
 	}
+
+	/* Funzione di utilità che data una data di inizio, una di fine e una durata degli appuntamenti, calcola il numero degli appuntamenti */
 	function getNumeroAppuntamenti($inizio, $fine,$durata){
 		if($inizio != null && $fine != null){
 			$dataInizio = strtotime($inizio); // timestamp ora inizio (in secondi)

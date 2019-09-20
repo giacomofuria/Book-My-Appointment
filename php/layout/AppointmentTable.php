@@ -187,11 +187,6 @@
 				echo $pausa.'<br>';
 			}
 		}
-        
-		/* Funzione che dato un certo timestamp cerca se l'utente receiver ha un appuntamento prenotato con quel timestamp */
-		private function cercaAppuntamenti($timestamp){
-
-		}
 	}
 	function getNumeroAppuntamenti($inizio, $fine,$durata){
 		if($inizio != null && $fine != null){ 

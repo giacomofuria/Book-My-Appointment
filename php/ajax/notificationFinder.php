@@ -1,35 +1,27 @@
 <?php
 	session_start();
-	/*
-	require_once __DIR__ . "/../config.php";
-	require_once DIR_UTIL . "movieManagerDb.php";
-	require_once DIR_AJAX_UTIL . "AjaxResponse.php";
-	*/
 	require_once "./../util/BMADbManager.php";
 	include "./AjaxResponse.php";
-
 	$response = new AjaxResponse();
-	
 	if (!isset($_GET['newNotificationsOf'])){
 		echo json_encode($response);
 		return;
 	}		
-	
 	$user = $_GET['newNotificationsOf'];
+
 	// Qui chiamo la funzione che esegue la query sulla tabella USER
 	$result = getNotifications($user);
-	
 	if (!$result || $result==null){
 		$response = setEmptyResponse();
 		echo json_encode($response);
 		return;
 	}
-	
 	$message = "OK";	
 	$response = setResponse($result, $message);
 	echo json_encode($response);
 	return;
 	
+	/* Funzione che setta la risposta (oggetto di classe Ajax Response) */
 	function setResponse($result, $message){
 		$response = new AjaxResponse("0", $message);
 			
@@ -47,10 +39,12 @@
 		
 		return $response;
 	}
+	/* Setta una risposta vuota */
 	function setEmptyResponse(){
 		$message = "Nessun risultato";
 		return new AjaxResponse("-1", $message);
 	}
+
 	/* funzione che preleva le recensioni */
 	function getNotifications($utente){
 		global $bookMyAppointmentDb;

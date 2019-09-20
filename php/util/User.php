@@ -121,12 +121,9 @@
 
 			// cripto la password
 			$hash = password_hash($this->password, PASSWORD_BCRYPT);
-			$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$this->email."','".$this->firstName."','".$this->lastName."','".$hash."')"; // vecchio senza hash
-
-			//echo "Query di inserimento: ".$queryText." <br>";// DEBUG
+			$queryText ="INSERT INTO USER (email, first_name, last_name, password) VALUES ('".$this->email."','".$this->firstName."','".$this->lastName."','".$hash."')";
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$bookMyAppointmentDb->closeConnection();
-			
 			if($result === TRUE){
 				return "Benvenuto $this->firstName, registrazione completata con successo";
 			}else{
@@ -181,7 +178,6 @@
 			$queryText = "UPDATE USER 
 							SET $sets
 							WHERE userId=$this->userId;";
-			//echo "QUERY: $queryText<br>"; //DEBUG
 			
 			$result = $bookMyAppointmentDb->performQuery($queryText);
 			$bookMyAppointmentDb->closeConnection();

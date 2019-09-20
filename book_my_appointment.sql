@@ -1,20 +1,20 @@
-CREATE DATABASE IF NOT EXISTS `book_my_appointment`; 
-use `book_my_appointment`;
+CREATE DATABASE IF NOT EXISTS book_my_appointment; 
+use book_my_appointment;
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS user;
 
-CREATE TABLE `user` (
-  `userId` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `first_name` varchar(32) NOT NULL,
-  `last_name` varchar(32) NOT NULL,
+CREATE TABLE user (
+  userId int(11) NOT NULL AUTO_INCREMENT,
+  email varchar(255) NOT NULL,
+  first_name varchar(32) NOT NULL,
+  last_name varchar(32) NOT NULL,
   `password` varchar(64) NOT NULL,
   profile_image MEDIUMBLOB DEFAULT NULL,
   profession VARCHAR(100) DEFAULT NULL,
   address VARCHAR(100) DEFAULT NULL,
   admin BOOLEAN DEFAULT FALSE,
-  PRIMARY KEY (`userId`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  PRIMARY KEY (userId),
+  UNIQUE KEY email_UNIQUE (email)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS struttura_tabella_appuntamenti;

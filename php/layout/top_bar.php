@@ -16,12 +16,12 @@
 		<div id='search_results_container'>Risultati:<br></div>
 	</div>
 	<div class="top-bar-box">
-		<button id="calendar-button" class="command-buttons" title="Calendar" onclick="closeCalendar()">
+		<button id="calendar-button" class="command-buttons" title="Calendario" onclick="closeCalendar()">
 			<img src="./../img/icon/set1/calendar.png" style="width:100%; height:65%;" alt="Calendario">
 		</button>
 	</div>
 	<div class="top-bar-box">
-		<button id="notification-button" class="command-buttons" value="<?php echo $_SESSION['userId'] ?>" title="Notifications" onclick="openNotification()">
+		<button id="notification-button" class="command-buttons" value="<?php echo $_SESSION['userId'] ?>" title="Notifiche" onclick="openNotification()">
 			<img src="./../img/icon/set1/notification.png" style="width:100%; height:62%;" alt="Notifiche">
 		</button>
 		<div id='notify_container'>Notifiche:<br></div>

@@ -8,7 +8,6 @@
 		exit;
 	}
 	$appuntamenti = new Appointments($_SESSION['userId']);
-
 	if(isset($_GET['delAppointment'])){
 		$id = $_GET['delAppointment'];
 		$esitoCancellazione = $appuntamenti->deleteAppointment($id);
@@ -40,14 +39,12 @@
 			<div id="appointments-viewer">
 				<div id="my-appointments">
 					<div class="appointment-header">
-						<h3>I tuoi appuntamenti</h3>
+						<h3>Le tue prenotazioni</h3>
 						<p><a href="./clientsAppointments.php">oppure visualizza gli appuntamenti dei tuoi clienti</a></p>
 					</div>
 					<?php
-						
-						
 						if(!$listaAppuntamentiPrenotati){
-							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
+							echo "<div class='appointment-container'><p>Non hai prenotazioni</div></p>";
 						}else{
 							$appuntamenti->stampaAppuntamenti("to","myAppointments.php");
 						}
@@ -72,7 +69,6 @@
 		var btn = document.getElementById("home_button");
 		btn.style.backgroundColor="#91DFAA";
 		btn.style.color="#383838";
-
 	</script>
 </body>
 </html>

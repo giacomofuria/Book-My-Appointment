@@ -100,7 +100,7 @@ PreviewTable.prototype.updateStartTime = function(value,firstCall){
 
 	var tds = this.table.getElementsByTagName("td");
 	// se c'è rimuovo l'eventuale nodo testuale figlio
-	var text = tds[0].firstChild;
+	var text = tds[0].lastChild;
 	if(text){
 		text.remove();
 	}

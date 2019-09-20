@@ -154,17 +154,17 @@
 			}
 			foreach($appuntamenti as $appuntamento){
 				echo "<div class='appointment-container'>";
-				$src = "./../img/icon/set1/man.png";
+				$srcProfilo = "./../img/icon/set1/man.png";
 				if($appuntamento['profileImage'] != null){
 					$img = base64_encode($appuntamento['profileImage']);
-					$src = "data:image/jpeg;base64,$img";
+					$srcProfilo = "\"data:image/jpeg;base64,$img\"";
 				}
 				$time = strtotime($appuntamento['dataOra']);
 				$data = date('d-m-Y',$time);
 				$ora = date('H:i',$time);
 				$dataOraAttuale = date('Y-m-d H:i:s',time());
 				$idAppuntamento = $appuntamento['idAppuntamento'];
-				echo "<div class='appointment-element appointment-element-img'><img src=$src class='img-ricevente' alt='img profilo'></div>";
+				echo "<div class='appointment-element appointment-element-img'><img src=$srcProfilo class='img-ricevente' alt='img profilo'></div>";
 				echo "<div class='appointment-element'><p>".$data."</p><p>".$ora."</p></div>";
 				echo "<div class='appointment-element appointment-element-info'><p><b><a href='./profile.php?user=".$appuntamento[$userType]."'>".$appuntamento['nome']." ".$appuntamento['cognome']."</a></b></p>";
 				echo "<p>".$appuntamento['professione']."</p>";
@@ -180,9 +180,11 @@
 				echo "</div>";
 			}
 		}
+		/* Restituisce il numero delle prenotazioni effettuate */
 		public function getNumberOfBookedAppointments(){
 			return $this->getNumberOfAppointments("booked");
 		}
+		/* Restituisce il numero degli appuntamenti ricevuti */
 		public function getNumberOfReceivedAppointments(){
 			return $this->getNumberOfAppointments("received");
 		}

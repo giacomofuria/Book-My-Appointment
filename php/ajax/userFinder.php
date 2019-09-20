@@ -1,10 +1,5 @@
 <?php
 	session_start();
-	/*
-	require_once __DIR__ . "/../config.php";
-	require_once DIR_UTIL . "movieManagerDb.php";
-	require_once DIR_AJAX_UTIL . "AjaxResponse.php";
-	*/
 	require_once "./../util/BMADbManager.php";
 	include "./AjaxResponse.php";
 	$response = new AjaxResponse();
@@ -38,24 +33,20 @@
 			$id = $row['userId'];
 			$email = $row['email'];
 			$nome = $row['first_name'];
-			$cognome = $row['last_name'];
-			
+			$cognome = $row['last_name'];		
 			if($row['profile_image'] == null || !isset($row['profile_image'])){
 				$profileImage = null;
 			}else{
 				$profileImage = base64_encode($row['profile_image']);
 			}
-			
 			$professione = $row['profession'];
 			$address = $row['address'];
 			$admin = $row['admin'];
 			$password = $row['password'];
-			//$user = new User($id, $email, $nome, $cognome, $profileImage, $professione, $address, $admin);
 			$user = new User($id, $email, $nome, $cognome, $password,$profileImage, $professione,$address,$admin);
 			$response->data[$index] = $user;
 			$index++;
 		}
-		
 		return $response;
 	}
 	function setEmptyResponse(){

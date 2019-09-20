@@ -1,10 +1,5 @@
 <?php
 	session_start();
-	/*
-	require_once __DIR__ . "/../config.php";
-	require_once DIR_UTIL . "movieManagerDb.php";
-	require_once DIR_AJAX_UTIL . "AjaxResponse.php";
-	*/
 	require_once "./../util/BMADbManager.php";
 	include "./AjaxResponse.php";
 
@@ -44,13 +39,10 @@
 			
 			$testo_recensione = $row['testo_recensione'];
 			$dataOra = $row['dataOra'];
-
-			//$user = new User($id, $email, $nome, $cognome, $profileImage, $professione, $address, $admin);
 			$recensione = new Review($idRecensione,$nome_recensore,$cognome_recensore,$punteggio,$testo_recensione,$dataOra);
 			$response->data[$index] = $recensione;
 			$index++;
 		}
-		
 		return $response;
 	}
 	function setEmptyResponse(){
@@ -73,7 +65,5 @@
 		$numRow = mysqli_num_rows($result);
 		$bookMyAppointmentDb->closeConnection();
 		return $result;
-
 	}
-
 ?>

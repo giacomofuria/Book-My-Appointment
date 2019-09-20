@@ -40,10 +40,9 @@
 				<div id="my-appointments">
 					<div class="appointment-header">
 						<h3>Gli appuntamenti dei tuoi clienti</h3>
-						<p><a href="./myAppointments.php">oppure visualizza tutti i tuoi appuntamenti</a></p>
+						<p><a href="./myAppointments.php">oppure visualizza tutte le tue prenotazioni</a></p>
 					</div>
 					<?php					
-						
 						if(!$listaPrenotazioniRicevute){
 							echo "<div class='appointment-container'><p>Non hai appuntamenti</div></p>";
 						}else{
@@ -70,7 +69,6 @@
 		var btn = document.getElementById("home_button");
 		btn.style.backgroundColor="#91DFAA";
 		btn.style.color="#383838";
-
 	</script>
 </body>
 </html>
