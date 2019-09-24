@@ -11,6 +11,7 @@ Al caricamento della pagina viene creata una nuova sessione e se l'utente ha gi�
 ### `login.php`
 Questa pagina riceve tramite metodo POST i parametri 'email' e 'password' inviati tramite il form di login. Se uno dei due parametri non è stato inviato, indirizza automaticamente l'utente alla pagina `index` aggiungendo un messaggio di errore come parametro GET.
 Se i due parametri sono stati ricevuti, viene creato un oggetto di classe User con l'email e la password ricevute e viene invocato su tale oggetto il metodo `login()`  che verifica se l'utente è registrato e se la password inserita è corretta. In caso non ci siano errori l'utente viene indirizzato alla sua pagina `home` altrimenti di nuovo alla pagina `index` con un messaggio di errore.
+
 ### `register.php`
 Il compito di questa pagina è quello di ricevere, tramite metodo POST, i parametri di registrazione di un nuovo utente, verificarne la correttezza e mostrare un messaggio che informi l'utente se la registrazione è andata a buon fine o meno.
 Se i parametri non sono stati ricevuti correttamente viene mostrato il seguente messaggio di errore:
