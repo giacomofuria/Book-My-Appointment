@@ -1,9 +1,6 @@
 ﻿
 
-# Progettazione Web
-
-## Progetto: "Book My Appointment"
-Studente: **Giacomo Furia** - Matricola: **533976** - Settembre 2019
+# Book My Appointment
 
 ## Modulo PHP
 
