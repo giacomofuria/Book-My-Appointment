@@ -8,13 +8,11 @@
 
 Questo sito è rivolto a tutti gli utenti (clienti o liberi professionisti) che vogliono gestire online il calendario dei propri appuntamenti. Gli utenti, dopo essersi registrati possono cercare un altro utente, guardare sul suo calendario degli appuntamenti e prenotare un appuntamento disponibile nel giorno e nell'orario che preferiscono.
 
-<img src="./img/screenshot/registrazione.png">
 
 ### Registrazione
 
 Per registrarsi, l'utente deve cliccare sul tasto "Registrati" e fornire: nome, cognome, indirizzo email e password. Non è possibile che utenti diversi si registrino con lo stesso indirizzo email. Dopo la registrazione l'utente può accedere al sito utilizzando il suo indirizzo di posta elettronica e la sua password.
 
-<img src="./img/screenshot/menu.png">
 
 ### Organizzazione
 
@@ -44,20 +42,18 @@ Ogni utente per effettuare una prenotazione deve recarsi sul profilo dell'utente
 
 Nella pagina "Home" vengono ricapitolati i primi tre appuntamenti più imminenti dell'utente suddivisi tra quelli che lui ha prenotato e quelli che sono stati prenotati da altri utenti con lui. In questa sezione l'utente può cancellare l'appuntamento cliccando sull'icona "Rimuovi" oppure può accedere alla lista completa degli appuntamenti cliccando sul link che si trova in fondo alla lista.
 
-<img src="./img/screenshot/home.png">
 
 ### Recensioni
 
-<img src="./img/screenshot/recensione.png">
 
 Un utente che ha già effettuato degli appuntamenti con un altro utente può raccontare la sua esperienza (in modo da consigliare gli altri utenti) cliccando sul tasto "Scrivi una recensione". Sì aprirà una schermata in cui l'utente può dare un punteggio (da 1 a 5) e scrivere una sua opinione. Tutte le recensioni che un utente ha ricevuto ed il suo punteggio medio vengono mostrati nella sua pagina "Profilo".
 
 
 ### Calendario e notifiche
 
-Ogni utente può visualizzare il calendario mensile cliccando sul tasto "Calendario" <img width="10px" height="10px" src="./img/icon/set1/calendar.png"> in alto a destra. Nel calendario vengono evidenziati i giorni in cui l'utente ha degli appuntamenti. Per ogni giorno evidenziato è presente un badge che indica il numero totale di prenotazioni presenti. Cliccando su uno dei giorni si accede ad una pagina in cui vengono mostrati gli appuntamenti del giorno.
+Ogni utente può visualizzare il calendario mensile cliccando sul tasto "Calendario" <img width="20px" height="20px" src="./img/icon/set1/calendar.png"> in alto a destra. Nel calendario vengono evidenziati i giorni in cui l'utente ha degli appuntamenti. Per ogni giorno evidenziato è presente un badge che indica il numero totale di prenotazioni presenti. Cliccando su uno dei giorni si accede ad una pagina in cui vengono mostrati gli appuntamenti del giorno.
 
-Ogni volta in cui un utente riceve una prenotazione, una recensione oppure un altro utente cancella un appuntamento con lui può restare aggiornato mediante le notifiche. Cliccando sul tasto "Notifica" <img idth="10px" height="10px" src="./img/icon/set1/notification.png"> in alto a destra può vedere le ultime notiche ricevute.
+Ogni volta in cui un utente riceve una prenotazione, una recensione oppure un altro utente cancella un appuntamento con lui può restare aggiornato mediante le notifiche. Cliccando sul tasto "Notifica" <img width="20px" height="20px" src="./img/icon/set1/notification.png"> in alto a destra può vedere le ultime notiche ricevute.
 
 
 ### Amministrazione
