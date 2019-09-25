@@ -2,7 +2,9 @@
 
 # Book My Appointment
 
-<img src="./img/screenshot/schermata_home.PNG" >
+<img style="width: 80%;" src="./img/screenshot/schermata_home.PNG" >
+
+<img style="width: 80%;" src="./img/screenshot/schermata_profilo.PNG" >
 
 ## Modulo PHP
 
