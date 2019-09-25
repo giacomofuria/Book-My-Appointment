@@ -1,10 +1,71 @@
-﻿
-
-# Book My Appointment
+﻿# Book My Appointment
 
 <img style="width: 80%;" src="./img/screenshot/schermata_home.PNG" >
 
 <img style="width: 80%;" src="./img/screenshot/schermata_profilo.PNG" >
+
+# Book my appointments
+
+Questo sito è rivolto a tutti gli utenti (clienti o liberi professionisti) che vogliono gestire online il calendario dei propri appuntamenti. Gli utenti, dopo essersi registrati possono cercare un altro utente, guardare sul suo calendario degli appuntamenti e prenotare un appuntamento disponibile nel giorno e nell'orario che preferiscono.
+![screenshot registrazione](img/screenshot/registrazione.png)
+
+### Registrazione
+
+Per registrarsi, l'utente deve cliccare sul tasto "Registrati" e fornire: nome, cognome, indirizzo email e password. Non è possibile che utenti diversi si registrino con lo stesso indirizzo email. Dopo la registrazione l'utente può accedere al sito utilizzando il suo indirizzo di posta elettronica e la sua password.
+
+![screenshot menu](./../img/screenshot/menu.png)
+
+### Organizzazione
+
+Tutte le pagine del sito sono formate da un menu laterale in cui sono presenti l'immagine del profilo dell'utente e dei link che permettono di navigare tra le pagine e da una barra di ricerca in cui l'utente può cercare gli altri utenti sia per nome che per professione.
+
+### Ricerca
+
+Mediante la barra di ricerca è possibile ricercare altri utenti tramite il loro nome, cognome o professione. I risultati più attinenti vengono mostrati nello spazio sottostante. ![screenshot barra ricerca](./../img/screenshot/barra_ricerca.png)Se l'utente non è soddisfatto di quei risultati può effettuare una ricerca più approfondita premendo il tasto invio della tastiera o cliccando sull'icona con la lente d'ingrandimento accanto alla barra di ricerca.
+
+![gif profilo](./../img/screenshot/profilo.gif)  
+
+### Profilo
+
+Ogni utente dopo la registrazione ha un profilo pubblico, visibile anche dagli altri utenti, in cui vengono riportati i propri dati e la propria tabella degli appuntamenti. Può modificare i dati in qualunque momento cliccando sull'icona con l'ingranaggio accanto al suo nome e salvando tutte le modifiche premendo sul tasto "Salva". Oltre a modificare i dati inseriti durante la registrazione può anche aggiungerne di nuovi come una sua foto profilo, il suo indirizzo e la sua professione.
+
+### Tabella degli appuntamenti
+
+Nella pagina del profillo inoltre è visibile la tabella degli appuntamenti dell'utente. Al momento della registrazione la tabella non è visibile poichè deve essere ancora configurata. L'utente può configurarla nella pagina "Impostazioni". In questa pagina inserisce i giorni lavorativi, gli orari di inizio e di fine, la durata degli appuntamenti e le eventuali pause. L'aspetto della tabella viene mostrato in tempo reale mediante l'anteprima sul lato destro della pagina.
+
+### Prenotazione appuntamenti
+
+![gif prenotazione](./../img/screenshot/prenotazione.gif)
+
+Ogni utente per effettuare una prenotazione deve recarsi sul profilo dell'utente desiderato (ad esempio tramite la barra di ricerca) e selezionare l'appuntamento libero che preferisce nella tabella degli appuntamenti. Ogni casella rappresenta un appuntamento. Se è bianca significa che l'appuntamento è libero, se è grigia significa che non è prenotabile altrimenti se è blu con l'icona del calendario significa che è già stato prenotato. Tramite le frecce può scorrere avanti o indietro nel tempo ed effetuare delle prenotazioni anche nelle settimane successive a quella in cui si trova. Quando si clicca su una casella, si apre una schermata di conferma in cui vengono riepilogati i dati dell'appuntamento ed in cui è possibile aggiungere delle note personali. Cliccando sul tasto "conferma prenotazione" si conferma la prenotazione altrimenti si può annullare premendo sul tasto "Esci", cliccando fuori dal riquadro o premendo il tasto ESC della tastiera.
+
+### Pagina home
+
+Nella pagina "Home" vengono ricapitolati i primi tre appuntamenti più imminenti dell'utente suddivisi tra quelli che lui ha prenotato e quelli che sono stati prenotati da altri utenti con lui. In questa sezione l'utente può cancellare l'appuntamento cliccando sull'icona "Rimuovi" oppure può accedere alla lista completa degli appuntamenti cliccando sul link che si trova in fondo alla lista.
+
+![immagine schermata home](./../img/screenshot/home.png)
+### Recensioni
+
+![immagine prenotazione](./../img/screenshot/recensione.png)
+
+Un utente che ha già effettuato degli appuntamenti con un altro utente può raccontare la sua esperienza (in modo da consigliare gli altri utenti) cliccando sul tasto "Scrivi una recensione". Sì aprirà una schermata in cui l'utente può dare un punteggio (da 1 a 5) e scrivere una sua opinione. Tutte le recensioni che un utente ha ricevuto ed il suo punteggio medio vengono mostrati nella sua pagina "Profilo".
+
+
+### Calendario e notifiche
+
+Ogni utente può visualizzare il calendario mensile cliccando sul tasto "Calendario" ![icona calendario](./../img/icon/set1/calendar.png) in alto a destra. Nel calendario vengono evidenziati i giorni in cui l'utente ha degli appuntamenti. Per ogni giorno evidenziato è presente un badge che indica il numero totale di prenotazioni presenti. Cliccando su uno dei giorni si accede ad una pagina in cui vengono mostrati gli appuntamenti del giorno.
+
+Ogni volta in cui un utente riceve una prenotazione, una recensione oppure un altro utente cancella un appuntamento con lui può restare aggiornato mediante le notifiche. Cliccando sul tasto "Notifica" ![icona calendario](./../img/icon/set1/notification.png) in alto a destra può vedere le ultime notiche ricevute.
+
+
+### Amministrazione
+
+Alcuni utenti del sito possono essere anche amministratori. Solo gli utenti amministratori possono accedere alla pagina "Admin" del sito in cui è possibile effettuare le seguenti operazioni di amministrazione:
+
+*   Creare nuovi utenti
+*   Modificare le informazioni di utenti già esistenti
+*   Rimuovere delle recensioni offensive o non gradite
+*   Rimuovere degli utenti dal sito
 
 ## Modulo PHP
 
