@@ -7,6 +7,7 @@
 # Book my appointments
 
 Questo sito è rivolto a tutti gli utenti (clienti o liberi professionisti) che vogliono gestire online il calendario dei propri appuntamenti. Gli utenti, dopo essersi registrati possono cercare un altro utente, guardare sul suo calendario degli appuntamenti e prenotare un appuntamento disponibile nel giorno e nell'orario che preferiscono.
+
 <img src="./img/screenshot/registrazione.png">
 
 ### Registrazione
@@ -21,7 +22,7 @@ Tutte le pagine del sito sono formate da un menu laterale in cui sono presenti l
 
 ### Ricerca
 
-Mediante la barra di ricerca è possibile ricercare altri utenti tramite il loro nome, cognome o professione. I risultati più attinenti vengono mostrati nello spazio sottostante. <img src="./img/screenshot/barra_ricerca.png"> Se l'utente non è soddisfatto di quei risultati può effettuare una ricerca più approfondita premendo il tasto invio della tastiera o cliccando sull'icona con la lente d'ingrandimento accanto alla barra di ricerca.
+Mediante la barra di ricerca è possibile ricercare altri utenti tramite il loro nome, cognome o professione. I risultati più attinenti vengono mostrati nello spazio sottostante. Se l'utente non è soddisfatto di quei risultati può effettuare una ricerca più approfondita premendo il tasto invio della tastiera o cliccando sull'icona con la lente d'ingrandimento accanto alla barra di ricerca.
 
 <img src="./img/screenshot/profilo.gif">
 
@@ -44,6 +45,7 @@ Ogni utente per effettuare una prenotazione deve recarsi sul profilo dell'utente
 Nella pagina "Home" vengono ricapitolati i primi tre appuntamenti più imminenti dell'utente suddivisi tra quelli che lui ha prenotato e quelli che sono stati prenotati da altri utenti con lui. In questa sezione l'utente può cancellare l'appuntamento cliccando sull'icona "Rimuovi" oppure può accedere alla lista completa degli appuntamenti cliccando sul link che si trova in fondo alla lista.
 
 <img src="./img/screenshot/home.png">
+
 ### Recensioni
 
 <img src="./img/screenshot/recensione.png">
@@ -53,9 +55,9 @@ Un utente che ha già effettuato degli appuntamenti con un altro utente può rac
 
 ### Calendario e notifiche
 
-Ogni utente può visualizzare il calendario mensile cliccando sul tasto "Calendario" <img src="./img/icon/set1/calendar.png"> in alto a destra. Nel calendario vengono evidenziati i giorni in cui l'utente ha degli appuntamenti. Per ogni giorno evidenziato è presente un badge che indica il numero totale di prenotazioni presenti. Cliccando su uno dei giorni si accede ad una pagina in cui vengono mostrati gli appuntamenti del giorno.
+Ogni utente può visualizzare il calendario mensile cliccando sul tasto "Calendario" <img width="10px" height="10px" src="./img/icon/set1/calendar.png"> in alto a destra. Nel calendario vengono evidenziati i giorni in cui l'utente ha degli appuntamenti. Per ogni giorno evidenziato è presente un badge che indica il numero totale di prenotazioni presenti. Cliccando su uno dei giorni si accede ad una pagina in cui vengono mostrati gli appuntamenti del giorno.
 
-Ogni volta in cui un utente riceve una prenotazione, una recensione oppure un altro utente cancella un appuntamento con lui può restare aggiornato mediante le notifiche. Cliccando sul tasto "Notifica" <img src="./img/icon/set1/notification.png"> in alto a destra può vedere le ultime notiche ricevute.
+Ogni volta in cui un utente riceve una prenotazione, una recensione oppure un altro utente cancella un appuntamento con lui può restare aggiornato mediante le notifiche. Cliccando sul tasto "Notifica" <img idth="10px" height="10px" src="./img/icon/set1/notification.png"> in alto a destra può vedere le ultime notiche ricevute.
 
 
 ### Amministrazione
