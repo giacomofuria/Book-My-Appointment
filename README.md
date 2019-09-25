@@ -2,7 +2,7 @@
 
 # Book My Appointment
 
-<img src="./img/screenshot/schermata_home.png" >
+<img src="./img/screenshot/schermata_home.PNG" >
 
 ## Modulo PHP
 
