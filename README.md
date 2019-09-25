@@ -2,6 +2,8 @@
 
 # Book My Appointment
 
+![](./img/screenshot/schermata_home.png)
+
 ## Modulo PHP
 
 ### `index.php`
