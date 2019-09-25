@@ -4,8 +4,6 @@
 
 <img style="width: 80%;" src="./img/screenshot/schermata_profilo.PNG" >
 
-# Book my appointments
-
 Questo sito è rivolto a tutti gli utenti (clienti o liberi professionisti) che vogliono gestire online il calendario dei propri appuntamenti. Gli utenti, dopo essersi registrati possono cercare un altro utente, guardare sul suo calendario degli appuntamenti e prenotare un appuntamento disponibile nel giorno e nell'orario che preferiscono.
 
 
@@ -65,7 +63,7 @@ Alcuni utenti del sito possono essere anche amministratori. Solo gli utenti ammi
 *   Rimuovere delle recensioni offensive o non gradite
 *   Rimuovere degli utenti dal sito
 
-### Documentazione
+# Documentazione
 
 ## Modulo PHP
 
